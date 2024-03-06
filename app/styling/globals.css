@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.landing_page_div {
+  background-color: #0c0c0c;
+  color: #edede9;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: #04724d;
+  }
+
+  h1 {
+    font-size: 50px;
+    font-weight: bold;
+  }
+}
