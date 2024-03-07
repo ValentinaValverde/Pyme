@@ -7,7 +7,7 @@ export default function Home() {
     <main className="">
       <NavBar />
       <LangingPage />
-      <AdminLogin />
+      {/* <AdminLogin /> */}
     </main>
   );
 }

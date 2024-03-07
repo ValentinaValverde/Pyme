@@ -37,3 +37,31 @@
     font-weight: bold;
   }
 }
+
+/* Admin Login Form */
+.admin_login_form {
+  box-shadow: 3px 3px 12px black;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 16px;
+
+  .button {
+    background-color: #04724d;
+    transition: 0.5s;
+  }
+
+  .button:hover {
+    background-color: black;
+  }
+
+  .upload_file {
+    padding-left: 3px;
+    padding-right: 3px;
+    color: black;
+    transition: 0.5s;
+  }
+
+  .upload_file:hover {
+    color: #04724d;
+  }
+}
