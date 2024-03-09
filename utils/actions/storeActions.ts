@@ -1,9 +1,9 @@
-'user server'
+'use server'
 
 import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
 import { nanoid } from 'nanoid'
-import { redirect } from 'next/dist/server/api-utils'
+import { redirect } from 'next/navigation'
 
 export const createStore = async (formData: any) => {
 	await dbConnect()
@@ -13,7 +13,9 @@ export const createStore = async (formData: any) => {
 	const mockuserid = formData.get('mockuserid')
 	const ein = formData.get('ein')
 
-	if (!storename || ownername || mockuserid || ein) {
+	console.log(`${storename}, ${ownername}, ${mockuserid}, ${ein}`)
+
+	if (!storename || !ownername || !mockuserid || !ein) {
 		throw new Error('Please add all fields')
 	}
 
@@ -51,4 +53,6 @@ export const createStore = async (formData: any) => {
 	})
 
 	console.log(`store: ${store.slug}`)
+
+	redirect('/')
 }
