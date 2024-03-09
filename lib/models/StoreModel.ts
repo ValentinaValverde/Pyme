@@ -11,11 +11,11 @@ const StoreSchema = new mongoose.Schema(
 			required: [true, 'Every Store needs a slug']
 		},
 		// owner is currently a mock until we start using auth
-		owner: {
+		mockuserid: {
 			type: Number,
 			required: [true, 'FKey']
 		},
-		owner_name: {
+		ownername: {
 			type: String,
 			required: [true, 'Please add store owner name'],
 			unique: true
