@@ -14,11 +14,10 @@ export const getAllUsers = async () => {
 
 export const createUser = async (formData: any) => {
 	await dbConnect()
-	//const { username, email, password, role = 'Customer' } = formData
 
 	const username = formData.get('username')
 	const email = formData.get('email')
-	const password = formData.get('password') // Remember to hash passwords in production
+	const password = formData.get('password')
 	const role = formData.get('role') || 'Customer'
 
 	if (!username || !email || !password) {
@@ -59,4 +58,29 @@ export const createUser = async (formData: any) => {
 	redirect('/')
 	// revalidate path if using ISR
 	//revalidatePath('/')
+}
+
+export const userLogin = async (formData: any) => {
+	await dbConnect()
+
+	const email = formData.get('email')
+	const password = formData.get('password')
+
+	if (!email || !password) {
+		throw new Error('Please provide both email and password')
+	}
+
+	const user = await UserModel.findOne({ email })
+
+	if (!user) {
+		throw new Error('Invalid email or password')
+	}
+
+	const isPasswordMatch = await bcrypt.compare(password, user.password)
+
+	if (!isPasswordMatch) {
+		throw new Error('Invalid email or password')
+	}
+
+	redirect('/')
 }
