@@ -17,6 +17,8 @@ export const createUser = async (formData: any) => {
 	const password = formData.get('password') // Remember to hash passwords in production
 	const role = formData.get('role') || 'Customer'
 
+	let test = ''
+
 	// some validation here
 
 	await UserModel.create({
