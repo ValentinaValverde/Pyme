@@ -3,7 +3,9 @@
 import dbConnect from '@/lib/dbConnect'
 import UserModel from '@/lib/models/UserModel'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/dist/server/api-utils'
+import { redirect } from 'next/navigation'
+//import { redirect } from 'next/dist/server/api-utils'
+import bcrypt from 'bcrypt'
 
 export const getAllUsers = async () => {
 	await dbConnect()
@@ -12,22 +14,49 @@ export const getAllUsers = async () => {
 
 export const createUser = async (formData: any) => {
 	await dbConnect()
+	//const { username, email, password, role = 'Customer' } = formData
+
 	const username = formData.get('username')
 	const email = formData.get('email')
 	const password = formData.get('password') // Remember to hash passwords in production
 	const role = formData.get('role') || 'Customer'
 
-	let test = ''
+	if (!username || !email || !password) {
+		throw new Error('Please add all fields')
+	}
+
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+	if (!emailRegex.test(email)) {
+		throw new Error('Invalid email format')
+	}
+
+	if (password.length < 7) {
+		throw new Error('Password should be at least 7 characters long')
+	}
+
+	const userExist = await UserModel.findOne({ email })
+
+	if (userExist) {
+		console.log('I exist')
+		throw new Error(
+			'Email already in use. Please signin or create an account with a different email address'
+		)
+	}
+
+	const hashedPassword = await bcrypt.hash(password, 10)
 
 	// some validation here
 
-	await UserModel.create({
+	const user = await UserModel.create({
 		username,
 		email,
-		password,
+		password: hashedPassword,
 		role
 	})
 
+	console.log(`user: ${user.email}`)
+
+	redirect('/')
 	// revalidate path if using ISR
-	revalidatePath('/')
+	//revalidatePath('/')
 }
