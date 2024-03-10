@@ -1,6 +1,7 @@
 import LangingPage from "./components/LandingPage";
 import NavBar from "./components/Navbar";
 import AdminLogin from "./components/AdminLogin";
+import AdminInfoCards from "./components/AdminInfoCards";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <NavBar />
       <LangingPage />
       {/* <AdminLogin /> */}
+      <AdminInfoCards />
     </main>
   );
 }
