@@ -13,14 +13,12 @@ export const createStore = async (formData: any) => {
 	const mockuserid = formData.get('mockuserid')
 	const ein = formData.get('ein')
 
-	console.log(`${storename}, ${ownername}, ${mockuserid}, ${ein}`)
-
 	if (!storename || !ownername || !mockuserid || !ein) {
 		throw new Error('Please add all fields')
 	}
 
 	const storeExist = await StoreModel.findOne({
-		$or: [{ ownername }, { ein }]
+		$or: [{ mockuserid }, { ein }]
 	})
 
 	if (storeExist) {
@@ -58,7 +56,6 @@ export const createStore = async (formData: any) => {
 }
 
 export const getMyStoreInfo = async (slug: string) => {
-	console.log(slug)
 	const store = await StoreModel.findOne({ slug: slug })
 
 	return {
