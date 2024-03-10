@@ -1,7 +1,7 @@
 import React from 'react'
 
-const page = () => {
+const MyStoreHolder = () => {
 	return <div>placeholder</div>
 }
 
-export default page
+export default MyStoreHolder
