@@ -56,3 +56,15 @@ export const createStore = async (formData: any) => {
 
 	redirect('/')
 }
+
+export const getMyStoreInfo = async (slug: string) => {
+	console.log(slug)
+	const store = await StoreModel.findOne({ slug: slug })
+
+	return {
+		storename: store.storename,
+		owner: store.ownername,
+		ein: store.ein,
+		active: store.active
+	}
+}
