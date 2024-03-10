@@ -50,3 +50,15 @@ export const createProduct = async (formData: any) => {
 
 	redirect('/')
 }
+
+export const getStoreProducts = async (slug: string) => {
+	const store = await StoreModel.findOne({ slug })
+	const storeId = store.id
+	console.log(storeId)
+
+	const storeProducts = await ProductModel.find({
+		productStoreId: storeId
+	})
+
+	return storeProducts
+}
