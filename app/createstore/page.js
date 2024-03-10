@@ -1,8 +1,8 @@
 import React from 'react'
 import StoreSignUpForm from '@/components/StoreSignUpForm'
 
-const StoreSignUp = () => {
+const CreateStore = () => {
 	return <StoreSignUpForm />
 }
 
-export default StoreSignUp
+export default CreateStore
