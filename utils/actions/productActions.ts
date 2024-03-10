@@ -3,7 +3,7 @@
 import dbConnect from '@/lib/dbConnect'
 import ProductModel from '@/lib/models/ProductModel'
 import StoreModel from '@/lib/models/StoreModel'
-import { redirect } from 'next/dist/server/api-utils'
+import { redirect } from 'next/navigation'
 
 export const createProduct = async (formData: any) => {
 	await dbConnect()
@@ -13,13 +13,14 @@ export const createProduct = async (formData: any) => {
 	const productDetails = formData.get('productDetails')
 	const price = formData.get('price')
 	const storeSlug = formData.get('storeSlug')
+	console.log(`slug: ${storeSlug}`)
 
 	if (!productName || !inInv || !productDetails || !price) {
 		throw new Error('Please add all fields')
 	}
 
 	const store = await StoreModel.findOne({ slug: storeSlug })
-	const productStoreId = store._id
+	const productStoreId = store.id
 	console.log(productStoreId)
 
 	const productExist = await ProductModel.findOne({
@@ -44,4 +45,8 @@ export const createProduct = async (formData: any) => {
 		price,
 		productStoreId
 	})
+
+	console.log(`product: ${product.productSlug}`)
+
+	redirect('/')
 }
