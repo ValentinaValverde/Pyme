@@ -19,8 +19,6 @@ export const createProduct = async (formData: any) => {
 		throw new Error('Please add all fields')
 	}
 
-	console.log(`${productImage}`)
-
 	const store = await StoreModel.findOne({ slug: storeSlug })
 	const productStoreId = store.id
 
