@@ -36,7 +36,6 @@ export const createUser = async (formData: any) => {
 	const userExist = await UserModel.findOne({ email })
 
 	if (userExist) {
-		console.log('I exist')
 		throw new Error(
 			'Email already in use. Please signin or create an account with a different email address'
 		)
@@ -52,8 +51,6 @@ export const createUser = async (formData: any) => {
 		password: hashedPassword,
 		role
 	})
-
-	console.log(`user: ${user.email}`)
 
 	redirect('/')
 	// revalidate path if using ISR

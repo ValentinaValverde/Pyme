@@ -35,6 +35,13 @@ const CreateProductForm = ({ myStore }: any) => {
 					name='price'
 					required
 				/>
+				<input
+					className='input input-bordered join-item w-full'
+					type='text'
+					placeholder='image url'
+					name='productImage'
+					required
+				/>
 				<input type='hidden' name='storeSlug' value={myStore} />
 				<button type='submit' className='btn join-item btn-primary'>
 					Submit

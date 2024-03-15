@@ -7,8 +7,6 @@ const editProductPage = async ({ params }) => {
 	const product = await getProduct(params.product)
 	const myStore = params.slug
 
-	console.log(myStore)
-
 	return (
 		<>
 			<EditProductForm product={product} myStore={myStore} />
