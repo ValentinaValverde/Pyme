@@ -7,7 +7,7 @@ export default function ProductItem({ product }: { product: Product }) {
   return (
     <div className="card bg-base-300 shadow-xl mb-4">
       <figure>
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`shop/product/${product.slug}`}>
           <Image
             src={product.image}
             alt={product.name}
@@ -18,7 +18,7 @@ export default function ProductItem({ product }: { product: Product }) {
         </Link>
       </figure>
       <div className="card-body">
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`shop/product/${product.slug}`}>
           <h2 className="card-title font-normal">{product.name}</h2>
         </Link>
         <p className="mb-2">{product.brand}</p>

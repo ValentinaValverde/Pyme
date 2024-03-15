@@ -1,6 +1,18 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose';
 
-const ProductSchema = new mongoose.Schema(
+export interface Product extends Document {
+  productName: string;
+  productSlug: string;
+  inInv: number;
+  productImage?: { data: Buffer; contentType: string };
+  productDetails: string;
+  price: number;
+  productStoreId: mongoose.Schema.Types.ObjectId;
+  active: boolean;
+}
+
+
+const ProductSchema = new mongoose.Schema<Product>(
 	{
 		productName: {
 			type: String,
@@ -20,11 +32,11 @@ const ProductSchema = new mongoose.Schema(
 		},
 		productDetails: {
 			type: String,
-			required: ['Please add details for this product']
+			required: [true, 'Please add details for this product']
 		},
 		price: {
 			type: Number,
-			required: ['Please add a price']
+			required: [true, 'Please add a price']
 		},
 		productStoreId: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -41,7 +53,4 @@ const ProductSchema = new mongoose.Schema(
 	}
 )
 
-const ProductModel =
-	mongoose.models.Product || mongoose.model('Product', ProductSchema)
-
-export default ProductModel
+export const ProductModel = mongoose.models.Product || mongoose.model<Product>('Product', ProductSchema);

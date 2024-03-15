@@ -4,6 +4,7 @@ import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
 import ProductModel from '@/lib/models/ProductModel'
 import { redirect } from 'next/navigation'
+import { Product, ProductModel } from '@/lib/models/ProductModel'
 
 export const createProduct = async (formData: any) => {
 	await dbConnect()
@@ -118,4 +119,10 @@ export const getProduct = async (slug: any) => {
 	await dbConnect()
 	const product = await ProductModel.findOne({ productSlug: slug })
 	return product
+}
+
+export const getAllProducts = async () => {
+	await dbConnect()
+	const products = await ProductModel.find({})
+	return products as Product[]
 }
