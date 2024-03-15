@@ -22,6 +22,14 @@ const ProductList = async ({ myStore }: any) => {
 					<h3>Details: {product.productDetails}</h3>
 					<h3>Price: {product.price}</h3>
 					<h3>Inventory: {product.inInv}</h3>
+					{product.productImage && (
+						<img
+							loading='lazy'
+							src={product.productImage}
+							alt={product.productName}
+							className='max-w-xs max-h-24'
+						/>
+					)}
 				</li>
 			))}
 		</ul>

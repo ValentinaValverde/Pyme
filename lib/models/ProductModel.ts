@@ -15,9 +15,8 @@ const ProductSchema = new mongoose.Schema(
 			default: 0
 		},
 		productImage: {
-			data: Buffer,
-			contentType: String
-			//required: ['Every product must have an image']
+			type: String,
+			required: ['Every product must have an image']
 		},
 		productDetails: {
 			type: String,

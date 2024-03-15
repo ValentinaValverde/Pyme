@@ -22,7 +22,6 @@ export const createStore = async (formData: any) => {
 	})
 
 	if (storeExist) {
-		console.log('store exist')
 		throw new Error('A store with the same owner name or EIN already exists')
 	}
 
@@ -50,12 +49,11 @@ export const createStore = async (formData: any) => {
 		ein
 	})
 
-	console.log(`store: ${store.slug}`)
-
 	redirect('/')
 }
 
 export const getMyStoreInfo = async (slug: string) => {
+	await dbConnect()
 	const store = await StoreModel.findOne({ slug: slug })
 
 	return {

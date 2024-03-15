@@ -1,8 +1,8 @@
 'use server'
 
 import dbConnect from '@/lib/dbConnect'
-import ProductModel from '@/lib/models/ProductModel'
 import StoreModel from '@/lib/models/StoreModel'
+import ProductModel from '@/lib/models/ProductModel'
 import { redirect } from 'next/navigation'
 
 export const createProduct = async (formData: any) => {
@@ -12,23 +12,23 @@ export const createProduct = async (formData: any) => {
 	const inInv = formData.get('inInv')
 	const productDetails = formData.get('productDetails')
 	const price = formData.get('price')
+	const productImage = formData.get('productImage')
 	const storeSlug = formData.get('storeSlug')
-	console.log(`slug: ${storeSlug}`)
 
-	if (!productName || !inInv || !productDetails || !price) {
+	if (!productName || !inInv || !productDetails || !price || !productImage) {
 		throw new Error('Please add all fields')
 	}
 
+	console.log(`${productImage}`)
+
 	const store = await StoreModel.findOne({ slug: storeSlug })
 	const productStoreId = store.id
-	console.log(productStoreId)
 
 	const productExist = await ProductModel.findOne({
 		$and: [{ productName }, { productStoreId }]
 	})
 
 	if (productExist) {
-		console.log('product exist')
 		throw new Error('You already have a product with this name')
 	}
 
@@ -43,16 +43,17 @@ export const createProduct = async (formData: any) => {
 		productDetails,
 		inInv,
 		price,
+		productImage,
 		productStoreId
 	})
-
-	console.log(`product: ${product.productSlug}`)
 
 	redirect(`/mystore/${storeSlug}/products`)
 }
 
 export const getStoreProducts = async (slug: string) => {
+	await dbConnect()
 	const store = await StoreModel.findOne({ slug: slug })
+
 	const storeId = store.id
 
 	const storeProducts = await ProductModel.find({
@@ -63,8 +64,10 @@ export const getStoreProducts = async (slug: string) => {
 }
 
 export const editStoreProduct = async (formData: any) => {
+	await dbConnect()
 	const productName = formData.get('productName')
 	const productSlug = formData.get('productSlug')
+	const productImage = formData.get('productImage')
 	const inInv = formData.get('inInv')
 	const productDetails = formData.get('productDetails')
 	const price = formData.get('price')
@@ -74,6 +77,12 @@ export const editStoreProduct = async (formData: any) => {
 		throw new Error('Please do not leave any fields blank')
 	}
 
+	const existingProduct = await ProductModel.findOne({ productSlug })
+
+	if (!existingProduct) {
+		throw new Error('Product not found')
+	}
+
 	try {
 		const updatedProduct = await ProductModel.findOneAndUpdate(
 			{ productSlug: productSlug },
@@ -81,10 +90,10 @@ export const editStoreProduct = async (formData: any) => {
 				productName,
 				inInv,
 				productDetails,
-				price
+				price,
+				productImage
 			}
 		)
-		console.log(updatedProduct)
 		if (!updatedProduct) {
 			throw new Error('Product not found')
 		}
@@ -106,6 +115,7 @@ export const editStoreProduct = async (formData: any) => {
 }
 
 export const getProduct = async (slug: any) => {
+	await dbConnect()
 	const product = await ProductModel.findOne({ productSlug: slug })
 	return product
 }

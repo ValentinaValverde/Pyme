@@ -40,6 +40,13 @@ const EditProductForm = ({ product, myStore }: any) => {
 					name='price'
 					required
 				/>
+				<input
+					className='input input-bordered join-item w-full'
+					type='text'
+					placeholder='image url'
+					name='productImage'
+					required
+				/>
 				<input type='hidden' name='productSlug' value={productSlug} />
 				<input type='hidden' name='myStore' value={myStore} />
 				<button type='submit' className='btn join-item btn-primary'>
