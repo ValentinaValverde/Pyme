@@ -2,7 +2,6 @@
 
 import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
-import ProductModel from '@/lib/models/ProductModel'
 import { redirect } from 'next/navigation'
 import { Product, ProductModel } from '@/lib/models/ProductModel'
 
