@@ -1,6 +1,6 @@
 import data from '@/lib/data'
 import Image from 'next/image'
-import AddToCart from '@/components/products/AddToCart'
+import AddToCart from '../../../../components/products/AddToCart'
 
 export default function ProductDetails({
   params,
