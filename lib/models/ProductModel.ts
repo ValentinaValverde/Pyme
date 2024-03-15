@@ -1,16 +1,15 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose'
 
 export interface Product extends Document {
-  productName: string;
-  productSlug: string;
-  inInv: number;
-  productImage?: { data: Buffer; contentType: string };
-  productDetails: string;
-  price: number;
-  productStoreId: mongoose.Schema.Types.ObjectId;
-  active: boolean;
+	productName: string
+	productSlug: string
+	inInv: number
+	productImage: string
+	productDetails: string
+	price: number
+	productStoreId: mongoose.Schema.Types.ObjectId
+	active: boolean
 }
-
 
 const ProductSchema = new mongoose.Schema<Product>(
 	{
@@ -28,7 +27,7 @@ const ProductSchema = new mongoose.Schema<Product>(
 		},
 		productImage: {
 			type: String,
-			required: ['Every product must have an image']
+			required: [true, 'Every product must have an image']
 		},
 		productDetails: {
 			type: String,
@@ -53,4 +52,5 @@ const ProductSchema = new mongoose.Schema<Product>(
 	}
 )
 
-export const ProductModel = mongoose.models.Product || mongoose.model<Product>('Product', ProductSchema);
+export const ProductModel =
+	mongoose.models.Product || mongoose.model<Product>('Product', ProductSchema)
