@@ -3,6 +3,7 @@
 import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
 import StoreAddressModel from '@/lib/models/StoreAddress'
+import StoreStoryModel from '@/lib/models/StoreStoryModel'
 import { nanoid } from 'nanoid'
 import { redirect } from 'next/navigation'
 
@@ -132,4 +133,34 @@ export const editStoreAddresss = async (formData: any) => {
 	}
 
 	redirect(`/mystore/${myStore}/info`)
+}
+
+export const createStoreStory = async (formData: any) => {
+	await dbConnect()
+
+	const storeImage = formData.get('storeImage')
+	const storeDetails = formData.get('storeDetails')
+	const ownerImage = formData.get('ownerImage')
+	const ownerDetails = formData.get('ownerDetails')
+	const myStore = formData.get('myStore')
+
+	console.log(myStore)
+
+	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
+		throw new Error('Please add all fields')
+	}
+
+	const store = await StoreModel.findOne({ slug: myStore })
+
+	const storeId = store.id
+
+	const storeStory = await StoreStoryModel.create({
+		storeImage,
+		storeDetails,
+		ownerImage,
+		ownerDetails,
+		storeId
+	})
+
+	redirect(`/mystore/${myStore}`)
 }
