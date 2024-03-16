@@ -1,5 +1,6 @@
 import React from 'react'
 import { getStoreProducts } from '@/utils/actions/productActions'
+import EditProductInvForm from './EditProductInvForm'
 
 const ProductList = async ({ myStore }: any) => {
 	const products = await getStoreProducts(myStore)
@@ -21,7 +22,7 @@ const ProductList = async ({ myStore }: any) => {
 					<h3>Name: {product.productName}</h3>
 					<h3>Details: {product.productDetails}</h3>
 					<h3>Price: {product.price}</h3>
-					<h3>Inventory: {product.inInv}</h3>
+					<EditProductInvForm product={product} myStore={myStore} />
 					{product.productImage && (
 						<img
 							loading='lazy'
