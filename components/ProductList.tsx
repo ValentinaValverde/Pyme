@@ -57,32 +57,4 @@ const ProductList = async ({ myStore }: any) => {
     </TableContainer>
   )
 }
-/*
-    <ul className="mt-8">
-      {products.map((product) => (
-        <li
-          key={product.id}
-          className="flex justify-between items-center px-6 py-4 mb-4 border border-base-300 rounded-lg shadow-lg"
-        >
-          <h3>Name: {product.productName}</h3>
-          <h3>Details: {product.productDetails}</h3>
-          <h3>Price: {product.price}</h3>
-          <h3>Inventory: {product.inInv}</h3>
-          {product.productImage && (
-            <Image
-              loading="lazy"
-              src={product.productImage}
-              alt={product.productName}
-              className="max-w-xs max-h-24"
-              width={100}
-              height={100}
-            />
-          )}
-        </li>
-      ))}
-    </ul>
-  )
-}
-*/
-
 export default ProductList
