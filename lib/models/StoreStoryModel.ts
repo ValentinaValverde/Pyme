@@ -11,10 +11,17 @@ const StoreStorySchema = new mongoose.Schema(
 			required: [true, 'Every store must have a story']
 		},
 		ownerImage: {
-			type: String
+			type: String,
+			required: [true, 'Every owner must have an image']
 		},
 		ownerDetails: {
-			type: String
+			type: String,
+			required: [true, 'Every owner must have a story']
+		},
+		storeId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+			ref: 'Store'
 		}
 	},
 	{
