@@ -56,11 +56,16 @@ export const createStore = async (formData: any) => {
 export const getMyStoreInfo = async (slug: string) => {
 	await dbConnect()
 	const store = await StoreModel.findOne({ slug: slug })
+	const storeAddress = await StoreAddressModel.findOne({ storeId: store.id })
 
 	return {
 		storename: store.storename,
 		owner: store.ownername,
 		ein: store.ein,
+		streetAddress: storeAddress.streetAddress,
+		city: storeAddress.city,
+		state: storeAddress.state,
+		zipcode: storeAddress.zipcode,
 		active: store.active
 	}
 }
@@ -91,4 +96,40 @@ export const createStoreAddress = async (formData: any) => {
 	})
 
 	redirect(`/mystore/${myStore}`)
+}
+
+export const editStoreAddresss = async (formData: any) => {
+	await dbConnect()
+
+	const streetAddress = formData.get('streetAddress')
+	const city = formData.get('city')
+	const state = formData.get('state')
+	const zipcode = formData.get('zipcode')
+	const myStore = formData.get('myStore')
+
+	if (!streetAddress || !city || !state || !zipcode) {
+		throw new Error('Please add all fields')
+	}
+
+	const store = await StoreModel.findOne({ slug: myStore })
+
+	try {
+		const storeAddress = await StoreAddressModel.findOneAndUpdate(
+			{ storeId: store.id },
+			{
+				streetAddress,
+				city,
+				state,
+				zipcode
+			}
+		)
+
+		if (!storeAddress) {
+			throw new Error('Product not found')
+		}
+	} catch (error: any) {
+		console.error('Error updating address:', error.message)
+	}
+
+	redirect(`/mystore/${myStore}/info`)
 }

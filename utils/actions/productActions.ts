@@ -99,16 +99,6 @@ export const editStoreProduct = async (formData: any) => {
 		console.error('Error updating product:', error.message)
 	}
 
-	await ProductModel.findOneAndUpdate(
-		{ productSlug: productSlug },
-		{
-			productName,
-			inInv,
-			productDetails,
-			price
-		}
-	)
-
 	redirect(`/mystore/${storeSlug}/products`)
 }
 
