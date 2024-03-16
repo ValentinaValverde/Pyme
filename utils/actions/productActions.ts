@@ -75,12 +75,6 @@ export const editStoreProduct = async (formData: any) => {
 		throw new Error('Please do not leave any fields blank')
 	}
 
-	const existingProduct = await ProductModel.findOne({ productSlug })
-
-	if (!existingProduct) {
-		throw new Error('Product not found')
-	}
-
 	try {
 		const updatedProduct = await ProductModel.findOneAndUpdate(
 			{ productSlug: productSlug },
@@ -112,4 +106,40 @@ export const getAllProducts = async () => {
 	await dbConnect()
 	const products = await ProductModel.find({})
 	return products as Product[]
+}
+
+export const updateInventory = async (formData: any) => {
+	await dbConnect()
+
+	const inInv = formData.get('inInv')
+	const productSlug = formData.get('productSlug')
+	const myStore = formData.get('myStore')
+
+	console.log(`Inv: ${inInv}, slug: ${productSlug}`)
+
+	if (!inInv || inInv < 0) {
+		throw new Error('Please enter a non-negative number')
+	}
+
+	const existingProduct = await ProductModel.findOne({ productSlug })
+
+	if (!existingProduct) {
+		throw new Error('Product not found')
+	}
+
+	try {
+		const updatedProduct = await ProductModel.findOneAndUpdate(
+			{ productSlug: productSlug },
+			{
+				inInv
+			}
+		)
+		if (!updatedProduct) {
+			throw new Error('Product not found')
+		}
+	} catch (error: any) {
+		console.error('Error updating Product Inventory:', error.message)
+	}
+
+	redirect(`/mystore/${myStore}/products`)
 }
