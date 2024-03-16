@@ -43,7 +43,7 @@ const ProductList = async ({ myStore }: any) => {
 							</TableCell>
 							<TableCell>
 								{product.productImage && (
-									<Image
+									<img
 										loading='lazy'
 										src={product.productImage}
 										alt={product.productName}
