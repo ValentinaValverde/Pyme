@@ -126,7 +126,7 @@ export const editStoreAddresss = async (formData: any) => {
 		)
 
 		if (!storeAddress) {
-			throw new Error('Product not found')
+			throw new Error('Address not found')
 		}
 	} catch (error: any) {
 		console.error('Error updating address:', error.message)
@@ -143,8 +143,6 @@ export const createStoreStory = async (formData: any) => {
 	const ownerImage = formData.get('ownerImage')
 	const ownerDetails = formData.get('ownerDetails')
 	const myStore = formData.get('myStore')
-
-	console.log(myStore)
 
 	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
 		throw new Error('Please add all fields')
@@ -180,4 +178,40 @@ export const getStoreStory = async (storeSlug: string) => {
 		ownerImage,
 		ownerDetails
 	}
+}
+
+export const editStoreStory = async (formData: any) => {
+	await dbConnect()
+
+	const storeImage = formData.get('storeImage')
+	const storeDetails = formData.get('storeDetails')
+	const ownerImage = formData.get('ownerImage')
+	const ownerDetails = formData.get('ownerDetails')
+	const myStore = formData.get('myStore')
+
+	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
+		throw new Error('Please add all fields')
+	}
+
+	const store = await StoreModel.findOne({ slug: myStore })
+
+	try {
+		const storeStory = await StoreStoryModel.findOneAndUpdate(
+			{ storeId: store.id },
+			{
+				storeImage,
+				storeDetails,
+				ownerImage,
+				ownerDetails
+			}
+		)
+
+		if (!storeStory) {
+			throw new Error('Story not found')
+		}
+	} catch (error: any) {
+		console.error('Error updating story:', error.message)
+	}
+
+	redirect(`/mystore/${myStore}/story`)
 }
