@@ -164,3 +164,20 @@ export const createStoreStory = async (formData: any) => {
 
 	redirect(`/mystore/${myStore}`)
 }
+
+export const getStoreStory = async (storeSlug: string) => {
+	await dbConnect()
+	const store = await StoreModel.findOne({ slug: storeSlug })
+	const storeId = store.id
+
+	const story = await StoreStoryModel.findOne({ storeId: storeId })
+
+	const { storeImage, storeDetails, ownerImage, ownerDetails } = story
+
+	return {
+		storeImage,
+		storeDetails,
+		ownerImage,
+		ownerDetails
+	}
+}
