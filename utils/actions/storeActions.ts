@@ -51,7 +51,7 @@ export const createStore = async (formData: any) => {
 		ein
 	})
 
-	redirect('/')
+	redirect(`createstore/${slug}/address`)
 }
 
 export const getMyStoreInfo = async (slug: string) => {
@@ -96,7 +96,7 @@ export const createStoreAddress = async (formData: any) => {
 		storeId
 	})
 
-	redirect(`/mystore/${myStore}`)
+	redirect(`/createstore/${myStore}/story`)
 }
 
 export const editStoreAddresss = async (formData: any) => {
