@@ -1,4 +1,4 @@
-export default function AdminInfoCards() {
+export default function OwnerInfoCards() {
   return (
     <>
       <div className="admin_card_container">

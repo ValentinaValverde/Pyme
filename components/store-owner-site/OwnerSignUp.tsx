@@ -14,7 +14,7 @@
 */
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
-export default function AdminLogin() {
+export default function OwnerSignUp() {
   return (
     <div className="admin_login_form">
       <form>
