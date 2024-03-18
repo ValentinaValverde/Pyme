@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
 
@@ -10,7 +10,7 @@ const MyStoreHome = () => {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <Navbar storeSlug={slug} />
+        <Sidebar storeSlug={slug} />
         <Box component={"main"} sx={{ flexGrow: 1, p: 3 }}>
           <div>Store Home</div>
         </Box>
