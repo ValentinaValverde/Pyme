@@ -55,17 +55,6 @@
     background-color: black;
   }
 
-  .upload_file {
-    padding-left: 3px;
-    padding-right: 3px;
-    color: black;
-    transition: 0.5s;
-  }
-
-  .upload_file:hover {
-    color: #04724d;
-  }
-
   input {
     padding-left: 8px;
   }
@@ -102,7 +91,6 @@
   }
 }
 
-
 /* Admin Sidebar */
 .admin_sidebar {
   background-color: #252627;
@@ -135,6 +123,27 @@
     cursor: pointer;
     background-color: #edede9;
     color: #252627;
-
   }
+}
+
+/* OTHER */
+
+.submit-button {
+  background-color: #04724d;
+  transition: 0.5s;
+}
+
+.submit-button:hover {
+  background-color: black;
+}
+
+.upload_file {
+  padding-left: 3px;
+  padding-right: 3px;
+  color: black;
+  transition: 0.5s;
+}
+
+.upload_file:hover {
+  color: #04724d;
 }
