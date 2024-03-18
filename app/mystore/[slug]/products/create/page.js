@@ -1,8 +1,8 @@
-import React from 'react'
-import CreateProductForm from '@/components/CreateProductForm'
+import React from "react";
+import CreateProductForm from "@/components/create-forms/CreateProductForm";
 
 const createProductPage = ({ params }) => {
-	return <CreateProductForm myStore={params.slug} />
-}
+  return <CreateProductForm myStore={params.slug} />;
+};
 
-export default createProductPage
+export default createProductPage;
