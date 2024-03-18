@@ -6,7 +6,7 @@ import { createProduct } from "@/utils/actions/productActions";
 const CreateProductForm = ({ myStore }: any) => {
   return (
     <>
-      <div className="admin_login_form">
+      <div className="styled_form">
         <form action={createProduct}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
