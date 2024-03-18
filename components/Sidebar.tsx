@@ -1,30 +1,30 @@
-import React from 'react'
+import React from "react";
 import {
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@mui/material'
+} from "@mui/material";
 
-import CategoryIcon from '@mui/icons-material/Category'
-import HomeIcon from '@mui/icons-material/Home'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
-import Link from 'next/link'
+import CategoryIcon from "@mui/icons-material/Category";
+import HomeIcon from "@mui/icons-material/Home";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import Link from "next/link";
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
-const Navbar = ({ storeSlug }: { storeSlug: string }) => {
+const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
   return (
     <Drawer
       variant="permanent"
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          boxSizing: 'border-box',
+          boxSizing: "border-box",
         },
       }}
     >
@@ -65,7 +65,7 @@ const Navbar = ({ storeSlug }: { storeSlug: string }) => {
         </ListItem>
       </List>
     </Drawer>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Sidebar;

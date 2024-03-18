@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
+import OwnerInfoCards from "@/components/store-owner-site/OwnerInfoCards";
 
 const MyStoreHome = () => {
   const params = useParams();
@@ -10,9 +11,10 @@ const MyStoreHome = () => {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <Navbar storeSlug={slug} />
+        <Sidebar storeSlug={slug} />
         <Box component={"main"} sx={{ flexGrow: 1, p: 3 }}>
           <div>Store Home</div>
+          <OwnerInfoCards />
         </Box>
       </Box>
     </>

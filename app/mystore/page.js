@@ -1,7 +1,12 @@
 import React from "react";
+import Sidebar from "../../components/Sidebar.tsx";
 
 const MyStoreHolder = () => {
-  return <div>/mystore</div>;
+  return (
+    <>
+      <Sidebar />
+    </>
+  );
 };
 
 export default MyStoreHolder;
