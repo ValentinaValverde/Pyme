@@ -1,5 +1,5 @@
 import React from 'react'
-import EditStoreStoryForm from '@/components/EditStoreStoryForm'
+import EditStoreStoryForm from '@/components/edit-forms/EditStoreStoryForm'
 import { getStoreStory } from '@/utils/actions/storeActions'
 
 const editStoryPage = async ({ params }) => {
