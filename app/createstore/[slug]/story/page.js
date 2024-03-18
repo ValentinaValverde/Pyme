@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateStoreStoryForm from '@/components/CreateStoreStoryForm'
+import CreateStoreStoryForm from '@/components/create-forms/CreateStoreStoryForm'
 
 const createStoreStoryPage = ({ params }) => {
 	return <CreateStoreStoryForm myStore={params.slug} />
