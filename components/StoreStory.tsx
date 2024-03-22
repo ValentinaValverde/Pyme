@@ -1,5 +1,6 @@
 import React from 'react'
 import { getStoreStory } from '@/utils/actions/storeActions'
+import Image from 'next/image'
 
 const StoreStory = async ({ myStore }: any) => {
 	const story = await getStoreStory(myStore)
@@ -14,7 +15,7 @@ const StoreStory = async ({ myStore }: any) => {
 	const storeImageAlt = `${myStore} store image`
 	return (
 		<>
-			<img
+			<Image
 				loading='lazy'
 				src={story.storeImage}
 				alt={storeImageAlt}

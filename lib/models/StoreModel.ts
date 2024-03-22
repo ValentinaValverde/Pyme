@@ -17,8 +17,7 @@ const StoreSchema = new mongoose.Schema(
 		},
 		ownername: {
 			type: String,
-			required: [true, 'Please add store owner name'],
-			unique: true
+			required: [true, 'Please add store owner name']
 		},
 		ein: {
 			type: Number,

@@ -1,12 +1,14 @@
-import React from 'react'
-import StoreAddressForm from '@/components/StoreAddressForm'
+import React from "react";
+import EditStoreAddressForm from "@/components/edit-forms/EditStoreAddressForm";
+import { getMyStoreInfo } from "@/utils/actions/storeActions";
 
-const storeStreetAddressPage = ({ params }) => {
-	return (
-		<>
-			<StoreAddressForm myStore={params.slug} />
-		</>
-	)
-}
+const editStoreAddressPage = async ({ params }) => {
+  const storeInfo = await getMyStoreInfo(params.slug);
+  return (
+    <>
+      <EditStoreAddressForm storeInfo={storeInfo} myStore={params.slug} />
+    </>
+  );
+};
 
-export default storeStreetAddressPage
+export default editStoreAddressPage;

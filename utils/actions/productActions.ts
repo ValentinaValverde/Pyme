@@ -3,6 +3,7 @@
 import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import { Product, ProductModel } from '@/lib/models/ProductModel'
 
 export const createProduct = async (formData: any) => {
@@ -141,5 +142,5 @@ export const updateInventory = async (formData: any) => {
 		console.error('Error updating Product Inventory:', error.message)
 	}
 
-	redirect(`/mystore/${myStore}/products`)
+	revalidatePath(`/mystore/${myStore}/products`)
 }

@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+import Sidebar from "../../components/Sidebar.tsx";
 
 const MyStoreHolder = () => {
-	return <div>placeholder</div>
-}
+  return (
+    <>
+      <Sidebar />
+    </>
+  );
+};
 
-export default MyStoreHolder
+export default MyStoreHolder;
