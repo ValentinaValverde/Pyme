@@ -1,9 +1,11 @@
-import LangingPage from "../components/LandingPage";
+import LangingPage from '../components/LandingPage'
+
 
 export default function Home() {
-  return (
-    <main className="">
-      <LangingPage />
-    </main>
-  );
+	return (
+		<main className=''>
+			<LangingPage />
+			
+		</main>
+	)
 }

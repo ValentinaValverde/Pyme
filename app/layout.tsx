@@ -1,10 +1,4 @@
-import {
-	ClerkProvider,
-	SignInButton,
-	SignedIn,
-	SignedOut,
-	UserButton
-} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './styling/globals.css'
@@ -24,17 +18,7 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang='en'>
-				<body className={inter.className}>
-					<header>
-						<SignedOut>
-							<SignInButton />
-						</SignedOut>
-						<SignedIn>
-							<UserButton />
-						</SignedIn>
-					</header>
-					{children}
-				</body>
+				<body className={inter.className}>{children}</body>
 			</html>
 		</ClerkProvider>
 	)
