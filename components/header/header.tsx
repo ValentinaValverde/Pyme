@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from 'next/link';
+import React from 'react';
 
 const Header = () => {
   return (
@@ -7,7 +7,7 @@ const Header = () => {
       <nav>
         <div className="navbar justify-between bg-base-300 text-green-900">
           <Link href="/" className="btn btn-ghost text-lg">
-            Pyme | [piˈme]
+            Pyme
           </Link>
           <ul className="flex">
             <li>
@@ -24,7 +24,7 @@ const Header = () => {
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
