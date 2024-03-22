@@ -1,12 +1,12 @@
-import React from 'react'
-import StoreAddressForm from '@/components/StoreAddressForm'
+import React from 'react';
+import CreateStoreAddressForm from '@/components/create-forms/CreateStoreAddressForm';
 
 const storeStreetAddressPage = ({ params }) => {
-	return (
-		<>
-			<StoreAddressForm myStore={params.slug} />
-		</>
-	)
-}
+  return (
+    <>
+      <CreateStoreAddressForm myStore={params.slug} />
+    </>
+  );
+};
 
-export default storeStreetAddressPage
+export default storeStreetAddressPage;
