@@ -15,7 +15,7 @@ const StoreStory = async ({ myStore }: any) => {
 	const storeImageAlt = `${myStore} store image`
 	return (
 		<>
-			<Image
+			<img
 				loading='lazy'
 				src={story.storeImage}
 				alt={storeImageAlt}
