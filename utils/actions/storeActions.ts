@@ -6,21 +6,26 @@ import StoreAddressModel from '@/lib/models/StoreAddress'
 import StoreStoryModel from '@/lib/models/StoreStoryModel'
 import { nanoid } from 'nanoid'
 import { redirect } from 'next/navigation'
+import { auth, currentUser } from '@clerk/nextjs/server'
 
 export const createStore = async (formData: any) => {
 	await dbConnect()
 
+	const { userId } = auth()
+	if (!userId) {
+		redirect(`/`)
+	}
+	console.log(userId)
 	const storename = formData.get('storename')
 	const ownername = formData.get('ownername')
-	const mockuserid = formData.get('mockuserid')
 	const ein = formData.get('ein')
 
-	if (!storename || !ownername || !mockuserid || !ein) {
+	if (!storename || !ownername || !ein) {
 		throw new Error('Please add all fields')
 	}
 
 	const storeExist = await StoreModel.findOne({
-		$or: [{ mockuserid }, { ein }]
+		$or: [{ userId }, { ein }]
 	})
 
 	if (storeExist) {
@@ -47,8 +52,9 @@ export const createStore = async (formData: any) => {
 		storename,
 		slug,
 		ownername,
-		mockuserid,
-		ein
+		userId,
+		ein,
+		completeSignUp: true
 	})
 
 	redirect(`createstore/${slug}/address`)
@@ -56,7 +62,8 @@ export const createStore = async (formData: any) => {
 
 export const getMyStoreInfo = async (slug: string) => {
 	await dbConnect()
-	const store = await StoreModel.findOne({ slug: slug })
+	const { userId } = auth()
+	const store = await StoreModel.findOne({ userId: userId })
 	const storeAddress = await StoreAddressModel.findOne({ storeId: store.id })
 
 	return {
@@ -73,20 +80,21 @@ export const getMyStoreInfo = async (slug: string) => {
 
 export const createStoreAddress = async (formData: any) => {
 	await dbConnect()
-
+	const { userId } = auth()
 	const streetAddress = formData.get('streetAddress')
 	const city = formData.get('city')
 	const state = formData.get('state')
 	const zipcode = formData.get('zipcode')
-	const myStore = formData.get('myStore')
+	//const myStore = formData.get('myStore')
 
 	if (!streetAddress || !city || !state || !zipcode) {
 		throw new Error('Please add all fields')
 	}
 
-	const store = await StoreModel.findOne({ slug: myStore })
+	const store = await StoreModel.findOne({ userId: userId })
 
 	const storeId = store.id
+	const myStore = store.slug
 
 	const storeAddress = await StoreAddressModel.create({
 		streetAddress,
@@ -96,23 +104,30 @@ export const createStoreAddress = async (formData: any) => {
 		storeId
 	})
 
+	await StoreModel.findOneAndUpdate(
+		{ userId: userId },
+		{
+			completeAddress: true
+		}
+	)
+
 	redirect(`/createstore/${myStore}/story`)
 }
 
 export const editStoreAddresss = async (formData: any) => {
 	await dbConnect()
-
+	const { userId } = auth()
 	const streetAddress = formData.get('streetAddress')
 	const city = formData.get('city')
 	const state = formData.get('state')
 	const zipcode = formData.get('zipcode')
-	const myStore = formData.get('myStore')
+	//const myStore = formData.get('myStore')
 
 	if (!streetAddress || !city || !state || !zipcode) {
 		throw new Error('Please add all fields')
 	}
 
-	const store = await StoreModel.findOne({ slug: myStore })
+	const store = await StoreModel.findOne({ userId: userId })
 
 	try {
 		const storeAddress = await StoreAddressModel.findOneAndUpdate(
@@ -132,23 +147,25 @@ export const editStoreAddresss = async (formData: any) => {
 		console.error('Error updating address:', error.message)
 	}
 
+	const myStore = store.slug
+
 	redirect(`/mystore/${myStore}/info`)
 }
 
 export const createStoreStory = async (formData: any) => {
 	await dbConnect()
-
+	const { userId } = auth()
 	const storeImage = formData.get('storeImage')
 	const storeDetails = formData.get('storeDetails')
 	const ownerImage = formData.get('ownerImage')
 	const ownerDetails = formData.get('ownerDetails')
-	const myStore = formData.get('myStore')
+	//const myStore = formData.get('myStore')
 
 	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
 		throw new Error('Please add all fields')
 	}
 
-	const store = await StoreModel.findOne({ slug: myStore })
+	const store = await StoreModel.findOne({ userId: userId })
 
 	const storeId = store.id
 
@@ -160,12 +177,22 @@ export const createStoreStory = async (formData: any) => {
 		storeId
 	})
 
+	await StoreModel.findOneAndUpdate(
+		{ userId: userId },
+		{
+			completeStory: true
+		}
+	)
+
+	const myStore = store.slug
+
 	redirect(`/mystore/${myStore}`)
 }
 
 export const getStoreStory = async (storeSlug: string) => {
 	await dbConnect()
-	const store = await StoreModel.findOne({ slug: storeSlug })
+	const { userId } = auth()
+	const store = await StoreModel.findOne({ userId: userId })
 	const storeId = store.id
 
 	const story = await StoreStoryModel.findOne({ storeId: storeId })
@@ -182,18 +209,18 @@ export const getStoreStory = async (storeSlug: string) => {
 
 export const editStoreStory = async (formData: any) => {
 	await dbConnect()
-
+	const { userId } = auth()
 	const storeImage = formData.get('storeImage')
 	const storeDetails = formData.get('storeDetails')
 	const ownerImage = formData.get('ownerImage')
 	const ownerDetails = formData.get('ownerDetails')
-	const myStore = formData.get('myStore')
+	//const myStore = formData.get('myStore')
 
 	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
 		throw new Error('Please add all fields')
 	}
 
-	const store = await StoreModel.findOne({ slug: myStore })
+	const store = await StoreModel.findOne({ userId: userId })
 
 	try {
 		const storeStory = await StoreStoryModel.findOneAndUpdate(
@@ -212,6 +239,8 @@ export const editStoreStory = async (formData: any) => {
 	} catch (error: any) {
 		console.error('Error updating story:', error.message)
 	}
+
+	const myStore = store.slug
 
 	redirect(`/mystore/${myStore}/story`)
 }
