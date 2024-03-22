@@ -19,6 +19,12 @@
   display: flex;
   justify-content: space-between;
   z-index: 999;
+
+  .button_container {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 /* landing page styles */
