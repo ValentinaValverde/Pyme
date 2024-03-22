@@ -12,10 +12,6 @@ export const createStore = async (formData: any) => {
 	await dbConnect()
 
 	const { userId } = auth()
-	if (!userId) {
-		redirect(`/`)
-	}
-	console.log(userId)
 	const storename = formData.get('storename')
 	const ownername = formData.get('ownername')
 	const ein = formData.get('ein')
