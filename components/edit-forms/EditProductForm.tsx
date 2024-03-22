@@ -1,10 +1,17 @@
-"use client";
-import React from "react";
-import { editStoreProduct } from "@/utils/actions/productActions";
+'use client'
+import React from 'react'
+import { editStoreProduct } from '@/utils/actions/productActions'
+import { Product } from '@/lib/models/ProductModel'
 
-const EditProductForm = ({ product, myStore }: any) => {
-  const { productName, inInv, productDetails, price, productSlug } = product;
+interface EditProductFormProps {
+  product: Product
+  myStore: any // Replace 'any' with the actual type if known
+}
 
+const EditProductForm: React.FC<EditProductFormProps> = ({
+  product,
+  myStore,
+}) => {
   return (
     <>
       <div className="styled_form">
@@ -24,7 +31,7 @@ const EditProductForm = ({ product, myStore }: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="text"
                     name="productName"
-                    defaultValue={productName}
+                    defaultValue={product.productName}
                     required
                   />
                 </div>
@@ -37,7 +44,7 @@ const EditProductForm = ({ product, myStore }: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     rows={3}
                     name="productDetails"
-                    defaultValue={productDetails}
+                    defaultValue={product.productDetails}
                     required
                   />
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -53,7 +60,7 @@ const EditProductForm = ({ product, myStore }: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="number"
                     name="inInv"
-                    defaultValue={inInv}
+                    defaultValue={product.inInv}
                     required
                   />
                 </div>
@@ -66,7 +73,7 @@ const EditProductForm = ({ product, myStore }: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="number"
                     name="price"
-                    defaultValue={price}
+                    defaultValue={product.price}
                     required
                   />
                 </div>
@@ -82,11 +89,16 @@ const EditProductForm = ({ product, myStore }: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="text"
                     name="productImage"
+                    defaultValue={product.productImage}
                     required
                   />
                 </div>
 
-                <input type="hidden" name="productSlug" value={productSlug} />
+                <input
+                  type="hidden"
+                  name="productSlug"
+                  value={product.productSlug}
+                />
                 <input type="hidden" name="myStore" value={myStore} />
               </div>
             </div>
@@ -109,7 +121,7 @@ const EditProductForm = ({ product, myStore }: any) => {
         </form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default EditProductForm;
+export default EditProductForm
