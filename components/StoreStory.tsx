@@ -1,6 +1,8 @@
 import React from 'react'
 import { getStoreStory } from '@/utils/actions/storeActions'
+import Link from 'next/link'
 import Image from 'next/image'
+import { Button } from '@mui/material'
 
 const StoreStory = async ({ myStore }: any) => {
 	const story = await getStoreStory(myStore)
@@ -33,6 +35,13 @@ const StoreStory = async ({ myStore }: any) => {
 				height={100}
 			/>
 			<h5>{story.ownerDetails}</h5>
+			{story.owner && (
+				<Link href={`/mystore/${myStore}/story/edit`}>
+					<Button variant='contained' color='primary'>
+						Edit Story
+					</Button>
+				</Link>
+			)}
 		</>
 	)
 }
