@@ -7,6 +7,7 @@ import StoreStoryModel from '@/lib/models/StoreStoryModel'
 import { nanoid } from 'nanoid'
 import { redirect } from 'next/navigation'
 import { auth, currentUser } from '@clerk/nextjs/server'
+import storeStreetAddressPage from '../../app/createstore/[slug]/address/page'
 
 export const createStore = async (formData: any) => {
 	await dbConnect()
@@ -248,4 +249,25 @@ export const editStoreStory = async (formData: any) => {
 	const myStore = store.slug
 
 	redirect(`/mystore/${myStore}/story`)
+}
+
+export const checkCreatedStore = async () => {
+	await dbConnect()
+	const { userId } = auth()
+	if (!userId) {
+		redirect('/')
+	}
+	const store = await StoreModel.findOne({ userId: userId })
+	console.log(store)
+	if (!store) {
+		return false
+	}
+
+	const { slug, completeAddress, completeStory } = store
+
+	return {
+		slug,
+		completeAddress,
+		completeStory
+	}
 }
