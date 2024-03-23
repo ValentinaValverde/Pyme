@@ -200,6 +200,9 @@ export const getStoreStory = async (slug: string) => {
   owner = store.userId === userId
 
   const story = await StoreStoryModel.findOne({ storeId: storeId })
+  if (!story) {
+    return null
+  }
 
   const { storeImage, storeDetails, ownerImage, ownerDetails } = story
 
