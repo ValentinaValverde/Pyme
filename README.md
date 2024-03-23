@@ -41,7 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ```mermaid
 flowchart LR;
-    A{{MongoDB (Database)}} -->|CRUD Operations| B[Backend];
+    A[(MongoDB)] -->|CRUD Operations| B[Backend];
     subgraph "Next.js Application"
         B -->|API Calls| C[Frontend];
     end
