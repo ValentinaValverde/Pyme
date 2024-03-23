@@ -1,7 +1,6 @@
 import React from 'react'
 import { createOrUpdateStoreStory } from '@/utils/actions/storeActions'
 import Link from 'next/link'
-import { slug } from '@/utils/helpers' // Import the 'slug' function
 
 const StoreStoryForm = ({ story, myStore }: any) => {
   let storeImage = ''
