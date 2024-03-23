@@ -1,6 +1,6 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
-import CreateStoreStoryForm from '@/components/create-forms/CreateStoreStoryForm'
+import StoreStoryForm from '@/components/create-forms/StoreStoryForm'
 import { checkCreatedStore } from '@/utils/actions/storeActions'
 
 const createStoreStoryPage = async ({ params }) => {
@@ -12,7 +12,7 @@ const createStoreStoryPage = async ({ params }) => {
 	} else if (checkStore.completeStory) {
 		redirect(`/mystore/${checkStore.slug}/story/edit`)
 	}
-	return <CreateStoreStoryForm myStore={params.slug} />
+	return <StoreStoryForm myStore={params.slug} />
 }
 
 export default createStoreStoryPage
