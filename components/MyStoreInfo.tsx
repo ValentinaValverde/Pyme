@@ -2,7 +2,7 @@
 import React from 'react'
 
 const MyStoreInfo = ({ myStore }: any) => {
-	const { storename, owner, ein, active } = myStore
+	const { storename, owner, ein, streetAddress, city, state, zipcode } = myStore
 	return (
 		<div>
 			<h3>MyStoreInfo</h3>
@@ -10,7 +10,10 @@ const MyStoreInfo = ({ myStore }: any) => {
 				<li>Store name: {storename}</li>
 				<li>Owner: {owner}</li>
 				<li>EIN: {ein}</li>
-				<li>Active: {active}</li>
+				<li>Address: {streetAddress}</li>
+				<li>City: {city}</li>
+				<li>State: {state}</li>
+				<li>Zip Code: {zipcode}</li>
 			</ul>
 		</div>
 	)
