@@ -1,12 +1,19 @@
-import React from "react";
-import Sidebar from "../../components/Sidebar.tsx";
+import { React } from 'react'
+import { getMyStoreInfo } from '@/utils/actions/storeActions'
+import { redirect } from 'next/navigation'
 
-const MyStoreHolder = () => {
-  return (
-    <>
-      <Sidebar />
-    </>
-  );
-};
+const MyStoreHolder = async () => {
+	const store = await getMyStoreInfo()
 
-export default MyStoreHolder;
+	if (store.slug) {
+		redirect(`/mystore/${store.slug}`)
+	}
+
+	return (
+		<>
+			<h3>Redirecting...</h3>
+		</>
+	)
+}
+
+export default MyStoreHolder

@@ -1,22 +1,22 @@
-'use client';
-import React from 'react';
-import Sidebar from '@/components/Sidebar';
-import { Box } from '@mui/material';
-import { useParams } from 'next/navigation';
+import React from 'react'
+import StoreStory from '@/components/StoreStory'
+import Sidebar from '@/components/Sidebar'
+import { Box } from '@mui/material'
+//import { useParams } from 'next/navigation'
 
-const MyStoreHome = () => {
-  const params = useParams();
-  const slug = params.slug?.toString() || '';
-  return (
-    <>
-      <Box sx={{ display: 'flex' }}>
-        <Sidebar storeSlug={slug} />
-        <Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
-          <div>Store Home</div>
-        </Box>
-      </Box>
-    </>
-  );
-};
+const MyStoreHome = ({ params }: any) => {
+	//const params = useParams()
+	//const slug = params.slug?.toString() || ''
+	return (
+		<>
+			<Box sx={{ display: 'flex' }}>
+				<Sidebar storeSlug={params.slug} />
+				<Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
+					<StoreStory myStore={params.slug} />
+				</Box>
+			</Box>
+		</>
+	)
+}
 
-export default MyStoreHome;
+export default MyStoreHome
