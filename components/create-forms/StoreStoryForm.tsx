@@ -1,7 +1,7 @@
-'use client'
 import React from 'react'
 import { createOrUpdateStoreStory } from '@/utils/actions/storeActions'
 import Link from 'next/link'
+import { slug } from '@/utils/helpers' // Import the 'slug' function
 
 const StoreStoryForm = ({ story, myStore }: any) => {
   let storeImage = ''
@@ -84,7 +84,7 @@ const StoreStoryForm = ({ story, myStore }: any) => {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link href="/">
+            <Link href={`/mystore/${myStore}`}> 
               <button
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-900"
