@@ -13,6 +13,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import Link from 'next/link'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 
 const drawerWidth = 240
 
@@ -65,6 +66,11 @@ const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
 						<ShoppingCartIcon />
 					</ListItemIcon>
 					<ListItemText primary='Orders' />
+				</ListItem>
+				<ListItem button key='Profile'>
+					<SignedIn>
+						<UserButton />
+					</SignedIn>
 				</ListItem>
 			</List>
 		</Drawer>
