@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { createStoreStory } from '@/utils/actions/storeActions'
+import { createOrUpdateStoreStory } from '@/utils/actions/storeActions'
 import Link from 'next/link'
 
 const StoreStoryForm = ({ story, myStore }: any) => {
@@ -19,7 +19,7 @@ const StoreStoryForm = ({ story, myStore }: any) => {
   return (
     <>
       <div className="styled_form">
-        <form action={createStoreStory}>
+        <form action={createOrUpdateStoreStory}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
