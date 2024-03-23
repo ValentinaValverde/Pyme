@@ -40,10 +40,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Architecture
 
 ```mermaid
-graph TD;
-    A{{MongoDB Database}} -->|CRUD Operations| B[Next.js Backend];
-    subgraph "Next.js Application" #Yellow
-        B -->|API Calls| C[Next.js Frontend];
+flowchart LR;
+    A{{MongoDB (Database)}} -->|CRUD Operations| B[Backend];
+    subgraph "Next.js Application"
+        B -->|API Calls| C[Frontend];
     end
     C -->|User Interactions| D[Browser];
     D -->|Requests| C;
