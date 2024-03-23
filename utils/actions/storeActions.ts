@@ -12,10 +12,6 @@ export const createStore = async (formData: any) => {
 	await dbConnect()
 
 	const { userId } = auth()
-	if (!userId) {
-		redirect(`/`)
-	}
-	console.log(userId)
 	const storename = formData.get('storename')
 	const ownername = formData.get('ownername')
 	const ein = formData.get('ein')
@@ -60,10 +56,13 @@ export const createStore = async (formData: any) => {
 	redirect(`createstore/${slug}/address`)
 }
 
-export const getMyStoreInfo = async (slug: string) => {
+export const getMyStoreInfo = async () => {
 	await dbConnect()
 	const { userId } = auth()
 	const store = await StoreModel.findOne({ userId: userId })
+	if (!store) {
+		redirect(`/createstore`)
+	}
 	const storeAddress = await StoreAddressModel.findOne({ storeId: store.id })
 
 	return {
@@ -74,7 +73,8 @@ export const getMyStoreInfo = async (slug: string) => {
 		city: storeAddress.city,
 		state: storeAddress.state,
 		zipcode: storeAddress.zipcode,
-		active: store.active
+		active: store.active,
+		slug: store.slug
 	}
 }
 
@@ -189,11 +189,15 @@ export const createStoreStory = async (formData: any) => {
 	redirect(`/mystore/${myStore}`)
 }
 
-export const getStoreStory = async (storeSlug: string) => {
+export const getStoreStory = async (slug: string) => {
 	await dbConnect()
 	const { userId } = auth()
-	const store = await StoreModel.findOne({ userId: userId })
+	const storeSlug = slug
+	let owner = false
+	const store = await StoreModel.findOne({ slug: storeSlug })
 	const storeId = store.id
+
+	owner = store.userId === userId
 
 	const story = await StoreStoryModel.findOne({ storeId: storeId })
 
@@ -203,7 +207,8 @@ export const getStoreStory = async (storeSlug: string) => {
 		storeImage,
 		storeDetails,
 		ownerImage,
-		ownerDetails
+		ownerDetails,
+		owner
 	}
 }
 

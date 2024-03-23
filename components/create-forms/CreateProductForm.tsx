@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { createProduct } from '@/utils/actions/productActions'
 
 const CreateProductForm = ({ myStore }: any) => {
@@ -117,12 +118,15 @@ const CreateProductForm = ({ myStore }: any) => {
 					</div>
 
 					<div className='mt-6 flex items-center justify-end gap-x-6'>
-						<button
-							type='button'
-							className='text-sm font-semibold leading-6 text-gray-900'
-						>
-							Cancel
-						</button>
+						<Link href={`/mystore/${myStore}/products`}>
+							<button
+								type='button'
+								className='text-sm font-semibold leading-6 text-gray-900'
+							>
+								Cancel
+							</button>
+						</Link>
+
 						<button
 							type='submit'
 							className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
