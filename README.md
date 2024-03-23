@@ -41,10 +41,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ```mermaid
 flowchart LR;
-    A[(MongoDB)] <->|CRUD Operations| B[Backend];
+    A[(MongoDB)] <-->|CRUD Operations| B[Backend];
     subgraph "Next.js Application"
-        B <->|API Calls| C["Admin Site"];
-        B <->|API Calls| E["Customer Site"];
+        B <-->|API Calls| C["Admin Site"];
+        B <-->|API Calls| E["Customer Site"];
     end
     C -->|User Interactions| D[Browser];
     D -->|Requests| C;
