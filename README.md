@@ -41,8 +41,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ```mermaid
 graph TD;
-    A[MongoDB Database] -->|CRUD Operations| B[Next.js Backend];
-    B -->|API Calls| C[Next.js Frontend];
+    A{{MongoDB Database}} -->|CRUD Operations| B[Next.js Backend];
+    subgraph "Next.js Application" #Yellow
+        B -->|API Calls| C[Next.js Frontend];
+    end
     C -->|User Interactions| D[Browser];
     D -->|Requests| C;
 ```
