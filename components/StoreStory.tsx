@@ -7,7 +7,7 @@ import { Button } from '@mui/material'
 const StoreStory = async ({ myStore }: any) => {
 	const story = await getStoreStory(myStore)
 
-	if (!story.storeDetails) {
+	if (!story?.storeDetails) {
 		return (
 			<h2 className='mt-8 font-medium text-lg'>
 				Currently this store does not have a store story
