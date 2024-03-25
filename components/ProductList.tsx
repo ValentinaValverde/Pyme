@@ -1,27 +1,27 @@
-import React from 'react'
-import { getStoreProducts } from '@/utils/actions/productActions'
-import EditProductInvForm from './edit-forms/EditProductInvForm'
+import React from 'react';
+import { getStoreProducts } from '@/utils/actions/productActions';
+import EditProductInvForm from './edit-forms/EditProductInvForm';
 //import Image from "next/image";
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import { Button, Tooltip } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import Link from 'next/link'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Button, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import Link from 'next/link';
 
 const ProductList = async ({ myStore }: any) => {
-  const products = await getStoreProducts(myStore)
+  const products = await getStoreProducts(myStore);
 
   if (products.length === 0) {
     return (
       <h2 className="mt-8 font-medium text-lg">
         Currently you do not have any active products
       </h2>
-    )
+    );
   }
 
   return (
@@ -61,9 +61,9 @@ const ProductList = async ({ myStore }: any) => {
                   href={`/mystore/${myStore}/products/${product.productSlug}`}
                 >
                   <Tooltip title="Edit Product">
-                    <Button variant="contained">
-                      <EditIcon color="action"></EditIcon>
-                    </Button>
+                    {/* <Button variant="contained"> */}
+                    <EditIcon color="action"></EditIcon>
+                    {/* </Button> */}
                   </Tooltip>
                 </Link>
               </TableCell>
@@ -72,6 +72,6 @@ const ProductList = async ({ myStore }: any) => {
         </TableBody>
       </Table>
     </TableContainer>
-  )
-}
-export default ProductList
+  );
+};
+export default ProductList;
