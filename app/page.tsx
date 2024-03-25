@@ -1,16 +1,11 @@
 import LangingPage from '../components/LandingPage';
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
     <main className="">
+      <Navbar />
       <LangingPage />
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
     </main>
   );
 }
