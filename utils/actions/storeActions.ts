@@ -246,6 +246,8 @@ export const createOrUpdateStoreStory = async (
 
 	const store = await StoreModel.findOne({ userId: userId })
 
+	const newStoreCheck = !store.completeStory
+
 	const submittedStory = z.object({
 		storeImage: z.string().trim().url(),
 		storeDetails: z
@@ -300,6 +302,9 @@ export const createOrUpdateStoreStory = async (
 
 	const myStore = store.slug
 
+	if (newStoreCheck) {
+		redirect(`/mystore/${myStore}/products`)
+	}
 	redirect(`/mystore/${myStore}`)
 }
 
