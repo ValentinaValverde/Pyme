@@ -7,9 +7,8 @@ import StoreStoryModel from '@/lib/models/StoreStoryModel'
 import { nanoid } from 'nanoid'
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
-import { z } from 'zod'
+import { z, ZodError } from 'zod'
 import { revalidatePath } from 'next/cache'
-import { red } from '@mui/material/colors'
 
 export const createStore = async (prevState: any, formData: any) => {
 	await dbConnect()
@@ -20,7 +19,8 @@ export const createStore = async (prevState: any, formData: any) => {
 	const ein = formData.get('ein')
 
 	if (!storename || !ownername || !ein) {
-		throw new Error('Please add all fields')
+		return { message: 'Please add all fields' }
+		//throw new Error('Please add all fields')
 	}
 
 	const storeExist = await StoreModel.findOne({
@@ -28,8 +28,10 @@ export const createStore = async (prevState: any, formData: any) => {
 	})
 
 	if (storeExist) {
-		return { message: 'storeExist' }
-		throw new Error('A store with the same account or EIN already exists')
+		return {
+			message: 'error pleae check EIN, note: account can only have one store'
+		}
+		// throw new Error('A store with the same account or EIN already exists')
 	}
 
 	let slug = storename
@@ -48,9 +50,17 @@ export const createStore = async (prevState: any, formData: any) => {
 		}
 	}
 	const submittedStore = z.object({
-		storename: z.string().min(2).max(50),
-		ownername: z.string().min(2).max(35),
-		ein: z.string().length(9)
+		storename: z
+			.string()
+			.trim()
+			.min(2, 'Store name too short')
+			.max(50, 'Store name is too short'),
+		ownername: z
+			.string()
+			.trim()
+			.min(2, 'Owner name is too short')
+			.max(75, 'Owner name is too long'),
+		ein: z.string().trim().length(9, 'Please check EIN')
 	})
 
 	const StoreObject = {
@@ -70,8 +80,14 @@ export const createStore = async (prevState: any, formData: any) => {
 			completeSignUp: true
 		})
 	} catch (error) {
-		console.error(error)
-		return { message: 'error' }
+		if (error instanceof ZodError) {
+			const errorMessages = error.issues
+				.map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+				.join(', ')
+
+			return { message: `Validation failed: ${errorMessages}` }
+		}
+		return { message: 'Please Check EIN' }
 	}
 	redirect(`createstore/${slug}/address`)
 }
@@ -98,7 +114,7 @@ export const getMyStoreInfo = async () => {
 	}
 }
 
-export const createStoreAddress = async (formData: any) => {
+export const createStoreAddress = async (prevState: any, formData: any) => {
 	await dbConnect()
 	const { userId } = auth()
 	const streetAddress = formData.get('streetAddress')
@@ -108,7 +124,8 @@ export const createStoreAddress = async (formData: any) => {
 	//const myStore = formData.get('myStore')
 
 	if (!streetAddress || !city || !state || !zipcode) {
-		throw new Error('Please add all fields')
+		return { message: 'Please add all fields' }
+		//throw new Error('Please add all fields')
 	}
 
 	const store = await StoreModel.findOne({ userId: userId })
@@ -116,13 +133,52 @@ export const createStoreAddress = async (formData: any) => {
 	const storeId = store.id
 	const myStore = store.slug
 
-	const storeAddress = await StoreAddressModel.create({
+	const submittedAddress = z.object({
+		streetAddress: z.string().trim().min(3, 'Pleae review Address'),
+		city: z
+			.string()
+			.trim()
+			.min(1, 'Pleae review city')
+			.max(25, 'Please review city'),
+		state: z
+			.string()
+			.trim()
+			.min(4, 'Please review state')
+			.max(13, 'Please review state'),
+		zipcode: z
+			.string()
+			.trim()
+			.min(5, 'Please review zip code')
+			.max(10, 'Please review zip code')
+	})
+
+	const AddressObject = {
 		streetAddress,
 		city,
 		state,
-		zipcode,
-		storeId
-	})
+		zipcode
+	}
+
+	try {
+		submittedAddress.parse(AddressObject)
+
+		const storeAddress = await StoreAddressModel.create({
+			streetAddress,
+			city,
+			state,
+			zipcode,
+			storeId
+		})
+	} catch (error) {
+		if (error instanceof ZodError) {
+			const errorMessages = error.issues
+				.map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+				.join(', ')
+
+			return { message: `Validation failed: ${errorMessages}` }
+		}
+		return { message: 'Error saving the address,please try again' }
+	}
 
 	await StoreModel.findOneAndUpdate(
 		{ userId: userId },
@@ -172,7 +228,10 @@ export const editStoreAddresss = async (formData: any) => {
 	redirect(`/mystore/${myStore}/info`)
 }
 
-export const createOrUpdateStoreStory = async (formData: any) => {
+export const createOrUpdateStoreStory = async (
+	prevState: any,
+	formData: any
+) => {
 	await dbConnect()
 	const { userId } = auth()
 	const storeImage = formData.get('storeImage')
@@ -181,21 +240,56 @@ export const createOrUpdateStoreStory = async (formData: any) => {
 	const ownerDetails = formData.get('ownerDetails')
 
 	if (!storeImage || !storeDetails || !ownerImage || !ownerDetails) {
-		throw new Error('Please add all fields')
+		return { message: 'please fill out all fields' }
+		//throw new Error('Please add all fields')
 	}
 
 	const store = await StoreModel.findOne({ userId: userId })
 
-	await StoreStoryModel.findOneAndUpdate(
-		{ storeId: store.id },
-		{
-			storeImage,
-			storeDetails,
-			ownerImage,
-			ownerDetails
-		},
-		{ upsert: true, new: true }
-	)
+	const submittedStory = z.object({
+		storeImage: z.string().trim().url(),
+		storeDetails: z
+			.string()
+			.trim()
+			.min(10, 'Please make store details longer')
+			.max(3000, 'Please shorten store details'),
+		ownerImage: z.string().trim().url(),
+		ownerDetails: z
+			.string()
+			.trim()
+			.min(10, 'Please make owner details longer')
+			.max(3000, 'Please shorten owner details')
+	})
+
+	const storyObject = {
+		storeImage,
+		storeDetails,
+		ownerImage,
+		ownerDetails
+	}
+
+	try {
+		submittedStory.parse(storyObject)
+		await StoreStoryModel.findOneAndUpdate(
+			{ storeId: store.id },
+			{
+				storeImage,
+				storeDetails,
+				ownerImage,
+				ownerDetails
+			},
+			{ upsert: true, new: true }
+		)
+	} catch (error) {
+		if (error instanceof ZodError) {
+			const errorMessages = error.issues
+				.map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+				.join(', ')
+
+			return { message: `Validation failed: ${errorMessages}` }
+		}
+		return { message: 'Error saving the story, please try again' }
+	}
 
 	await StoreModel.findOneAndUpdate(
 		{ userId: userId },
