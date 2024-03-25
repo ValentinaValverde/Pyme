@@ -26,14 +26,8 @@ const initialState = {
 const StoreSignUpForm = () => {
 	const [state, formAction] = useFormState(createStore, initialState)
 	useEffect(() => {
-		if (state.message === 'error') {
-			toast.error('error please check EIN')
-		}
-
-		if (state.message === 'storeExist') {
-			toast.error(
-				'error pleae check EIN, note: account can only have one store'
-			)
+		if (state.message !== '') {
+			toast.error(state.message)
 		}
 	}, [state])
 	return (
