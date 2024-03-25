@@ -1,22 +1,47 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { editStoreProduct } from '@/utils/actions/productActions'
 import { Product } from '@/lib/models/ProductModel'
+import { useFormStatus, useFormState } from 'react-dom'
+import toast from 'react-hot-toast'
 
 interface EditProductFormProps {
 	product: Product
 	myStore: any // Replace 'any' with the actual type if known
 }
 
+const SubmitBtn = () => {
+	const { pending } = useFormStatus()
+	return (
+		<button
+			type='submit'
+			disabled={pending}
+			className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+		>
+			{pending ? 'Wait...' : 'Save'}
+		</button>
+	)
+}
+
+const initialState = {
+	message: ''
+}
+
 const EditProductForm: React.FC<EditProductFormProps> = ({
 	product,
 	myStore
 }) => {
+	const [state, formAction] = useFormState(editStoreProduct, initialState)
+	useEffect(() => {
+		if (state.message !== '') {
+			toast.error(state.message)
+		}
+	}, [state])
 	return (
 		<>
 			<div className='styled_form'>
-				<form action={editStoreProduct}>
+				<form action={formAction}>
 					<div className='space-y-12'>
 						<div className='border-b border-gray-900/10 pb-12'>
 							<h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -115,13 +140,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
 								Cancel
 							</button>
 						</Link>
-
-						<button
-							type='submit'
-							className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-						>
-							Save
-						</button>
+						<SubmitBtn />
 					</div>
 				</form>
 			</div>
