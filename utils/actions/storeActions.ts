@@ -190,7 +190,7 @@ export const createStoreAddress = async (prevState: any, formData: any) => {
 	redirect(`/createstore/${myStore}/story`)
 }
 
-export const editStoreAddresss = async (formData: any) => {
+export const editStoreAddresss = async (prevState: any, formData: any) => {
 	await dbConnect()
 	const { userId } = auth()
 	const streetAddress = formData.get('streetAddress')
@@ -200,12 +200,39 @@ export const editStoreAddresss = async (formData: any) => {
 	//const myStore = formData.get('myStore')
 
 	if (!streetAddress || !city || !state || !zipcode) {
-		throw new Error('Please add all fields')
+		return { message: 'Please add all fields' }
 	}
 
 	const store = await StoreModel.findOne({ userId: userId })
 
+	const submittedAddress = z.object({
+		streetAddress: z.string().trim().min(3, 'Pleae review Address'),
+		city: z
+			.string()
+			.trim()
+			.min(1, 'Pleae review city')
+			.max(25, 'Please review city'),
+		state: z
+			.string()
+			.trim()
+			.min(4, 'Please review state')
+			.max(13, 'Please review state'),
+		zipcode: z
+			.string()
+			.trim()
+			.min(5, 'Please review zip code')
+			.max(10, 'Please review zip code')
+	})
+
+	const AddressObject = {
+		streetAddress,
+		city,
+		state,
+		zipcode
+	}
+
 	try {
+		submittedAddress.parse(AddressObject)
 		const storeAddress = await StoreAddressModel.findOneAndUpdate(
 			{ storeId: store.id },
 			{
@@ -217,10 +244,17 @@ export const editStoreAddresss = async (formData: any) => {
 		)
 
 		if (!storeAddress) {
-			throw new Error('Address not found')
+			return { message: 'Address not found' }
 		}
 	} catch (error: any) {
-		console.error('Error updating address:', error.message)
+		if (error instanceof ZodError) {
+			const errorMessages = error.issues
+				.map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+				.join(', ')
+
+			return { message: `Validation failed: ${errorMessages}` }
+		}
+		return { message: 'Error saving the updated address,please try again' }
 	}
 
 	const myStore = store.slug
