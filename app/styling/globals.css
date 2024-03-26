@@ -79,6 +79,9 @@
 }
 
 .submit-button {
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  color: #edede9;
   background-color: #04724d;
   transition: 0.5s;
 }
