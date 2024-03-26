@@ -1,14 +1,39 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { editStoreAddresss } from '@/utils/actions/storeActions'
+import { useFormStatus, useFormState } from 'react-dom'
+import toast from 'react-hot-toast'
+
+const SubmitBtn = () => {
+	const { pending } = useFormStatus()
+	return (
+		<button
+			type='submit'
+			disabled={pending}
+			className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+		>
+			{pending ? 'Wait...' : 'Save'}
+		</button>
+	)
+}
+
+const initialState = {
+	message: ''
+}
 
 const EditStoreAddressForm = ({ storeInfo, myStore }: any) => {
+	const [mState, formAction] = useFormState(editStoreAddresss, initialState)
+	useEffect(() => {
+		if (mState.message !== '') {
+			toast.error(mState.message)
+		}
+	}, [mState])
 	const { streetAddress, city, state, zipcode } = storeInfo
 	return (
 		<>
 			<div className='styled_form'>
-				<form action={editStoreAddresss}>
+				<form action={formAction}>
 					<div className='space-y-12'>
 						<div className='border-b border-gray-900/10 pb-12'>
 							<h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -81,13 +106,7 @@ const EditStoreAddressForm = ({ storeInfo, myStore }: any) => {
 								Cancel
 							</button>
 						</Link>
-
-						<button
-							type='submit'
-							className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-						>
-							Save
-						</button>
+						<SubmitBtn />
 					</div>
 				</form>
 			</div>

@@ -1,14 +1,39 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { createProduct } from '@/utils/actions/productActions'
+import { useFormStatus, useFormState } from 'react-dom'
+import toast from 'react-hot-toast'
+
+const SubmitBtn = () => {
+	const { pending } = useFormStatus()
+	return (
+		<button
+			type='submit'
+			disabled={pending}
+			className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+		>
+			{pending ? 'Wait...' : 'Save'}
+		</button>
+	)
+}
+
+const initialState = {
+	message: ''
+}
 
 const CreateProductForm = ({ myStore }: any) => {
+	const [state, formAction] = useFormState(createProduct, initialState)
+	useEffect(() => {
+		if (state.message !== '') {
+			toast.error(state.message)
+		}
+	}, [state])
 	return (
 		<>
 			<div className='styled_form'>
-				<form action={createProduct}>
+				<form action={formAction}>
 					<div className='space-y-12'>
 						<div className='border-b border-gray-900/10 pb-12'>
 							<h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -32,6 +57,9 @@ const CreateProductForm = ({ myStore }: any) => {
 									<label className='block text-sm font-medium leading-6 text-gray-900'>
 										Product Details
 									</label>
+									<p className='mt-3 text-sm leading-6 text-gray-600'>
+										Describe your product
+									</p>
 									<textarea
 										className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
 										rows={3}
@@ -39,9 +67,6 @@ const CreateProductForm = ({ myStore }: any) => {
 										name='productDetails'
 										required
 									/>
-									<p className='mt-3 text-sm leading-6 text-gray-600'>
-										Describe your product
-									</p>
 								</div>
 
 								{/* <div className="col-span-full">
@@ -127,13 +152,7 @@ const CreateProductForm = ({ myStore }: any) => {
 								Cancel
 							</button>
 						</Link>
-
-						<button
-							type='submit'
-							className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-						>
-							Save
-						</button>
+						<SubmitBtn />
 					</div>
 				</form>
 			</div>
