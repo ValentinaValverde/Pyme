@@ -107,6 +107,7 @@ export const getStoreProducts = async (slug: string) => {
 }
 
 export const editStoreProduct = async (prevState: any, formData: any) => {
+	await new Promise((resolve) => setTimeout(resolve, 2000))
 	await dbConnect()
 
 	const { userId } = auth()
@@ -196,6 +197,17 @@ export const getProduct = async (slug: any) => {
 		redirect(`/mystore/`)
 	}
 	return product
+}
+
+export const getProducts = async (slug: string) => {
+	await dbConnect()
+	const store = await StoreModel.findOne({ slug: slug })
+
+	const storeProducts = await ProductModel.find({
+		productStoreId: store.id
+	})
+
+	return storeProducts
 }
 
 export const getAllProducts = async () => {
