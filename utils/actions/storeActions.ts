@@ -29,7 +29,7 @@ export const createStore = async (prevState: any, formData: any) => {
 
 	if (storeExist) {
 		return {
-			message: 'error pleae check EIN, note: account can only have one store'
+			message: 'error please check EIN, note: account can only have one store'
 		}
 		// throw new Error('A store with the same account or EIN already exists')
 	}
