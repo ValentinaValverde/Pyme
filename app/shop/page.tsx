@@ -1,9 +1,11 @@
+import Header from '@/components/header/header'
 import ProductItem from '@/components/products/ProductItem'
 import data from '@/lib/data'
 
 export default function Home() {
   return (
     <>
+    <Header  />
       <h2 className="text-2xl py-2 text-green-900">
         Pequeñas y Medianas Empresas | Small and Medium Sized Businesses
       </h2>
