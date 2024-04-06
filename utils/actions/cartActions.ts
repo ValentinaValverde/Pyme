@@ -22,5 +22,7 @@ export const createCart = async () => {
 		const newCart = await CartModel.create({
 			userId
 		})
-	} catch (error) {}
+	} catch (error) {
+		console.error(error)
+	}
 }
