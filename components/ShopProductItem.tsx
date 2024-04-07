@@ -1,16 +1,21 @@
 import React from 'react'
 import { Product } from '@/lib/models/ProductModel'
 import Link from 'next/link'
-import Image from 'next/image'
 
-export default function ProductItem({ product }: { product: Product }) {
+export default function ShopProductItem({
+  product,
+  storeSlug,
+}: {
+  product: Product
+  storeSlug: string
+}) {
   return (
     <div className="card bg-base-300 shadow-xl mb-4">
       <figure>
-        <Link href={`shop/product/${product.slug}`}>
-          <Image
-            src={product.image}
-            alt={product.name}
+        <Link href={`${storeSlug}/product/${product.productSlug}`}>
+          <img
+            src={product.productImage}
+            alt={product.productName}
             width={300}
             height={300}
             className="object-cover h-64 w-full"
@@ -18,10 +23,9 @@ export default function ProductItem({ product }: { product: Product }) {
         </Link>
       </figure>
       <div className="card-body">
-        <Link href={`shop/product/${product.slug}`}>
-          <h2 className="card-title font-normal">{product.name}</h2>
+        <Link href={`${storeSlug}/product/${product.productSlug}`}>
+          <h2 className="card-title font-normal">{product.productName}</h2>
         </Link>
-        <p className="mb-2">{product.brand}</p>
         <div className="card-actions flex justify-between items-center">
           <span className="text-2xl">${product.price}</span>{' '}
         </div>

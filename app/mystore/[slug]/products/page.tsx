@@ -1,9 +1,9 @@
-import React from 'react';
-import ProductList from '@/components/ProductList';
-import Sidebar from '@/components/Sidebar';
-import { Box } from '@mui/material';
-import { Button } from '@mui/material';
-import Link from 'next/link';
+import React from 'react'
+import ProductList from '@/components/ProductList'
+import Sidebar from '@/components/Sidebar'
+import { Box } from '@mui/material'
+import { Button } from '@mui/material'
+import Link from 'next/link'
 
 const myProductsPage = ({ params }: any) => {
   return (
@@ -28,7 +28,7 @@ const myProductsPage = ({ params }: any) => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default myProductsPage;
+export default myProductsPage
