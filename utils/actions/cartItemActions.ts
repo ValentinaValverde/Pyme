@@ -33,6 +33,7 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 	const newCartItem = await CartItemModel.create({
 		cartId: cart.id,
 		productId: product.id,
+		priceAtTime: product.price,
 		quantity
 	})
 }
