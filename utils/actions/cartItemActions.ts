@@ -5,6 +5,7 @@ import CartItemModel from '@/lib/models/CartItemModel'
 import CartModel from '@/lib/models/CartModel'
 import { ProductModel } from '@/lib/models/ProductModel'
 import { auth } from '@clerk/nextjs/server'
+import { get } from 'http'
 
 export const createCartItem = async (productSlug: string, quantity: number) => {
 	await dbConnect()
@@ -36,4 +37,24 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 		priceAtTime: product.price,
 		quantity
 	})
+}
+
+export const getCartItems = async () => {
+	await dbConnect()
+
+	const { userId } = auth()
+
+	let cart = await CartModel.findOne({
+		$and: [{ userId }, { active: true }]
+	})
+
+	if (!cart) {
+		cart = await CartModel.create({
+			userId
+		})
+	}
+
+	const cartItems = await CartItemModel.find({ cartId: cart.id })
+
+	return cartItems
 }
