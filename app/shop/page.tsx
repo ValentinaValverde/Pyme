@@ -1,10 +1,11 @@
-import StoreProductList from '@/components/StoreProductList'
-import data from '@/lib/data'
+import React from 'react'
 
 export default function Home() {
   return (
     <>
-      <StoreProductList data={data} />
+      <div>
+        {/* TODO fill in the homepage with featured stores and list of stores */}
+      </div>
     </>
   )
 }
