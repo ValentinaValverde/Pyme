@@ -4,6 +4,7 @@ import dbConnect from '@/lib/dbConnect'
 import CartItemModel from '@/lib/models/CartItemModel'
 import CartModel from '@/lib/models/CartModel'
 import { ProductModel } from '@/lib/models/ProductModel'
+import { getShopProduct } from './productActions'
 import { auth } from '@clerk/nextjs/server'
 import { get } from 'http'
 
@@ -54,7 +55,23 @@ export const getCartItems = async () => {
 		})
 	}
 
+	const cartItemsDetails = []
+
 	const cartItems = await CartItemModel.find({ cartId: cart.id })
 
-	return cartItems
+	for (let cartItem of cartItems) {
+		const product = await getShopProduct(cartItem.productId)
+		console.log(cartItem.productId)
+		cartItemsDetails.push({
+			productName: product.productName,
+			productSlug: product.productSlug,
+			inInv: product.inInv,
+			productImage: product.productImage,
+			priceAtTime: cartItem.priceAtTime,
+			active: product.active,
+			quantity: cartItem.quantity
+		})
+	}
+
+	return cartItemsDetails
 }

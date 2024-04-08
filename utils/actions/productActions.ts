@@ -199,6 +199,13 @@ export const getProduct = async (slug: any) => {
 	return product
 }
 
+export const getShopProduct = async (productId: any) => {
+	await dbConnect()
+	const product = await ProductModel.findOne({ _id: productId})
+
+	return product
+}
+
 export const getProducts = async (slug: string) => {
 	await dbConnect()
 	const store = await StoreModel.findOne({ slug: slug })
