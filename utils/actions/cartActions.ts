@@ -3,6 +3,7 @@
 import dbConnect from '@/lib/dbConnect'
 import CartModel from '@/lib/models/CartModel'
 import CartItemModel from '@/lib/models/CartItemModel'
+import { ProductModel } from '@/lib/models/ProductModel'
 import { auth } from '@clerk/nextjs/server'
 import Stripe from 'stripe'
 
@@ -38,8 +39,11 @@ export const checkOut = async () => {
 	})
 
 	if (!cart) {
+		console.log('No cart found')
 		return
 	}
+
+	console.log('hello')
 
 	const cartItems = await CartItemModel.find({ cartId: cart.id })
 
@@ -51,25 +55,37 @@ export const checkOut = async () => {
 		throw new Error('Failed to initialize Stripe')
 	}
 
-	const session = await stripe.checkout.sessions.create({
-		payment_method_types: ['card'],
-		line_items: [
-			{
-				price_data: {
-					currency: 'usd',
-					product_data: {
-						name: 'T-shirt'
-					},
-					unit_amount: 2000
+	const lineItemsPromises = cartItems.map(async (item) => {
+		const product = await ProductModel.findById(item.productId)
+		const price = Number(product.price * 100)
+		return {
+			price_data: {
+				currency: 'usd',
+				product_data: {
+					name: product.productName
 				},
-				quantity: 1
-			}
-		],
-		mode: 'payment',
-		success_url: 'https://example.com/success',
-		cancel_url: 'https://example.com/cancel',
-		automatic_tax: { enabled: true }
+				unit_amount: price
+			},
+			quantity: item.quantity
+		}
 	})
 
-	return session
+	const lineItems = await Promise.all(lineItemsPromises)
+
+	const session = await stripe.checkout.sessions.create({
+		payment_method_types: ['card'],
+		line_items: lineItems,
+		mode: 'payment',
+		success_url: 'https://example.com/success',
+		cancel_url: 'http://localhost:3000/shop/cart'
+		// automatic_tax: { enabled: true }
+	})
+
+	const sessionDetails = {
+		id: session.id,
+		url: session.url,
+		status: session.status
+	}
+
+	return sessionDetails
 }

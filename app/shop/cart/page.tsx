@@ -3,9 +3,9 @@ import { getCartItems } from '@/utils/actions/cartItemActions'
 import Cart from '@/components/Cart'
 
 const CartPage = async () => {
-	const cartItems = await getCartItems()
+	// const cartItems = await getCartItems()
 
-	return <Cart cartItems={cartItems} />
+	return <Cart />
 }
 
 export default CartPage
