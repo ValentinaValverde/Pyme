@@ -1,4 +1,4 @@
-export default function LangingPage() {
+export default function Hero() {
   return (
     <>
       <div className="landing_page_div">
