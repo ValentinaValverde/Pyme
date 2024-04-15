@@ -36,6 +36,7 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 		cartId: cart.id,
 		productId: product.id,
 		priceAtTime: product.price,
+		store_id: product.productStoreId,
 		quantity
 	})
 }
