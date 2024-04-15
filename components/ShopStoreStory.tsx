@@ -21,10 +21,11 @@ export default function ShopStoreStory({
   }
   const storeImageAlt = `${storeSlug} store image`
   return (
-
     <React.Fragment>
-      <Box>
-        <h1 style={{ fontSize: '3em', fontWeight: 600 }} className="text-2xl py-2">{storeName}</h1>
+      <Box style={{ padding: '20px 0' }}>
+      <Card style ={{ flex: 1, borderRadius: '15px'}}>
+          <h1 style={{ fontSize: '3em', fontWeight: 600, padding: '20px 0', textAlign: 'center' }} className="text-2xl py-2">{storeName}</h1>
+      </Card>
       </Box>
       <Box display="flex" flexDirection="row" gap={2}>
         <Card style={{ flex: 1, borderRadius: '15px' }}>
