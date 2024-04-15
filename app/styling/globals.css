@@ -21,25 +21,28 @@
   z-index: 999;
 }
 
-  .button_container {
-    width: 25%;
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-    justify-content: end;
-  }
-
+.button_container {
+  width: 25%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  justify-content: end;
+}
 
 /* landing page styles */
 .landing_page_div {
-  height: 100vh;
+  background-color: #04724d;
+  height: 75vh;
+  margin: 0px 10px 10px 10px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: whitesmoke;
 
   p {
-    color: #04724d;
+    color: lightgray;
   }
 
   h1 {
