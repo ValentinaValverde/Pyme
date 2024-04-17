@@ -3,7 +3,7 @@
 import dbConnect from '@/lib/dbConnect'
 import StoreModel from '@/lib/models/StoreModel'
 import StoreAddressModel from '@/lib/models/StoreAddress'
-import StoreStoryModel from '@/lib/models/StoreStoryModel'
+import { StoreStoryModel } from '@/lib/models/StoreStoryModel'
 import { nanoid } from 'nanoid'
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'

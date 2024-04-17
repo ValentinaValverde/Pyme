@@ -11,7 +11,7 @@ export default function StoreProductList({
 }) {
   return (
     <>
-      <h2 className="text-2xl py-2">Latest Products</h2>
+      <h2 style={{ padding: '20px 0', fontWeight: 500 }} className="text-2xl py-2 text-center">Our Products</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product) => (
           <ProductItem
