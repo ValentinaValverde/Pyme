@@ -52,11 +52,6 @@ export const getStoreName = async (storeSlug: string): Promise<string> => {
 	}
 	return store.storename
 }
-// getStore function goes here
-
-// pull / "get" stores from the db
-// randomize stores
-// display top 4 stores
 
 export const getStores = async () => {
 	await dbConnect()
@@ -80,9 +75,6 @@ export const getFeaturedStores = async () => {
 		})
 	)
 
-	//console.log('STORES', stores)
-
 	const shuffleStores = stores.sort((a, b) => 0.5 - Math.random())
-	console.log('SHUFFLED STORES', shuffleStores.slice(0, 3))
 	return shuffleStores.slice(0, 3)
 }
