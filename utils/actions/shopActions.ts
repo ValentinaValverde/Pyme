@@ -6,13 +6,20 @@ import StoreModel from '@/lib/models/StoreModel';
 import { Product, ProductModel } from '@/lib/models/ProductModel';
 import { StoreStory } from '@/lib/models/StoreStoryModel';
 import { StoreStoryModel } from '@/lib/models/StoreStoryModel';
+import exp from 'constants'
+
 
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
   await dbConnect();
 
   const store = await StoreModel.findOne({ slug: slug });
 
-  const storeId = store.id;
+
+  if (!store) {
+    throw new Error('Store not found')
+  }
+
+  const storeId = store.id
 
   const storeProducts = await ProductModel.find({
     productStoreId: storeId,
@@ -72,3 +79,12 @@ export const getFeaturedStores = async () => {
   console.log('SHUFFLED STORES', shuffleStores.slice(0, 3));
   return shuffleStores.slice(0, 3);
 };
+
+export const getStoreName = async (storeSlug: string): Promise<string> => {
+  await dbConnect()
+  const store = await StoreModel.findOne({ slug: storeSlug })
+  if (!store) {
+    return ''
+  }
+  return store.storename
+}
