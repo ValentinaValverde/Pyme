@@ -7,6 +7,11 @@
   color: #0c0c0c;
 }
 
+.center {
+  text-align: center;
+  margin-top: 50px;
+}
+
 /* navbar styles */
 .navbar {
   background-color: white;
@@ -21,25 +26,28 @@
   z-index: 999;
 }
 
-  .button_container {
-    width: 25%;
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-    justify-content: end;
-  }
-
+.button_container {
+  width: 25%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  justify-content: end;
+}
 
 /* landing page styles */
 .landing_page_div {
-  height: 100vh;
+  background-color: #04724d;
+  height: 75vh;
+  margin: 0px 10px 10px 10px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: whitesmoke;
 
   p {
-    color: #04724d;
+    color: lightgray;
   }
 
   h1 {
@@ -100,4 +108,11 @@
 
 .upload_file:hover {
   color: #04724d;
+}
+
+.businesscard_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }

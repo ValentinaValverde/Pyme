@@ -1,11 +1,18 @@
-import LangingPage from '../components/LandingPage';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar'
+import Hero from '../components/Hero'
+import BusinessSection from '@/components/BusinessCardSection'
+import Featured from '@/components/Featured'
 
-export default function Home() {
-  return (
-    <main className="">
-      <Navbar />
-      <LangingPage />
-    </main>
-  );
+import { getFeaturedStores } from '@/utils/actions/shopActions'
+
+export default async function Home() {
+	const featuredStores = await getFeaturedStores()
+	return (
+		<main className=''>
+			<Navbar />
+			<Hero />
+			<Featured featuredStores={featuredStores} />
+			<BusinessSection />
+		</main>
+	)
 }
