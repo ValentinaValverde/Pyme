@@ -32,6 +32,7 @@ export const createOrder = async () => {
 	let storeDic: any = {}
 
 	cartItems.forEach(async (item) => {
+		console.log(item.store_id)
 		if (item.store_id! in storeDic) {
 			const order = await OrderModel.create({
 				cart_id: cart.id,
@@ -39,9 +40,20 @@ export const createOrder = async () => {
 				store_id: item.store_id,
 				total_price: 0
 			})
-			storeDic[item.storeId] = order.id
+
+			if (!order) {
+				throw new Error('Order not created')
+			} else {
+				console.log('Order created' + order.id)
+			}
+			storeDic[item.store_id] = order.id
+			console.log(storeDic[item.store_id])
 		}
 		const orderId = storeDic[item.storeId]
+		if (!orderId) {
+			console.log('order Info ' + storeDic[item.storeId])
+			throw new Error('Order id found')
+		}
 		const orderItem = await OrderItemModel.create({
 			order_id: orderId,
 			product_id: item.productId,
@@ -52,6 +64,8 @@ export const createOrder = async () => {
 		const order = await OrderModel.findById({ orderId })
 		order.total_price += item.quantity * item.priceAtTime
 	})
+
+	cart.active = false
 
 	redirect('/')
 }
