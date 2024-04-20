@@ -59,7 +59,7 @@ export const createOrder = async () => {
 
 	await CartModel.findByIdAndUpdate(cart.id, { active: false })
 
-	redirect('/')
+	redirect('/orders')
 }
 
 export const getOrder = async (orderId: any) => {
@@ -74,12 +74,12 @@ export const getOrder = async (orderId: any) => {
 		return
 	}
 
-	// if (userId != order.user_id) {
-	// 	const store = await StoreModel.findOne({ userId: userId })
-	// 	if (userId != store.userId) {
-	// 		return
-	// 	}
-	// }
+	if (userId != order.user_id) {
+		const store = await StoreModel.findOne({ userId: userId })
+		if (userId != store.userId) {
+			return
+		}
+	}
 
 	const orderItems = await OrderItemModel.find({ order_id: order.id })
 
