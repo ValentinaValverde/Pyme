@@ -25,7 +25,6 @@ export default function Cart({ cartItems }: any) {
 		event.preventDefault()
 		const stripe = await stripePromise
 		const { id }: any = await checkOut()
-		console.log(id)
 		const result = await stripe!.redirectToCheckout({
 			sessionId: id
 		})

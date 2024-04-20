@@ -62,7 +62,6 @@ export const getCartItems = async () => {
 
 	for (let cartItem of cartItems) {
 		const product = await getShopProduct(cartItem.productId)
-		console.log(cartItem.productId)
 		cartItemsDetails.push({
 			productName: product.productName,
 			productSlug: product.productSlug,

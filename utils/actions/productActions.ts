@@ -201,7 +201,7 @@ export const getProduct = async (slug: any) => {
 
 export const getShopProduct = async (productId: any) => {
 	await dbConnect()
-	const product = await ProductModel.findOne({ _id: productId})
+	const product = await ProductModel.findOne({ _id: productId })
 
 	return product
 }
@@ -229,8 +229,6 @@ export const updateInventory = async (formData: any) => {
 	const inInv = formData.get('inInv')
 	const productSlug = formData.get('productSlug')
 	const myStore = formData.get('myStore')
-
-	console.log(`Inv: ${inInv}, slug: ${productSlug}`)
 
 	if (!inInv || inInv < 0) {
 		throw new Error('Please enter a non-negative number')
