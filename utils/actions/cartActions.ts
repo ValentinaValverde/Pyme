@@ -73,7 +73,7 @@ export const checkOut = async () => {
 		payment_method_types: ['card'],
 		line_items: lineItems,
 		mode: 'payment',
-		success_url: 'http://localhost:3000/shop/orders',
+		success_url: 'http://localhost:3000/shop/process_order',
 		cancel_url: 'http://localhost:3000/shop/cart'
 		// automatic_tax: { enabled: true }
 	})

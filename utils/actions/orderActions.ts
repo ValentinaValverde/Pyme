@@ -62,39 +62,61 @@ export const createOrder = async () => {
 	redirect('/')
 }
 
-export const getOrder = async (orderId: string) => {
+export const getOrder = async (orderId: any) => {
 	await dbConnect()
 
 	const { userId } = auth()
 
-	const order = await OrderModel.findById({ orderId })
+	const order = await OrderModel.findById(orderId)
+	console.log('order', order)
 
 	if (!order) {
 		return
 	}
 
-	if (userId != order.user_id) {
-		const store = await StoreModel.findOne({ userId: userId })
-		if (userId != store.userId) {
-			return
-		}
-	}
+	// if (userId != order.user_id) {
+	// 	const store = await StoreModel.findOne({ userId: userId })
+	// 	if (userId != store.userId) {
+	// 		return
+	// 	}
+	// }
 
 	const orderItems = await OrderItemModel.find({ order_id: order.id })
 
-	const items = orderItems.map(async (item) => {
-		const product = await getShopProduct(item.product_id)
-		return {
-			productName: product.productName,
-			productSlug: product.productSlug,
-			quantity: item.quantity,
-			price: item.price_at_time,
-			productImage: product.productImage
-		}
-	})
+	const items = await Promise.all(
+		orderItems.map(async (item) => {
+			const product = await getShopProduct(item.product_id)
+			return {
+				productName: product.productName,
+				productSlug: product.productSlug,
+				store_id: product.productStoreId,
+				quantity: item.quantity,
+				price: item.price_at_time,
+				productImage: product.productImage
+			}
+		})
+	)
 
 	return {
+		id: order.id,
 		items: items,
 		totalPrice: order.total_price
 	}
+}
+
+export const getCustomerOrders = async () => {
+	await dbConnect()
+
+	const { userId } = auth()
+
+	const orders = await OrderModel.find({ user_id: userId })
+
+	const orderList = await Promise.all(
+		orders.map(async (order) => {
+			const orderInfromation = await getOrder(order.id)
+			return orderInfromation
+		})
+	)
+
+	return orderList
 }
