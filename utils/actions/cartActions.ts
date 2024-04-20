@@ -39,11 +39,8 @@ export const checkOut = async () => {
 	})
 
 	if (!cart) {
-		console.log('No cart found')
 		return
 	}
-
-	console.log('hello')
 
 	const cartItems = await CartItemModel.find({ cartId: cart.id })
 

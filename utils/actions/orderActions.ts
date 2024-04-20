@@ -31,9 +31,9 @@ export const createOrder = async () => {
 
 	let storeDic: any = {}
 
-	cartItems.forEach(async (item) => {
-		console.log(item.store_id)
-		if (item.store_id! in storeDic) {
+	for (let item of cartItems) {
+		let storeIdStr = item.store_id.toString()
+		if (!(storeIdStr in storeDic)) {
 			const order = await OrderModel.create({
 				cart_id: cart.id,
 				user_id: userId,
@@ -41,19 +41,9 @@ export const createOrder = async () => {
 				total_price: 0
 			})
 
-			if (!order) {
-				throw new Error('Order not created')
-			} else {
-				console.log('Order created' + order.id)
-			}
-			storeDic[item.store_id] = order.id
-			console.log(storeDic[item.store_id])
+			storeDic[storeIdStr] = order.id
 		}
-		const orderId = storeDic[item.storeId]
-		if (!orderId) {
-			console.log('order Info ' + storeDic[item.storeId])
-			throw new Error('Order id found')
-		}
+		const orderId = storeDic[storeIdStr]
 		const orderItem = await OrderItemModel.create({
 			order_id: orderId,
 			product_id: item.productId,
@@ -61,11 +51,13 @@ export const createOrder = async () => {
 			price_at_time: item.priceAtTime,
 			status: 'processing'
 		})
-		const order = await OrderModel.findById({ orderId })
-		order.total_price += item.quantity * item.priceAtTime
-	})
+		await OrderModel.findByIdAndUpdate(orderId, {
+			$inc: { total_price: item.quantity * item.priceAtTime }
+		})
+		console.log('Order Item created', orderItem.id)
+	}
 
-	cart.active = false
+	await CartModel.findByIdAndUpdate(cart.id, { active: false })
 
 	redirect('/')
 }

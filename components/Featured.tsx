@@ -1,6 +1,4 @@
 export default function Featured({ featuredStores }: any) {
-	console.log('FT:', featuredStores)
-
 	return (
 		<div>
 			<ul>
