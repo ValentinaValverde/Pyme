@@ -74,12 +74,12 @@ export const getOrder = async (orderId: any) => {
 		return
 	}
 
-	if (userId != order.user_id) {
-		const store = await StoreModel.findOne({ userId: userId })
-		if (userId != store.userId) {
-			return
-		}
-	}
+	// if (userId != order.user_id) {
+	// 	const store = await StoreModel.findOne({ userId: userId })
+	// 	if (userId != store.userId) {
+	// 		return
+	// 	}
+	// }
 
 	const orderItems = await OrderItemModel.find({ order_id: order.id })
 
@@ -118,5 +118,28 @@ export const getCustomerOrders = async () => {
 		})
 	)
 
-	return orderList
+	return orderList || []
+}
+
+export const getStoreOrders = async () => {
+	await dbConnect()
+
+	const { userId } = auth()
+
+	const store = await StoreModel.findOne({ userId: userId })
+
+	if (!store) {
+		return
+	}
+
+	const orders = await OrderModel.find({ store_id: store.id })
+
+	const orderList = await Promise.all(
+		orders.map(async (order) => {
+			const orderInformation = await getOrder(order.id)
+			return orderInformation
+		})
+	)
+
+	return orderList || []
 }
