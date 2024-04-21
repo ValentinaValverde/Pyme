@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { checkOut } from '@/utils/actions/cartActions'
 import { loadStripe } from '@stripe/stripe-js'
 import Table from '@mui/material/Table'
@@ -11,14 +11,14 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Button, Tooltip } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
 import Link from 'next/link'
-import { CartItemDetail } from '@/utils/actions/cartItemActions'
+import { CartItemDetail, deleteCartItem } from '@/utils/actions/cartItemActions'
+import DeleteIcon from '@mui/icons-material/Delete'
 
+/*
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 )
-/*
 export function CartOld({ cartItems }: any) {
   React.useEffect(() => {
     const query = new URLSearchParams(window.location.search)
@@ -98,8 +98,20 @@ export function CartOld({ cartItems }: any) {
 }
 */
 
-export function Cart({ cartItems }: { cartItems: CartItemDetail[] }) {
-  if (cartItems.length === 0) {
+export function Cart({
+  initialCartItems,
+}: {
+  initialCartItems: CartItemDetail[]
+}) {
+  const [cartItems, setCartItems] = useState(initialCartItems)
+
+  const _deleteCartItem = (productSlug: string) => {
+    deleteCartItem(productSlug)
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.productSlug !== productSlug)
+    )
+  }
+  if (!cartItems || cartItems.length === 0) {
     return (
       <h2 className="mt-8 font-medium text-lg">
         Currently you do not have any products in your cart.
@@ -133,7 +145,12 @@ export function Cart({ cartItems }: { cartItems: CartItemDetail[] }) {
                   />
                 )}{' '}
               </TableCell>
-              <TableCell>{product.quantity}</TableCell>
+              <TableCell>
+                {product.quantity}
+                <Button onClick={() => _deleteCartItem(product.productSlug)}>
+                  <DeleteIcon />
+                </Button>
+              </TableCell>
               <TableCell>{product.priceAtTime}</TableCell>
             </TableRow>
           ))}
