@@ -1,6 +1,7 @@
 import React from 'react'
 import { getCartItems } from '@/utils/actions/cartItemActions'
-import Cart from '@/components/Cart'
+import { Cart } from '@/components/Cart'
+import { any } from 'zod'
 
 const CartPage = async () => {
 	const cartItems = await getCartItems()
