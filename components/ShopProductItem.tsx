@@ -29,12 +29,14 @@ export default function ShopProductItem({
         flexDirection: 'column',
       }}
     >
+		<Link href={`${storeSlug}/product/${product.productSlug}`}>
       <CardMedia
         component="img"
         style={{ height: '300px', width: '100%', objectFit: 'cover' }}
         image={product.productImage}
         alt={product.productName}
       />
+	  </Link>
       <CardContent style={{ marginTop: 'auto' }}>
         <Link href={`${storeSlug}/product/${product.productSlug}`}>
           <Typography variant="h5" component="div">
