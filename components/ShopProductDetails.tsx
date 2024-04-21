@@ -3,10 +3,14 @@ import { Product } from '@/lib/models/ProductModel'
 import { Card, CardContent } from '@mui/material'
 import { Button } from '@mui/material'
 import { createCartItem } from '@/utils/actions/cartItemActions'
+import toast from 'react-hot-toast'
 
 export default function ShopProductDetails({ product }: { product: Product }) {
   const addToCartHandler = async () => {
     await createCartItem(product.productSlug, 1)
+    toast.success('Added to cart', {
+      position: 'bottom-center',
+    })
   }
 
   return (
