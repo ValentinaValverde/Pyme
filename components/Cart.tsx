@@ -14,6 +14,8 @@ import { Button, Tooltip } from '@mui/material'
 import Link from 'next/link'
 import { CartItemDetail, deleteCartItem } from '@/utils/actions/cartItemActions'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { createCartItem } from '@/utils/actions/cartItemActions'
+import AddIcon from '@mui/icons-material/Add'
 
 /*
 const stripePromise = loadStripe(
@@ -111,6 +113,17 @@ export function Cart({
       prevCartItems.filter((item) => item.productSlug !== productSlug)
     )
   }
+
+  const _createCartItem = (productSlug: string, addedQuantity: number, currentQuantity: number) => {
+    createCartItem(productSlug, addedQuantity)
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item.productSlug === productSlug
+          ? { ...item, quantity: currentQuantity + addedQuantity}
+          : item
+      )
+    )
+  }
   if (!cartItems || cartItems.length === 0) {
     return (
       <h2 className="mt-8 font-medium text-lg">
@@ -149,6 +162,9 @@ export function Cart({
                 {product.quantity}
                 <Button onClick={() => _deleteCartItem(product.productSlug)}>
                   <DeleteIcon />
+                </Button>
+                <Button onClick={() => _createCartItem(product.productSlug, 1, product.quantity)}>
+                  <AddIcon />
                 </Button>
               </TableCell>
               <TableCell>{product.priceAtTime}</TableCell>
