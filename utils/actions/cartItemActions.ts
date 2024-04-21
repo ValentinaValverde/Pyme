@@ -6,7 +6,6 @@ import CartModel from '@/lib/models/CartModel'
 import { ProductModel } from '@/lib/models/ProductModel'
 import { getShopProduct } from './productActions'
 import { auth } from '@clerk/nextjs/server'
-import { get } from 'http'
 
 export const createCartItem = async (productSlug: string, quantity: number) => {
   await dbConnect()
@@ -30,9 +29,14 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 
   if (cartItemExist) {
     cartItemExist.quantity += quantity
+    await CartItemModel.updateOne(
+      { $and: [{ cartId: cart.id }, { productId: product.id }] },
+      { quantity: cartItemExist.quantity }
+    )
+    return
   }
 
-  const newCartItem = await CartItemModel.create({
+  await CartItemModel.create({
     cartId: cart.id,
     productId: product.id,
     priceAtTime: product.price,
@@ -84,4 +88,24 @@ export interface CartItemDetail {
   priceAtTime: number
   active: boolean
   quantity: number
+}
+
+export const deleteCartItem = async (productSlug: string) => {
+  await dbConnect()
+
+  const { userId } = auth()
+
+  let cart = await CartModel.findOne({
+    $and: [{ userId }, { active: true }],
+  })
+
+  if (!cart) {
+    return
+  }
+
+  const product = await ProductModel.findOne({ productSlug: productSlug })
+
+  await CartItemModel.deleteOne({
+    $and: [{ cartId: cart.id }, { productId: product.id }],
+  })
 }
