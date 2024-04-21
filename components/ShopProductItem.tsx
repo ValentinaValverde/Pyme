@@ -8,6 +8,7 @@ import { CardContent } from '@mui/material'
 import { CardMedia } from '@mui/material'
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
+import toast from 'react-hot-toast'
 
 export default function ShopProductItem({
   product,
@@ -18,6 +19,9 @@ export default function ShopProductItem({
 }) {
   const addToCartHandler = async () => {
     await createCartItem(product.productSlug, 1)
+    toast.success('Added to cart', {
+      position: 'bottom-center',
+    })
   }
   return (
     <Card
@@ -29,14 +33,14 @@ export default function ShopProductItem({
         flexDirection: 'column',
       }}
     >
-		<Link href={`${storeSlug}/product/${product.productSlug}`}>
-      <CardMedia
-        component="img"
-        style={{ height: '300px', width: '100%', objectFit: 'cover' }}
-        image={product.productImage}
-        alt={product.productName}
-      />
-	  </Link>
+      <Link href={`${storeSlug}/product/${product.productSlug}`}>
+        <CardMedia
+          component="img"
+          style={{ height: '300px', width: '100%', objectFit: 'cover' }}
+          image={product.productImage}
+          alt={product.productName}
+        />
+      </Link>
       <CardContent style={{ marginTop: 'auto' }}>
         <Link href={`${storeSlug}/product/${product.productSlug}`}>
           <Typography variant="h5" component="div">
