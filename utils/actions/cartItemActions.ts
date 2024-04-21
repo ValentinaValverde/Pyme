@@ -109,3 +109,24 @@ export const deleteCartItem = async (productSlug: string) => {
     $and: [{ cartId: cart.id }, { productId: product.id }],
   })
 }
+
+export const editCartItemQuantity = async (productSlug: string, quantity: number) => {
+  await dbConnect()
+
+  const { userId } = auth()
+
+  let cart = await CartModel.findOne({
+	$and: [{ userId }, { active: true }],
+  })
+
+  if (!cart) {
+	return
+  }
+
+  const product = await ProductModel.findOne({ productSlug: productSlug })
+
+  await CartItemModel.updateOne(
+	{ $and: [{ cartId: cart.id }, { productId: product.id }] },
+	{ quantity: quantity }
+  )
+}
