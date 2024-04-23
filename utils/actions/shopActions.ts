@@ -79,3 +79,5 @@ export const getFeaturedStores = async () => {
   const shuffleStores = stores.sort((a, b) => 0.5 - Math.random());
   return shuffleStores.slice(0, 3);
 };
+
+// getDisplayAllStores
