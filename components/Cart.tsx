@@ -18,7 +18,7 @@ import { createCartItem } from '@/utils/actions/cartItemActions'
 import AddIcon from '@mui/icons-material/Add'
 import { Card, CardContent, Typography } from '@mui/material';
 
-
+/*
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 )
@@ -99,7 +99,7 @@ export function CartOld({ cartItems }: any) {
     </>
   )
 }
-
+*/
 
 export function Cart({
   initialCartItems,
@@ -195,8 +195,9 @@ return (
 					style={{ 
 						marginTop: '20px',
 						backgroundColor: 'oklch(79.3811% 0.146032 78.618794 /1)',
-						borderRadius: '20px'
-						 }}>
+						borderRadius: '20px',
+						color: 'black'
+						}}>
 						Submit Payment
 					</Button>
 				</CardContent>

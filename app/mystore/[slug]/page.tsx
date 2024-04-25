@@ -1,9 +1,14 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import { Box, Button } from '@mui/material';
+<<<<<<< Updated upstream
 import StoreStoryForm from '@/components/create-forms/StoreStoryForm';
 import { getStoreStory } from '@/utils/actions/storeActions';
 import Link from 'next/link';
+=======
+import { useParams } from 'next/navigation';
+import CreateStoreStoryForm from '@/components/create-forms/CreateStoreStoryForm';
+>>>>>>> Stashed changes
 
 const MyStoreHome = async ({ params }: { params: any }) => {
   const slug = params.slug?.toString() || '';
@@ -82,8 +87,16 @@ const MyStoreHome = async ({ params }: { params: any }) => {
     <>
       <Box sx={{ display: 'flex' }}>
         <Sidebar storeSlug={slug} />
+<<<<<<< Updated upstream
         <Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
           <StoreStoryForm story={story} myStore={slug} />
+=======
+        <Box component={'main'} sx={{ flexGrow: 1,p: 3,}}>
+          <CreateStoreStoryForm myStore={slug} />
+          <Button variant="contained" color="primary">
+            Create New Story
+          </Button>
+>>>>>>> Stashed changes
         </Box>
       </Box>
     </>
