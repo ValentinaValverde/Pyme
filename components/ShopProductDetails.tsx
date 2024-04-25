@@ -63,6 +63,11 @@ export default function ShopProductDetails({ product }: { product: Product }) {
                     color="primary"
                     fullWidth
                     onClick={addToCartHandler}
+                    style={{ 
+                      borderRadius: '20px', 
+                      backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
+                      color: 'black' 
+                    }}
                   >
                     Add to Cart
                   </Button>
