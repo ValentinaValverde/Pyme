@@ -43,9 +43,11 @@ export default function ShopProductItem({
       </Link>
       <CardContent style={{ marginTop: 'auto' }}>
         <Link href={`${storeSlug}/product/${product.productSlug}`}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h5" component="div">
             {product.productName}
           </Typography>
+        </div>
         </Link>
         <div
           style={{
@@ -61,6 +63,11 @@ export default function ShopProductItem({
           color="primary"
           fullWidth
           onClick={addToCartHandler}
+          style={{
+            borderRadius: '20px',
+            backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
+            color: 'black'
+          }}
         >
           Add to Cart
         </Button>
