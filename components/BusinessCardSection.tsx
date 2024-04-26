@@ -11,7 +11,7 @@ export default function BusinessSection({ stores }: any) {
           {stores.map((store: any) => (
             <Link href={`/shop/${store.slug}`} key={store.storeName}>
               <div className="card w-96 bg-base-100 shadow-xl m-5">
-                <figure>
+                <figure className="business_card_figure">
                   <img
                     src={store.storeImg}
                     alt="Small Business Image"
