@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Featured({ featuredStores }: any) {
+export default function TEST({ featuredStores }: any) {
   console.log('FT:', featuredStores);
 
   return (
