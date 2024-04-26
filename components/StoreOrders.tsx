@@ -15,10 +15,10 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
 								<h2>{item.productName}</h2>
 								<img src={item.productImage} alt={item.productName} />
 								<p>Quantity: {item.quantity}</p>
-								<p>Price: {item.price}</p>
+								<p>Price: {item.price.toFixed(2)}</p>
 							</li>
 						))}
-						<h2>Total Price: {order.totalPrice}</h2>
+						<h2>Total Price: {order.totalPrice.toFixed(2)}</h2>
 					</div>
 				))}
 			</ul>

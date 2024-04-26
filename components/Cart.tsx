@@ -197,8 +197,8 @@ return (
 								</Button>
 								</Tooltip>
 							</TableCell>
-							<TableCell>${product.priceAtTime}</TableCell>
-							<TableCell>${product.priceAtTime * product.quantity}</TableCell>
+							<TableCell>${product.priceAtTime.toFixed(2)}</TableCell>
+							<TableCell>${(product.priceAtTime * product.quantity).toFixed(2)}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
