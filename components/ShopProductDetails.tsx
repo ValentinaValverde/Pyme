@@ -1,9 +1,18 @@
 'use client'
 import { Product } from '@/lib/models/ProductModel'
-import AddToCart from '@/components/ShopAddToCart'
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent } from '@mui/material'
+import { Button } from '@mui/material'
+import { createCartItem } from '@/utils/actions/cartItemActions'
+import toast from 'react-hot-toast'
 
 export default function ShopProductDetails({ product }: { product: Product }) {
+  const addToCartHandler = async () => {
+    await createCartItem(product.productSlug, 1)
+    toast.success('Added to cart', {
+      position: 'bottom-center',
+    })
+  }
+
   return (
     <>
       <div className="my-2"></div>
@@ -11,17 +20,17 @@ export default function ShopProductDetails({ product }: { product: Product }) {
         <div className="md:col-span-2">
           <Card style={{ backgroundColor: 'white', borderRadius: '15px' }}>
             <CardContent>
-          <img
-            src={product?.productImage}
-            alt={product?.productName}
-            width={640}
-            height={640}
-            sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
-          />
+              <img
+                src={product?.productImage}
+                alt={product?.productName}
+                width={640}
+                height={640}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+              />
             </CardContent>
           </Card>
         </div>
@@ -49,7 +58,19 @@ export default function ShopProductDetails({ product }: { product: Product }) {
               </div>
               {product.inInv > 0 && (
                 <div className="card-actions justify-center">
-                  <AddToCart item={{ ...product, qty: 0, color: '', size: '' }} />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={addToCartHandler}
+                    style={{ 
+                      borderRadius: '20px', 
+                      backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
+                      color: 'black' 
+                    }}
+                  >
+                    Add to Cart
+                  </Button>
                 </div>
               )}
             </CardContent>

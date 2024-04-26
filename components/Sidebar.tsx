@@ -61,12 +61,14 @@ const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
 					</ListItemIcon>
 					<ListItemText primary='Customers' />
 				</ListItem>
-				<ListItem button key='Orders'>
-					<ListItemIcon>
-						<ShoppingCartIcon />
-					</ListItemIcon>
-					<ListItemText primary='Orders' />
-				</ListItem>
+				<Link href={`/mystore/${storeSlug}/orders`}>
+					<ListItem button key='Orders'>
+						<ListItemIcon>
+							<ShoppingCartIcon />
+						</ListItemIcon>
+						<ListItemText primary='Orders' />
+					</ListItem>
+				</Link>
 				<ListItem button key='Profile'>
 					<SignedIn>
 						<UserButton />

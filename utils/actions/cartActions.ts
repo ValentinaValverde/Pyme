@@ -39,11 +39,8 @@ export const checkOut = async () => {
 	})
 
 	if (!cart) {
-		console.log('No cart found')
 		return
 	}
-
-	console.log('hello')
 
 	const cartItems = await CartItemModel.find({ cartId: cart.id })
 
@@ -76,7 +73,7 @@ export const checkOut = async () => {
 		payment_method_types: ['card'],
 		line_items: lineItems,
 		mode: 'payment',
-		success_url: 'https://example.com/success',
+		success_url: 'http://localhost:3000/shop/process_order',
 		cancel_url: 'http://localhost:3000/shop/cart'
 		// automatic_tax: { enabled: true }
 	})
