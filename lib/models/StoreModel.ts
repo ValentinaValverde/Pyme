@@ -48,5 +48,3 @@ const StoreModel =
   mongoose.models.Store || mongoose.model('Store', StoreSchema);
 
 export default StoreModel;
-
-// the storeModel does NOT return an image...
