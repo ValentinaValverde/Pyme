@@ -157,6 +157,7 @@ export function Cart({
 
 return (
 	<>
+	<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 		<TableContainer component={Paper}>
 			<Table aria-label="simple table">
 				<TableHead>
@@ -164,6 +165,7 @@ return (
 						<TableCell style={{ fontWeight: 'bold' }}>Item</TableCell>
 						<TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
 						<TableCell style={{ fontWeight: 'bold' }}>Price</TableCell>
+						<TableCell style={{ fontWeight: 'bold' }}>Total</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -196,14 +198,14 @@ return (
 								</Tooltip>
 							</TableCell>
 							<TableCell>{product.priceAtTime}</TableCell>
+							<TableCell>{product.priceAtTime * product.quantity}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
 		</TableContainer>
-		<div style={{ display: 'flex', justifyContent: 'center' }}>
 
-			<Card style={{ width: '300px', marginLeft: '20px', marginTop: '20px' }}>
+			<Card style={{ width: '300px', height: '100%', marginLeft: '20px', marginTop: '20px' }}>
 				<CardContent>
 					<Typography variant="h5" component="div">
 						Subtotal: $
