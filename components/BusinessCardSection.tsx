@@ -20,8 +20,8 @@ export default function BusinessSection({ stores }: any) {
                   />
                 </figure>
                 <div className="card-body">
-                  <h2 className="card-title">{store.storename}</h2>
-                  <p>By {store.ownername}</p>
+                  <h2 className="card-title">{store.storeName}</h2>
+                  <p>By {store.storeOwner}</p>
                 </div>
               </div>
             </Link>

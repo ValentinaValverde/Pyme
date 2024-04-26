@@ -4,12 +4,13 @@ import BusinessSection from '@/components/BusinessCardSection';
 import Featured from '@/components/featured-carousel/Carousel';
 import { EmblaOptionsType } from 'embla-carousel';
 
+import { getDisplayAllStores } from '@/utils/actions/shopActions';
 import { getFeaturedStores } from '@/utils/actions/shopActions';
 import { getStores } from '@/utils/actions/shopActions';
 
 export default async function Home() {
   const featuredStores = await getFeaturedStores();
-  const businesses = await getStores();
+  const businesses = await getDisplayAllStores();
 
   const OPTIONS: EmblaOptionsType = { loop: true };
   const SLIDE_COUNT = 3;

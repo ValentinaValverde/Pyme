@@ -80,4 +80,21 @@ export const getFeaturedStores = async () => {
   return shuffleStores.slice(0, 3);
 };
 
-// getDisplayAllStores
+export const getDisplayAllStores = async () => {
+  await dbConnect();
+
+  const allStores = await getStores();
+  const stores = await Promise.all(
+    allStores.map(async (store) => {
+      const story = await getStoreStory(store.slug);
+      return {
+        storeName: store.storename,
+        storeImg: story?.storeImage,
+        storeOwner: store.ownername,
+        slug: store.slug,
+      };
+    })
+  );
+
+  return stores;
+};
