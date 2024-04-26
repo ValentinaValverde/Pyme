@@ -164,7 +164,7 @@ return (
 					<TableRow>
 						<TableCell style={{ fontWeight: 'bold' }}>Item</TableCell>
 						<TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
-						<TableCell style={{ fontWeight: 'bold' }}>Price</TableCell>
+						<TableCell style={{ fontWeight: 'bold' }}>Price Per Item</TableCell>
 						<TableCell style={{ fontWeight: 'bold' }}>Total</TableCell>
 					</TableRow>
 				</TableHead>
@@ -197,8 +197,8 @@ return (
 								</Button>
 								</Tooltip>
 							</TableCell>
-							<TableCell>{product.priceAtTime}</TableCell>
-							<TableCell>{product.priceAtTime * product.quantity}</TableCell>
+							<TableCell>${product.priceAtTime}</TableCell>
+							<TableCell>${product.priceAtTime * product.quantity}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
