@@ -209,7 +209,7 @@ return (
 				<CardContent>
 					<Typography variant="h5" component="div">
 						Subtotal: $
-						{cartItems.reduce((total, item) => total + item.priceAtTime * item.quantity, 0)}
+						{cartItems.reduce((total, item) => total + item.priceAtTime * item.quantity, 0).toFixed(2)}
 					</Typography>
 					<Button
           onClick={handleCheckout}
