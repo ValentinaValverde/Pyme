@@ -56,7 +56,7 @@ export default function ShopProductItem({
             alignItems: 'center',
           }}
         >
-          <Typography variant="h6">${product.price}</Typography>
+          <Typography variant="h6">${product.price.toFixed(2)}</Typography>
         </div>
         <Button
           variant="contained"
