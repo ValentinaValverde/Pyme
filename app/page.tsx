@@ -15,7 +15,7 @@ export default async function Home() {
       <Navbar />
       <Hero />
       {/* <Featured featuredStores={featuredStores} /> */}
-      <BusinessSection stores={businesses} />
+      {/* <BusinessSection stores={businesses} /> */}
     </main>
   );
 }
