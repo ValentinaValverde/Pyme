@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback } from 'react';
 import { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel';
 import { DotButton, useDotButton } from './CarouselDots';
@@ -36,7 +38,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">{index + 1}</div>
+              <div className="embla__slide__number">
+                <p>hello world {index}</p>
+              </div>
             </div>
           ))}
         </div>
