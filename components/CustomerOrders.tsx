@@ -30,7 +30,7 @@ const CustomerOrders = ({ orders }: { orders: any[] }) => {
             <React.Fragment key={order.id}>
               <TableRow>
                 <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
-                  Order ID: {order.id}
+                  Order #: {order.id}
                 </TableCell>
               </TableRow>
               {order.items.map((item: any) => (
