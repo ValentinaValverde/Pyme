@@ -3,13 +3,14 @@ import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { editCartItemQuantity } from '@/utils/actions/cartItemActions'
 
 const QtyDropDown = ({ slug, quantity, editQuantity }: { slug: string; quantity: any, editQuantity: Function }) => {
 	const handleChange = async (event: SelectChangeEvent) => {
     event.preventDefault()
     let newQuantity = Number(event.target.value)
+
     await editQuantity(slug, newQuantity)
+ 
 }
 	quantity.toString()
 	return (

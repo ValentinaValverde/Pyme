@@ -36,6 +36,7 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 			{ $and: [{ cartId: cart.id }, { productId: product.id }] },
 			{ quantity: cartItemExist.quantity }
 		)
+    revalidatePath('/shop/cart')
 		return
 	}
 
@@ -46,6 +47,7 @@ export const createCartItem = async (productSlug: string, quantity: number) => {
 		store_id: product.productStoreId,
 		quantity
 	})
+  revalidatePath('/shop/cart')
 }
 
 export const getCartItems = async (): Promise<CartItemDetail[]> => {
@@ -143,6 +145,6 @@ export const editCartItemQuantity = async (
 		{ quantity: quantity }
 	)
 
-	return updatedCartItem
+	//return updatedCartItem
 
 }

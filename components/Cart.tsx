@@ -44,6 +44,10 @@ export function Cart({
 		productSlug: string,
 		newQuantity: number,
 	) => {
+    if(newQuantity === 0) {
+      _deleteCartItem(productSlug)
+      return
+    }
 		await editCartItemQuantity(productSlug, newQuantity)
 		setCartItems((prevCartItems) =>
 			prevCartItems.map((item) =>
