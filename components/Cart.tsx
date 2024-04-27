@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { createCartItem } from '@/utils/actions/cartItemActions'
 import AddIcon from '@mui/icons-material/Add'
 import QtyDropDown from './QtyDropDown'
+import { editCartItemQuantity } from '@/utils/actions/cartItemActions'
 
 import { Card, CardContent, Typography } from '@mui/material'
 
@@ -39,16 +40,15 @@ export function Cart({
 		)
 	}
 
-	const _createCartItem = (
+	const _editCartItemQuantity = async (
 		productSlug: string,
-		addedQuantity: number,
-		currentQuantity: number
+		newQuantity: number,
 	) => {
-		createCartItem(productSlug, addedQuantity)
+		await editCartItemQuantity(productSlug, newQuantity)
 		setCartItems((prevCartItems) =>
 			prevCartItems.map((item) =>
 				item.productSlug === productSlug
-					? { ...item, quantity: currentQuantity + addedQuantity }
+					? { ...item, quantity: newQuantity }
 					: item
 			)
 		)
@@ -105,7 +105,7 @@ return (
 								)}{' '}
 							</TableCell>
 							<TableCell>
-                <QtyDropDown slug={product.productSlug} quantity={product.quantity} />
+              <QtyDropDown slug={product.productSlug} quantity={product.quantity} editQuantity={_editCartItemQuantity} />
 								<Tooltip title="Delete">
 								<Button onClick={() => _deleteCartItem(product.productSlug)}>
 									<DeleteIcon />

@@ -5,13 +5,12 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { editCartItemQuantity } from '@/utils/actions/cartItemActions'
 
-const QtyDropDown = ({ slug, quantity }: { slug: string; quantity: any }) => {
+const QtyDropDown = ({ slug, quantity, editQuantity }: { slug: string; quantity: any, editQuantity: Function }) => {
 	const handleChange = async (event: SelectChangeEvent) => {
-		event.preventDefault()
-		let newQuantity = Number(event.target.value)
-		await editCartItemQuantity(slug, newQuantity)
-    location.reload()
-	}
+    event.preventDefault()
+    let newQuantity = Number(event.target.value)
+    await editQuantity(slug, newQuantity)
+}
 	quantity.toString()
 	return (
 		<Box sx={{ minWidth: 120 }}>

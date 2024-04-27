@@ -138,11 +138,11 @@ export const editCartItemQuantity = async (
 		return
 	}
 
-	await CartItemModel.updateOne(
+	const updatedCartItem = await CartItemModel.updateOne(
 		{ $and: [{ cartId: cart.id }, { productId: product.id }] },
 		{ quantity: quantity }
 	)
 
-	revalidatePath('/shop/cart')
+	return updatedCartItem
 
 }
