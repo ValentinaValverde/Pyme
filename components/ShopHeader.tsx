@@ -33,14 +33,9 @@ const Header = () => {
             </svg>
           </div>
           <ul className="flex space-x-4">
-            <li>
-              <Link className="btn btn-primary rounded-btn" href="/shop/cart">
-                <ShoppingCartIcon className="h-5 w-5 mr-2" />
-                <span aria-hidden="true">Cart</span>
-              </Link>
-            </li>
-            <li>
+
               <SignedOut>
+              <li>
                 <SignInButton className="btn btn-secondary rounded-btn">
                   <div>
                     <svg
@@ -59,11 +54,19 @@ const Header = () => {
                     <span aria-hidden="true">Sign In</span>
                   </div>
                 </SignInButton>
+                </li>
               </SignedOut>
               <SignedIn>
+              <li>
+              <Link className="btn btn-primary rounded-btn" href="/shop/cart">
+                <ShoppingCartIcon className="h-5 w-5 mr-2" />
+                <span aria-hidden="true">Cart</span>
+              </Link>
+              </li>
+              <li>
                 <UserButton />
+              </li>
               </SignedIn>
-            </li>
           </ul>
         </div>
       </nav>
