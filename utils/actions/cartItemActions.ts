@@ -145,6 +145,4 @@ export const editCartItemQuantity = async (
 		{ quantity: quantity }
 	)
 
-	//return updatedCartItem
-
 }
