@@ -19,7 +19,8 @@ export default async function Home() {
   return (
     <main className="">
       <Header />
-      <Hero />
+      <Hero style={{ marginTop: '100px' }} />
+      <p style={{ marginTop: '20px', fontSize: '15px', fontWeight: 'normal', textAlign: 'center' }}>Scroll down the page to see a complete list of hosted businesses.</p>
       <Featured
         slides={SLIDES}
         options={OPTIONS}
