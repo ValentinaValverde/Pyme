@@ -21,7 +21,7 @@ const QtyDropDown = ({
   };
   quantity.toString();
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 100, maxWidth: 120 }}>
       <FormControl fullWidth>
         <Select
           labelId="product-quantity-label"
