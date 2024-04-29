@@ -36,7 +36,7 @@
 /* landing page styles */
 .landing_page_div {
   background-color: #04724d;
-  height: 75vh;
+  height: 60vh;
   margin: 0px 10px 10px 10px;
   border-radius: 20px;
   display: flex;
@@ -147,7 +147,7 @@
 .carousel_slide {
   border: solid black;
   border-radius: 1.8rem;
-  height: 500px;
+  height: 350px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -172,7 +172,7 @@
 
 .info_container {
   width: 50%;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
