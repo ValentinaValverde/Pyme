@@ -1,6 +1,6 @@
 import React from 'react';
 import { getMyStoreInfo } from '@/utils/actions/storeActions';
-import MyStoreInfo from '@/components/MyStoreInfo';
+import MyStoreInfo from '@/components/store/MyStoreInfo';
 import Sidebar from '@/components/Sidebar';
 import { Box } from '@mui/material';
 
