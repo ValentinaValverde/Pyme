@@ -36,7 +36,7 @@
 /* landing page styles */
 .landing_page_div {
   background-color: #04724d;
-  height: 75vh;
+  height: 60vh;
   margin: 0px 10px 10px 10px;
   border-radius: 20px;
   display: flex;
@@ -147,7 +147,7 @@
 .carousel_slide {
   border: solid black;
   border-radius: 1.8rem;
-  height: 500px;
+  height: 350px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -160,6 +160,7 @@
 }
 
 .img_container {
+  flex: 1;
   width: 50%;
   height: 100%;
 }
@@ -170,13 +171,29 @@
   border-radius: 1.8rem 0px 0px 1.8rem;
 }
 
+
+
 .info_container {
+  flex: 1;
   width: 50%;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  height: 300px;
+  overflow: auto;
+
 }
+
+.info_container h2 {
+  grid-row: 1;
+}
+
+.info_container p {
+  grid-row: 2;
+  overflow: auto;
+}
+
 
 .embla__controls {
   display: grid;
