@@ -1,12 +1,12 @@
-import React from 'react'
-import StoreStoryForm from '@/components/create-forms/StoreStoryForm'
-import { getStoreStory } from '@/utils/actions/storeActions'
-import Sidebar from '@/components/Sidebar'
-import { Box, Button } from '@mui/material'
+import React from 'react';
+import StoreStoryForm from '@/components/create-forms/StoreStoryForm';
+import { getStoreStory } from '@/utils/actions/storeActions';
+import Sidebar from '@/components/Sidebar';
+import { Box, Button } from '@mui/material';
 
 const editStoryPage = async ({ params }) => {
-  const slug = params.slug?.toString() || ''
-  const story = await getStoreStory(params.slug)
+  const slug = params.slug?.toString() || '';
+  const story = await getStoreStory(params.slug);
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -16,7 +16,7 @@ const editStoryPage = async ({ params }) => {
         </Box>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default editStoryPage
+export default editStoryPage;

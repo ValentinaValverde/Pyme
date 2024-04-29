@@ -1,19 +1,19 @@
-'use client'
-import React, { useState, useEffect } from 'react'
-import { createOrder } from '@/utils/actions/orderActions'
+'use client';
+import React, { useState, useEffect } from 'react';
+import { createOrder } from '@/utils/actions/orderActions';
 
 const ProcessOrderPage = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const processOrder = async () => {
-      setLoading(true)
-      await createOrder()
-      setLoading(false)
-    }
+      setLoading(true);
+      await createOrder();
+      setLoading(false);
+    };
 
-    processOrder()
-  }, [])
+    processOrder();
+  }, []);
 
   return loading ? (
     <div
@@ -41,7 +41,7 @@ const ProcessOrderPage = () => {
     >
       Your order has been processed.
     </div>
-  )
-}
+  );
+};
 
-export default ProcessOrderPage
+export default ProcessOrderPage;

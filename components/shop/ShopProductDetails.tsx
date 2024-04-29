@@ -1,17 +1,17 @@
-'use client'
-import { Product } from '@/lib/models/ProductModel'
-import { Card, CardContent } from '@mui/material'
-import { Button } from '@mui/material'
-import { createCartItem } from '@/utils/actions/cartItemActions'
-import toast from 'react-hot-toast'
+'use client';
+import { Product } from '@/lib/models/ProductModel';
+import { Card, CardContent } from '@mui/material';
+import { Button } from '@mui/material';
+import { createCartItem } from '@/utils/actions/cartItemActions';
+import toast from 'react-hot-toast';
 
 export default function ShopProductDetails({ product }: { product: Product }) {
   const addToCartHandler = async () => {
-    await createCartItem(product.productSlug, 1)
+    await createCartItem(product.productSlug, 1);
     toast.success('Added to cart', {
       position: 'bottom-center',
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -63,10 +63,10 @@ export default function ShopProductDetails({ product }: { product: Product }) {
                     color="primary"
                     fullWidth
                     onClick={addToCartHandler}
-                    style={{ 
-                      borderRadius: '20px', 
+                    style={{
+                      borderRadius: '20px',
                       backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
-                      color: 'black' 
+                      color: 'black',
                     }}
                   >
                     Add to Cart
@@ -78,5 +78,5 @@ export default function ShopProductDetails({ product }: { product: Product }) {
         </div>
       </div>
     </>
-  )
+  );
 }

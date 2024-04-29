@@ -1,11 +1,11 @@
-import React from 'react'
-import { getCartItems } from '@/utils/actions/cartItemActions'
-import { Cart } from '@/components/Cart'
+import React from 'react';
+import { getCartItems } from '@/utils/actions/cartItemActions';
+import { Cart } from '@/components/cart/Cart';
 
 const CartPage = async () => {
-  const cartItems = await getCartItems()
+  const cartItems = await getCartItems();
 
-  return <Cart initialCartItems={cartItems} />
-}
+  return <Cart initialCartItems={cartItems} />;
+};
 
-export default CartPage
+export default CartPage;

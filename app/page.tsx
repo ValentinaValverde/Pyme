@@ -1,4 +1,4 @@
-import Header from '@/components/ShopHeader';
+import Header from '@/components/shop/ShopHeader';
 import Hero from '../components/Hero';
 import BusinessSection from '@/components/BusinessCardSection';
 import Featured from '@/components/featured-carousel/Carousel';
