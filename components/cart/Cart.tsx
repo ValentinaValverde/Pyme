@@ -10,7 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Tooltip } from '@mui/material';
+import { Button, Tooltip, Box } from '@mui/material';
 import Link from 'next/link';
 import {
   CartItemDetail,
@@ -113,6 +113,7 @@ export function Cart({
                     )}{' '}
                   </TableCell>
                   <TableCell>
+                    <Box display="flex" alignItems="center" gap={2}>
                     <QtyDropDown
                       slug={product.productSlug}
                       quantity={product.quantity}
@@ -125,6 +126,7 @@ export function Cart({
                         <DeleteIcon />
                       </Button>
                     </Tooltip>
+                    </Box>
                   </TableCell>
                   <TableCell>${product.priceAtTime.toFixed(2)}</TableCell>
                   <TableCell>
