@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const slugHolderPage = () => {
-	return <div>placeholder</div>
-}
+  return <div>placeholder</div>;
+};
 
-export default slugHolderPage
+export default slugHolderPage;

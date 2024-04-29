@@ -1,15 +1,15 @@
-import '../styling/globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Header from '@/components/ShopHeader'
-import { Box } from '@mui/material'
+import '../styling/globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Header from '@/components/shop/ShopHeader';
+import { Box } from '@mui/material';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function FrontLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <>
@@ -20,5 +20,5 @@ export default function FrontLayout({
         </Box>
       </Box>
     </>
-  )
+  );
 }

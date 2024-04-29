@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import React from 'react'
-import { ShoppingCartIcon } from '@heroicons/react/20/solid'
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Link from 'next/link';
+import React from 'react';
+import { ShoppingCartIcon } from '@heroicons/react/20/solid';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 const Header = () => {
   return (
@@ -33,8 +33,7 @@ const Header = () => {
             </svg>
           </div>
           <ul className="flex space-x-4">
-
-              <SignedOut>
+            <SignedOut>
               <li>
                 <SignInButton className="btn btn-secondary rounded-btn">
                   <div>
@@ -54,24 +53,24 @@ const Header = () => {
                     <span aria-hidden="true">Sign In</span>
                   </div>
                 </SignInButton>
-                </li>
-              </SignedOut>
-              <SignedIn>
+              </li>
+            </SignedOut>
+            <SignedIn>
               <li>
-              <Link className="btn btn-primary rounded-btn" href="/shop/cart">
-                <ShoppingCartIcon className="h-5 w-5 mr-2" />
-                <span aria-hidden="true">Cart</span>
-              </Link>
+                <Link className="btn btn-primary rounded-btn" href="/shop/cart">
+                  <ShoppingCartIcon className="h-5 w-5 mr-2" />
+                  <span aria-hidden="true">Cart</span>
+                </Link>
               </li>
               <li>
                 <UserButton />
               </li>
-              </SignedIn>
+            </SignedIn>
           </ul>
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

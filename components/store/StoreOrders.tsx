@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Divider,
   Table,
@@ -9,11 +9,11 @@ import {
   TableRow,
   Paper,
   Box,
-} from '@mui/material'
+} from '@mui/material';
 
 const StoreOrders = ({ orders }: { orders: any[] }) => {
   if (orders.length === 0) {
-    return <h2>No Orders Yet</h2>
+    return <h2>No Orders Yet</h2>;
   }
   return (
     <div>
@@ -84,7 +84,7 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
         </Box>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default StoreOrders
+export default StoreOrders;

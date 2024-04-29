@@ -57,5 +57,4 @@ const MyStoreInfo = ({ myStore }: any) => {
   );
 };
 
-
 export default MyStoreInfo;
