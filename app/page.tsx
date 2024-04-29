@@ -1,4 +1,4 @@
-import Navbar from '@/components/Navbar';
+import Header from '@/components/ShopHeader';
 import Hero from '../components/Hero';
 import BusinessSection from '@/components/BusinessCardSection';
 import Featured from '@/components/featured-carousel/Carousel';
@@ -18,7 +18,7 @@ export default async function Home() {
 
   return (
     <main className="">
-      <Navbar />
+      <Header />
       <Hero />
       <Featured
         slides={SLIDES}
