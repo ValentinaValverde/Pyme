@@ -32,4 +32,4 @@ const ShippingAddressModel =
   mongoose.models.ShippingAddress ||
   mongoose.model("ShippingAddress", ShippingAddressSchema);
 
-  export default ShippingAddressModel;
+export default ShippingAddressModel;
