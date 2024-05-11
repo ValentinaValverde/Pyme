@@ -6,6 +6,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 //import { redirect } from 'next/dist/server/api-utils'
 import bcrypt from 'bcrypt'
+import { auth } from '@clerk/nextjs/server'
+import ShippingAddressModel from '@/lib/models/ShippingAddress'
 
 export const getAllUsers = async () => {
 	await dbConnect()
@@ -80,4 +82,27 @@ export const userLogin = async (formData: any) => {
 	}
 
 	redirect('/')
+}
+
+export const createShippingAddress = async (formData: any) => {
+  await dbConnect()
+  const { userId } = auth()
+  const streetAddress = formData.get('streetAddress')
+  const city = formData.get('city')
+  const state = formData.get('state')
+  const zipcode = formData.get('zipcode')
+
+  if (!streetAddress || !city || !state || !zipcode) {
+    return { message: 'Please add all fields' }
+  }
+
+  const shippingAddress = await ShippingAddressModel.create({
+    userId,
+    streetAddress,
+    city,
+    state,
+    zipcode
+  })
+
+  return shippingAddress
 }
