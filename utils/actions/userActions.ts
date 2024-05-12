@@ -84,7 +84,7 @@ export const userLogin = async (formData: any) => {
 	redirect('/')
 }
 
-export const createShippingAddress = async (formData: any) => {
+export const createShippingAddress = async (prevState: any, formData: any) => {
   await dbConnect()
   const { userId } = auth()
   const streetAddress = formData.get('streetAddress')
