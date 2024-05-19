@@ -84,7 +84,7 @@ export const userLogin = async (formData: any) => {
 	redirect('/')
 }
 
-export const createShippingAddress = async (prevState: any, formData: any) => {
+export const upsertShippingAddress = async (prevState: any, formData: any) => {
   await dbConnect()
   const { userId } = auth()
   const streetAddress = formData.get('streetAddress')
@@ -96,13 +96,44 @@ export const createShippingAddress = async (prevState: any, formData: any) => {
     return { message: 'Please add all fields' }
   }
 
-  const shippingAddress = await ShippingAddressModel.create({
+  const shippingAddress = await ShippingAddressModel.findOneAndUpdate(
+    { userId },
+    {
     userId,
     streetAddress,
     city,
     state,
     zipcode
-  })
+  },
+  {
+    new: true,
+    upsert: true,
+  }
+)
 
-  return shippingAddress
+  redirect('/shop/address')
+}
+
+export const getShippingAddress = async(getAddress: boolean) => {
+  await dbConnect();
+  const { userId } = auth();
+
+  const shippingAddress = await ShippingAddressModel.findOne({ userId });
+
+  if (!shippingAddress && getAddress) {
+    redirect('/address/update');
+  }
+
+
+
+  return {
+    streetAddress: shippingAddress.streetAddress,
+    city: shippingAddress.city,
+    state: shippingAddress.state,
+    zipcode: shippingAddress.zipcode,
+  }
+
+  
+
+
 }

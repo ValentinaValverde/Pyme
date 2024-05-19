@@ -1,12 +1,15 @@
 import React from 'react'
-import CreateShippingAddressForm from '@/components/CreateShippingAddressForm'
+import { getShippingAddress } from '@/utils/actions/userActions'
+import ShippingAddress from '@/components/ShippingAddress'
 
-const createShippingAddress = () => {
+const address = getShippingAddress(true);
+
+const getAddressPage = () => {
   return (
     <div>
-      <CreateShippingAddressForm />
+      <ShippingAddress address={address}/>
     </div>
   )
 }
 
-export default createShippingAddress
+export default getAddressPage

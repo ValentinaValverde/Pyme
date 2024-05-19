@@ -59,7 +59,7 @@ export const createOrder = async () => {
 
 	await CartModel.findByIdAndUpdate(cart.id, { active: false })
 
-	redirect('/shop/orders')
+	redirect('/shop/address')
 }
 
 export const getOrder = async (orderId: any) => {

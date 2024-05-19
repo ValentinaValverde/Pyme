@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react'
 import Link from 'next/link'
-import { createShippingAddress } from '@/utils/actions/userActions'
+import { upsertShippingAddress } from '@/utils/actions/userActions'
 import { useFormStatus, useFormState } from 'react-dom'
 import toast from 'react-hot-toast'
 
@@ -24,8 +24,8 @@ const initialState = {
   message: '',
 };
 
-const CreateShippingAddressForm = () => {
-  const [state, formAction] = useFormState(createShippingAddress, initialState);
+const CreateShippingAddressForm = (address: any) => {
+  const [state, formAction] = useFormState(upsertShippingAddress, initialState);
   useEffect(() => {
     if (state.message !== '') {
       toast.error(state.message)
@@ -50,6 +50,7 @@ const CreateShippingAddressForm = () => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="text"
                     name="streetAddress"
+                    value={address.streetAddress || ''}
                     required
                   />
                 </div>
@@ -62,6 +63,7 @@ const CreateShippingAddressForm = () => {
                     <input
                       type="text"
                       name="city"
+                      value={address.city || ''}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -75,6 +77,7 @@ const CreateShippingAddressForm = () => {
                     <input
                       type="text"
                       name="state"
+                      value={address.state || ''}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -88,6 +91,7 @@ const CreateShippingAddressForm = () => {
                     <input
                       type="text"
                       name="zipcode"
+                      value={address.zipcode || ''}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
