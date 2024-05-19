@@ -8,7 +8,7 @@ const myStoreStoryPage = ({ params }) => {
 		<Box sx={{ display: 'flex' }}>
 			<Sidebar storeSlug={params.slug} />
 			<Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
-				<MyStoreStory myStore={params.slug} />
+				<StoreStory myStore={params.slug} />
 			</Box>
 		</Box>
 	)
