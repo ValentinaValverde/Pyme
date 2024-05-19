@@ -1,5 +1,5 @@
 import React from 'react'
-import StoreStory from '@/components/StoreStory'
+import StoreStory from '@/components/store/StoreStory'
 import Sidebar from '@/components/Sidebar'
 import { Box } from '@mui/material'
 

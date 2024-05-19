@@ -4,7 +4,7 @@ import { getStoreStory } from '@/utils/actions/storeActions';
 import Sidebar from '@/components/Sidebar';
 import { Box, Button } from '@mui/material';
 
-const editStoryPage = async ({ params }) => {
+const editStoryPage = async ({ params }: { params: any }) => {
   const slug = params.slug?.toString() || '';
   const story = await getStoreStory(params.slug);
   return (

@@ -121,7 +121,7 @@ export const getCustomerOrders = async () => {
 	return orderList || []
 }
 
-export const getStoreOrders = async () => {
+export const getStoreOrders = async (): Promise<any[]> => {
 	await dbConnect()
 
 	const { userId } = auth()
@@ -129,7 +129,7 @@ export const getStoreOrders = async () => {
 	const store = await StoreModel.findOne({ userId: userId })
 
 	if (!store) {
-		return
+		return []
 	}
 
 	const orders = await OrderModel.find({ store_id: store.id })
