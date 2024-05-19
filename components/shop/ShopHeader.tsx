@@ -35,7 +35,8 @@ const Header = () => {
           <ul className="flex space-x-4">
             <SignedOut>
               <li>
-                <SignInButton className="btn btn-secondary rounded-btn">
+             {/* @ts-ignore */}
+                <SignInButton className="btn btn-secondary rounded-btn">  
                   <div>
                     <svg
                       aria-hidden="true"

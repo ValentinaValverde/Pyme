@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { editStoreStory } from '@/utils/actions/storeActions'
+import { createOrUpdateStoreStory } from '@/utils/actions/storeActions'
 
 
 const EditStoreStoryForm = ({ story, myStore }: any) => {
@@ -9,7 +9,7 @@ const EditStoreStoryForm = ({ story, myStore }: any) => {
 	return (
 		<>
 			<div className='styled_form'>
-				<form action={editStoreStory}>
+				<form action={createOrUpdateStoreStory}>
 					<div className='space-y-12'>
 						<div className='border-b border-gray-900/10 pb-12'>
 							<h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -103,4 +103,4 @@ const EditStoreStoryForm = ({ story, myStore }: any) => {
 	)
 }
 
-export default EditStoreStoryForm
+export default createOrUpdateStoreStory

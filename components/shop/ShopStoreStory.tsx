@@ -8,7 +8,7 @@ export default function ShopStoreStory({
   storeSlug,
   storeName,
 }: {
-  story: StoreStory;
+  story: StoreStory | null;
   storeSlug: string;
   storeName: string;
 }) {
