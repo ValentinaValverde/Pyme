@@ -1,15 +1,16 @@
 import React from 'react'
-import CreateShippingAddressForm from '@/components/UpsertShippingAddressForm'
+import UpsertShippingAddressForm from '@/components/UpsertShippingAddressForm'
 import { getShippingAddress } from '@/utils/actions/userActions'
 
-const shippingAddress = getShippingAddress(false);
 
-const upsertShippingAddress = () => {
+
+const upsertShippingAddressPage = async() => {
+  const shippingAddress = await getShippingAddress(false);
   return (
     <div>
-      <CreateShippingAddressForm address={shippingAddress}/>
+      <UpsertShippingAddressForm address={shippingAddress}/>
     </div>
   )
 }
 
-export default upsertShippingAddress
+export default upsertShippingAddressPage
