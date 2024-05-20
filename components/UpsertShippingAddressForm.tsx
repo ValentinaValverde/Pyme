@@ -24,7 +24,7 @@ const initialState = {
   message: '',
 };
 
-const CreateShippingAddressForm = (address: any) => {
+const UpsertShippingAddressForm = (address: any) => {
   const [state, formAction] = useFormState(upsertShippingAddress, initialState);
   useEffect(() => {
     if (state.message !== '') {
@@ -50,7 +50,7 @@ const CreateShippingAddressForm = (address: any) => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     type="text"
                     name="streetAddress"
-                    value={address.streetAddress || ''}
+                    defaultValue={address.streetAddress}
                     required
                   />
                 </div>
@@ -63,7 +63,7 @@ const CreateShippingAddressForm = (address: any) => {
                     <input
                       type="text"
                       name="city"
-                      value={address.city || ''}
+                      defaultValue={address.city}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -77,7 +77,7 @@ const CreateShippingAddressForm = (address: any) => {
                     <input
                       type="text"
                       name="state"
-                      value={address.state || ''}
+                      defaultValue={address.state}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -91,7 +91,7 @@ const CreateShippingAddressForm = (address: any) => {
                     <input
                       type="text"
                       name="zipcode"
-                      value={address.zipcode || ''}
+                      defaultValue={address.zipcode}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -101,14 +101,6 @@ const CreateShippingAddressForm = (address: any) => {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link href={`/`}>
-              <button
-                type="button"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Cancel
-              </button>
-            </Link>
             <SubmitBtn />
           </div>
         </form>
@@ -117,4 +109,4 @@ const CreateShippingAddressForm = (address: any) => {
   )
 }
 
-export default CreateShippingAddressForm
+export default UpsertShippingAddressForm

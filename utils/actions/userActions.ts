@@ -120,20 +120,25 @@ export const getShippingAddress = async(getAddress: boolean) => {
 
   const shippingAddress = await ShippingAddressModel.findOne({ userId });
 
+  console.log('shippingAddress', shippingAddress);
+
   if (!shippingAddress && getAddress) {
-    redirect('/address/update');
+    redirect('/shop/address/update');
   }
 
 
-
+  if(shippingAddress){
+    return {
+      streetAddress: shippingAddress.streetAddress,
+      city: shippingAddress.city,
+      state: shippingAddress.state,
+      zipcode: shippingAddress.zipcode,
+    }
+  }
   return {
-    streetAddress: shippingAddress.streetAddress,
-    city: shippingAddress.city,
-    state: shippingAddress.state,
-    zipcode: shippingAddress.zipcode,
+    streetAddress: '',
+    city: '',
+    state: '',
+    zipcode: '',
   }
-
-  
-
-
 }

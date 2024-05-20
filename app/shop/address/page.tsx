@@ -2,9 +2,10 @@ import React from 'react'
 import { getShippingAddress } from '@/utils/actions/userActions'
 import ShippingAddress from '@/components/ShippingAddress'
 
-const address = getShippingAddress(true);
 
-const getAddressPage = () => {
+
+const getAddressPage = async() => {
+  const address = await getShippingAddress(true);
   return (
     <div>
       <ShippingAddress address={address}/>
