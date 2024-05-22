@@ -11,7 +11,7 @@ const Header = () => {
           <Link href="/" className="btn btn-accent text-lg">
             <span aria-hidden="true">Pyme</span>
           </Link>
-          <div className="flex items-center border-2 rounded-full py-2 px-3">
+          {/* <div className="flex items-center border-2 rounded-full py-2 px-3">
             <input
               aria-label="search"
               className="bg-transparent focus:outline-none mr-2"
@@ -31,12 +31,12 @@ const Header = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </div>
+          </div> */}
           <ul className="flex space-x-4">
             <SignedOut>
               <li>
-             {/* @ts-ignore */}
-                <SignInButton className="btn btn-secondary rounded-btn">  
+                {/* @ts-ignore */}
+                <SignInButton className="btn btn-secondary rounded-btn">
                   <div>
                     <svg
                       aria-hidden="true"
