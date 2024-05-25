@@ -42,10 +42,10 @@ const ShippingAddress = ({address}: any) => {
         </TableBody>
       </Table>
       <Box mt={2}></Box>
-      <Link href={`shop/orders`}>
+      <Link href={`/shop/orders`}>
         <button className="submit-button">Continue</button>
       </Link>
-      <Link href={`shop/address/update`}>
+      <Link href={`/shop/address/update`}>
         <button className="submit-button">Update Address</button>
       </Link>
     </TableContainer>
