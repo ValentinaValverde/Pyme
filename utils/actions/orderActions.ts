@@ -6,7 +6,7 @@ import CartModel from '@/lib/models/CartModel'
 import CartItemModel from '@/lib/models/CartItemModel'
 import OrderItemModel from '@/lib/models/OrderItemsModel'
 import StoreModel from '@/lib/models/StoreModel'
-import { getShopProduct } from './productActions'
+import { getShopProduct, checkInventory, adjustSoldInventory } from './productActions'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
@@ -32,6 +32,13 @@ export const createOrder = async () => {
 	let storeDic: any = {}
 
 	for (let item of cartItems) {
+    let currentInventory = await checkInventory(item.productId)
+    if (currentInventory === 0) {
+      return
+    }
+    if (currentInventory < item.quantity) {
+      item.quantity = currentInventory
+    }
 		let storeIdStr = item.store_id.toString()
 		if (!(storeIdStr in storeDic)) {
 			const order = await OrderModel.create({
@@ -54,7 +61,7 @@ export const createOrder = async () => {
 		await OrderModel.findByIdAndUpdate(orderId, {
 			$inc: { total_price: item.quantity * item.priceAtTime }
 		})
-		console.log('Order Item created', orderItem.id)
+    await adjustSoldInventory(item.productId, item.quantity)
 	}
 
 	await CartModel.findByIdAndUpdate(cart.id, { active: false })
