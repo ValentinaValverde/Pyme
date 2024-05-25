@@ -50,7 +50,7 @@ export default function ShopProductDetails({ product }: { product: Product }) {
             <CardContent>
               <div className="mb-2 flex justify-between">
                 <div>Price</div>
-                <div>${product.price.toFixed(2)}</div>
+                <div>${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
               </div>
               <div className="mb-2 flex justify-between">
                 <div>Status</div>
