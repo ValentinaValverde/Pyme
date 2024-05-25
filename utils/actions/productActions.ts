@@ -256,3 +256,43 @@ export const updateInventory = async (formData: any) => {
 
 	revalidatePath(`/mystore/${myStore}/products`)
 }
+
+export const checkInventory = async (productId: any) => {
+  await dbConnect()
+
+  const product = await ProductModel.findById({ _id: productId })
+
+  if (!product) {
+    throw new Error('Product not found')
+  }
+
+  return product.inInv
+}
+
+export const adjustSoldInventory = async (productId: any, quantity: any) => {
+  await dbConnect()
+
+  const product = await ProductModel.findById({ _id: productId })
+
+  if (!product) {
+    throw new Error('Product not found')
+  }
+
+  const newInventory = product.inInv - quantity
+
+  try {
+    const updatedProduct = await ProductModel.findOneAndUpdate(
+      { _id: productId },
+      {
+        inInv: newInventory
+      }
+    )
+    if (!updatedProduct) {
+      throw new Error('Product not found')
+    }
+  } catch (error: any) {
+    console.error('Error updating Product Inventory:', error.message)
+  }
+}
+
+
