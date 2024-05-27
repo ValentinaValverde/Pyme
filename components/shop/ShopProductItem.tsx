@@ -58,6 +58,7 @@ export default function ShopProductItem({
         >
           <Typography variant="h6">${product.price.toFixed(2)}</Typography>
         </div>
+        {product.inInv > 0 ? (
         <Button
           variant="contained"
           color="primary"
@@ -71,6 +72,21 @@ export default function ShopProductItem({
         >
           Add to Cart
         </Button>
+        ) : (
+          <Button
+            disabled
+            variant="contained"
+            color="error"
+            fullWidth
+            style={{
+              borderRadius: '20px',
+              backgroundColor: 'oklch(76.172% 0.089459 0 /1)',
+              color: 'black',
+            }}
+          >
+            Out of Stock
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
