@@ -10,11 +10,15 @@ import {
   Paper,
   Box,
 } from '@mui/material';
+import OrderStatDropDown from './OrderStatDropDown';
+
 
 const StoreOrders = ({ orders }: { orders: any[] }) => {
+
   if (orders.length === 0) {
     return <h2>No Orders Yet</h2>;
   }
+
   return (
     <div>
       {orders.map((order: any, index: number) => (
@@ -30,6 +34,7 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                   <TableCell style={{ fontWeight: 'bold' }}>Product</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>Image</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                  <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>
                     Price Per Item
                   </TableCell>
@@ -58,6 +63,12 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                           />
                         </TableCell>
                         <TableCell>{item.quantity}</TableCell>
+                        <TableCell>
+                          <OrderStatDropDown
+                            item={item.item_id}
+                            status={item.status}
+                          />
+                        </TableCell>
                         <TableCell>${item.price.toFixed(2)}</TableCell>
                       </TableRow>
                     ))}
