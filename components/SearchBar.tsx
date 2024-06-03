@@ -104,7 +104,7 @@ const SearchBar = () => {
         className="searchInput"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search by State..."
+        placeholder="Search by Store State..."
       />
       {filteredStates.length > 0 && (
         <ul className="dropdown">{filteredStates.map(renderDropdownItem)}</ul>
