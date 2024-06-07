@@ -7,8 +7,7 @@ import { Product, ProductModel } from '@/lib/models/ProductModel';
 import { StoreStory } from '@/lib/models/StoreStoryModel';
 import { StoreStoryModel } from '@/lib/models/StoreStoryModel';
 import exp from 'constants';
-
-import StoreAddressSchema from '@/lib/models/StoreAddress';
+import StoreAddressModel from '@/lib/models/StoreAddress';
 
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
   await dbConnect();
@@ -101,21 +100,36 @@ export const getDisplayAllStores = async () => {
   return stores;
 };
 
-// getStoreByState
-// pass in state to function
-// find address model
-// storeIDs
-
-// store = await getStoreAddress or something
-// every store that has that state is now in variable store
-// get storeID from those stores
-
-export const getStoreByState = async () => {
+export const getStoresByState = async (state: string) => {
   await dbConnect();
 
-  // const store = await StoreAddressSchema.find({
-  //   storeState: state,
-  // });
+  // Get all store addresses in the state
+  const storesAddress = await StoreAddressModel.find({ state: state });
 
-  console.log('STORE ADDRESS SCHEMA: ', StoreAddressSchema);
+  // filter all stores by the storeId
+  const stories = await StoreStoryModel.find({
+    storeId: { $in: storesAddress.map((store) => store.storeId) },
+  });
+
+  // filter all stores by the id
+  const stores = await StoreModel.find({
+    id: { $in: stories.map((story) => story.storeId) },
+  });
+
+  let displayStoreData = [];
+
+  stores.forEach((store) => {
+    const storeAddress = storesAddress.find(
+      (address) => address.storeId === store.id
+    );
+    const storeStory = stories.find((story) => story.storeId === store.id);
+    displayStoreData.push({
+      storeName: store.storename,
+      storeImg: storeStory?.storeImage,
+      storeOwner: store.ownername,
+      slug: store.slug,
+    });
+
+    return displayStoreData;
+  });
 };

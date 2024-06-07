@@ -97,6 +97,8 @@ export const getOrder = async (orderId: any) => {
 				productName: product.productName,
 				productSlug: product.productSlug,
 				store_id: product.productStoreId,
+        item_id: item.id,
+        status: item.status,
 				quantity: item.quantity,
 				price: item.price_at_time,
 				productImage: product.productImage
@@ -149,4 +151,22 @@ export const getStoreOrders = async (): Promise<any[]> => {
 	)
 
 	return orderList || []
+}
+
+
+export const updateOrderStatus = async (item: any, status: any) => {
+  await dbConnect()
+
+  const { userId } = auth()
+
+  try {
+
+    const orderItem = await OrderItemModel.findByIdAndUpdate({_id: item}, { status: status }, { new: true })
+
+    return orderItem.status
+  }
+  catch (e) {
+    console.log(e)
+    return
+  }
 }
