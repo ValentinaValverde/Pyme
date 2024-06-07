@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
+import { getDisplayAllStores } from '@/utils/actions/shopActions';
 
 interface State {
   value: string;
@@ -63,6 +64,8 @@ const STATES: State[] = [
 ];
 
 const SearchBar = () => {
+  const test = await getDisplayAllStores();
+
   const [query, setQuery] = useState('');
   const [filteredStates, setFilteredStates] = useState<State[]>([]);
 
