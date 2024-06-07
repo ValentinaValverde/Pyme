@@ -1,4 +1,4 @@
-import Header from '@/components/shop/ShopHeader';
+import NavBar from '@/components/shop/NavBar';
 import Hero from '../components/Hero';
 import BusinessSection from '@/components/BusinessCardSection';
 import Featured from '@/components/featured-carousel/Carousel';
@@ -18,15 +18,16 @@ export default async function Home() {
 
   return (
     <main className="">
-      <Header />
-      <Hero />
+      <NavBar />
+
+      {/* <Hero />
       <p style={{ marginTop: '20px', fontSize: '15px', fontWeight: 'normal', textAlign: 'center' }}>Scroll down the page to see a complete list of hosted businesses.</p>
       <Featured
         slides={SLIDES}
         options={OPTIONS}
         featuredStores={featuredStores}
       />
-      <BusinessSection stores={businesses} />
+      <BusinessSection stores={businesses} /> */}
     </main>
   );
 }
