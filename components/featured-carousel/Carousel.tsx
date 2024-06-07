@@ -44,11 +44,7 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
         <div className="embla__container">
           {featuredStores.map((store: any, index: number) => (
             <div className="embla__slide" key={index}>
-              <Link
-                href={`/shop/${store.storeSlug}`}
-                key={store.storeName}
-                className="carousel_slide"
-              >
+              <div className="carousel_slide">
                 <div className="img_container">
                   <img
                     src={store.storeImg}
@@ -58,9 +54,12 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
                 </div>
                 <div className="info_container">
                   <h2>{store.storeName}</h2>
-                  <p>{store.storeStory}</p>
+                  <p className="truncated_text">{store.storeStory}</p>
+                  <Link href={`/shop/${store.storeSlug}`} key={store.storeName}>
+                    <button className="unfilled_button">Visit Store</button>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
