@@ -8,6 +8,8 @@ import { StoreStory } from '@/lib/models/StoreStoryModel';
 import { StoreStoryModel } from '@/lib/models/StoreStoryModel';
 import exp from 'constants';
 
+import StoreAddressSchema from '@/lib/models/StoreAddress';
+
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
   await dbConnect();
 
@@ -97,4 +99,23 @@ export const getDisplayAllStores = async () => {
   );
 
   return stores;
+};
+
+// getStoreByState
+// pass in state to function
+// find address model
+// storeIDs
+
+// store = await getStoreAddress or something
+// every store that has that state is now in variable store
+// get storeID from those stores
+
+export const getStoreByState = async () => {
+  await dbConnect();
+
+  // const store = await StoreAddressSchema.find({
+  //   storeState: state,
+  // });
+
+  console.log('STORE ADDRESS SCHEMA: ', StoreAddressSchema);
 };

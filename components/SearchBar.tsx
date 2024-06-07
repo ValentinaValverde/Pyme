@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
+import Link from 'next/link';
 
 interface State {
   value: string;
@@ -65,7 +66,6 @@ const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [filteredStates, setFilteredStates] = useState<State[]>([]);
 
-  // Pre-calculate Fuse instance for efficiency
   const fuse = new Fuse(STATES, { keys: ['label'] });
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const SearchBar = () => {
         const results = fuse.search(query);
         setFilteredStates(results.map((result) => result.item));
       } else {
-        setFilteredStates([]); // Clear results when query is empty
+        setFilteredStates([]);
       }
     };
 
@@ -82,19 +82,21 @@ const SearchBar = () => {
   }, [query]);
 
   const handleSelectState = (state: State) => {
-    // Handle selection logic here (e.g., call a function, update state)
     console.log('Selected State:', state);
-    setQuery(''); // Clear search bar after selection
+    setQuery('');
   };
 
   const renderDropdownItem = (state: State) => (
-    <li
-      key={state.value}
-      className="dropdownItem"
-      onClick={() => handleSelectState(state)}
-    >
-      {state.label}
-    </li>
+    // this link is to the state
+    <Link href={`/shop/${state}`}>
+      <li
+        key={state.value}
+        className="dropdownItem"
+        onClick={() => handleSelectState(state)}
+      >
+        {state.label}
+      </li>
+    </Link>
   );
 
   return (
