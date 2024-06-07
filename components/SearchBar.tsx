@@ -64,7 +64,7 @@ const STATES: State[] = [
 ];
 
 const SearchBar = () => {
-  const test = await getDisplayAllStores();
+  // const test = await getDisplayAllStores();
 
   const [query, setQuery] = useState('');
   const [filteredStates, setFilteredStates] = useState<State[]>([]);
@@ -91,15 +91,15 @@ const SearchBar = () => {
 
   const renderDropdownItem = (state: State) => (
     // this link is to the state
-    <Link href={`/shop/${state}`}>
-      <li
-        key={state.value}
-        className="dropdownItem"
-        onClick={() => handleSelectState(state)}
-      >
-        {state.label}
-      </li>
-    </Link>
+    // <Link href={`/shop/${state}`}>
+    <li
+      key={state.value}
+      className="dropdownItem"
+      onClick={() => handleSelectState(state)}
+    >
+      {state.label}
+    </li>
+    //  </Link>
   );
 
   return (
