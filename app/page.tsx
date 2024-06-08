@@ -26,7 +26,7 @@ export default async function Home() {
         options={OPTIONS}
         featuredStores={featuredStores}
       />
-      {/*<BusinessSection stores={businesses} /> */}
+      <BusinessSection stores={businesses} />
     </main>
   );
 }
