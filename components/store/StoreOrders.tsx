@@ -11,9 +11,10 @@ import {
   Box,
 } from '@mui/material';
 import OrderStatDropDown from './OrderStatDropDown';
+import Link from 'next/link';
 
 
-const StoreOrders = ({ orders }: { orders: any[] }) => {
+const StoreOrders = ({ orders, myStore }: { orders: any[], myStore: any }) => {
 
   if (orders.length === 0) {
     return <h2>No Orders Yet</h2>;
@@ -77,6 +78,13 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                         Total Price
                       </TableCell>
                       <TableCell>${order.totalPrice.toFixed(2)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={4} style={{ fontWeight: 'bold' }}>
+                        <Link href={`/mystore/${myStore}/orders/${order.id}`}>
+                          <button className="submit-button">Shipping Address</button>
+                        </Link>
+                      </TableCell>
                     </TableRow>
                     <Divider />
                   </React.Fragment>
