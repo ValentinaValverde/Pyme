@@ -6,6 +6,7 @@ import CartModel from '@/lib/models/CartModel'
 import CartItemModel from '@/lib/models/CartItemModel'
 import OrderItemModel from '@/lib/models/OrderItemsModel'
 import StoreModel from '@/lib/models/StoreModel'
+import ShippingAddressModel from '@/lib/models/ShippingAddress'
 import { getShopProduct, checkInventory, adjustSoldInventory } from './productActions'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
@@ -81,12 +82,7 @@ export const getOrder = async (orderId: any) => {
 		return
 	}
 
-	// if (userId != order.user_id) {
-	// 	const store = await StoreModel.findOne({ userId: userId })
-	// 	if (userId != store.userId) {
-	// 		return
-	// 	}
-	// }
+  const store = await StoreModel.findOne({ userId: userId })
 
 	const orderItems = await OrderItemModel.find({ order_id: order.id })
 
@@ -168,5 +164,28 @@ export const updateOrderStatus = async (item: any, status: any) => {
   catch (e) {
     console.log(e)
     return
+  }
+}
+
+export const getOrderAddress = async (orderId: any) => {
+  await dbConnect()
+
+  const order = await OrderModel.findById(orderId)
+
+  if (!order) {
+    return
+  }
+
+  const address = await ShippingAddressModel.findOne({ userId: order.user_id })
+
+  if (!address) {
+    return
+  }
+
+  return {
+    streetAddress: address.streetAddress,
+    city: address.city,
+    state: address.state,
+    zipcode: address.zipcode
   }
 }

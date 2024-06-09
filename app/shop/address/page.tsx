@@ -8,7 +8,7 @@ const getAddressPage = async() => {
   const address = await getShippingAddress(true);
   return (
     <div>
-      <ShippingAddress address={address}/>
+      <ShippingAddress address={address} shop={false}/>
     </div>
   )
 }
