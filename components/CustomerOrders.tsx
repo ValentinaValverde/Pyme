@@ -28,6 +28,7 @@ const CustomerOrders = ({ orders }: { orders: any[] }) => {
               <TableCell style={{ fontWeight: 'bold' }}>
                 Price Per Item
               </TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody></TableBody>
@@ -41,7 +42,7 @@ const CustomerOrders = ({ orders }: { orders: any[] }) => {
             <TableBody>
               <React.Fragment key={order.id}>
                 <TableRow>
-                  <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
+                  <TableCell colSpan={6} style={{ fontWeight: 'bold' }}>
                     Order #: {order.id}
                   </TableCell>
                 </TableRow>
@@ -61,6 +62,7 @@ const CustomerOrders = ({ orders }: { orders: any[] }) => {
                     </TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>${item.price.toFixed(2)}</TableCell>
+                    <TableCell>{item.status}</TableCell>
                   </TableRow>
                 ))}
                 <TableRow>
