@@ -248,6 +248,25 @@
   }
 }
 
+.allstores_header {
+  /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 50px;
+
+  .image {
+    width: 200px;
+    height: 200px;
+  }
+
+  p {
+    font-size: 25px;
+  }
+}
+
 .searchContainer {
   /* background-color: black; */
   width: 100%;

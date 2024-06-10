@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Bag from '../public/images/bags/file.png';
 
 export default function Hero() {
@@ -9,7 +10,9 @@ export default function Hero() {
           <h1 className="title">Pyme</h1>
           <p className="subtitle">The Marketplace for Small Businesses</p>
           <br />
-          <button className="unfilled_button">Browse Now</button>
+          <button className="unfilled_button">
+            <Link href="/shop">Browse Now</Link>
+          </button>
         </div>
         <div className="content">
           <Image src={Bag} alt="bag" className="image" />
