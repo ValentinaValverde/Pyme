@@ -56,7 +56,7 @@ export default function ShopProductItem({
             alignItems: 'center',
           }}
         >
-          <Typography variant="h6">${product.price.toFixed(2)}</Typography>
+          <Typography variant="h6">${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Typography>
         </div>
         {product.inInv > 0 ? (
         <Button

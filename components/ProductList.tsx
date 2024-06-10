@@ -42,7 +42,7 @@ const ProductList = async ({ myStore }: any) => {
             <TableRow key={product.id}>
               <TableCell>{product.productName}</TableCell>
               <TableCell>{product.productDetails}</TableCell>
-              <TableCell>{product.price}</TableCell>
+              <TableCell>${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>
               <TableCell>{product.inInv}</TableCell>
               <TableCell>
                 {product.productImage && (
