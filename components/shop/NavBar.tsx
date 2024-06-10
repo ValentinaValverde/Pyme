@@ -10,7 +10,7 @@ const NavBar = () => {
       </div>
       <div className="link_container">
         <Link href="/search">Search</Link>
-        <Link href="">Cart</Link>
+        <Link href="/cart">Cart</Link>
 
         <SignedOut>
           {/* @ts-ignore */}
