@@ -1,7 +1,8 @@
 import NavBar from '@/components/shop/NavBar';
 import Hero from '../components/Hero';
-import BusinessSection from '@/components/BusinessCardSection';
 import Featured from '@/components/featured-carousel/Carousel';
+import BusinessSection from '@/components/BusinessCardSection';
+import Footer from '@/components/shop/Footer';
 import { EmblaOptionsType } from 'embla-carousel';
 
 import { getDisplayAllStores } from '@/utils/actions/shopActions';
@@ -27,6 +28,7 @@ export default async function Home() {
         featuredStores={featuredStores}
       />
       <BusinessSection stores={businesses} />
+      <Footer />
     </main>
   );
 }
