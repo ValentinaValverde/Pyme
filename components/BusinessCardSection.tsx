@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 export default function BusinessSection({ stores }: any) {
-  console.log('STORES:', stores[0]);
 
   return (
     <>
