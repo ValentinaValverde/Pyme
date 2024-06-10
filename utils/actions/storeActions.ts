@@ -141,10 +141,7 @@ export const createStoreAddress = async (prevState: any, formData: any) => {
 			.min(1, 'Pleae review city')
 			.max(25, 'Please review city'),
 		state: z
-			.string()
-			.trim()
-			.min(4, 'Please review state')
-			.max(13, 'Please review state'),
+			.string(),
 		zipcode: z
 			.string()
 			.trim()
