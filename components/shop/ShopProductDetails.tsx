@@ -59,6 +59,7 @@ export default function ShopProductDetails({ product }: { product: Product }) {
               {product.inInv > 0 && (
                 <div className="card-actions justify-center">
                   <Button
+                    aria-label="Add to Cart"
                     variant="contained"
                     color="primary"
                     fullWidth
