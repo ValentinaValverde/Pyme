@@ -16,7 +16,9 @@ export default function FrontLayout({
       <Box sx={{ display: 'flex' }}>
         <NavBar />
         {/* took this out: sx={{ flexGrow: 1, p: 3, mt: 7 }} */}
-        <Box component={'main'}>{children}</Box>
+        <Box component={'main'} sx={{ marginTop: '75px', padding: '10px' }}>
+          {children}
+        </Box>
       </Box>
       <Footer />
     </>
