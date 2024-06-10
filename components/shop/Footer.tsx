@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import Bag from '../../public/images/bags/FourSquares.png';
+import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import Bag from '../../public/images/bags/DarkFourSquares.png';
 import Image from 'next/image';
 
 const Footer = () => {

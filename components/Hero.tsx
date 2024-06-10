@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Bag from '../public/images/bags/file.png';
+import Bag from '../public/images/bags/Welcome.png';
 
 export default function Hero() {
   return (

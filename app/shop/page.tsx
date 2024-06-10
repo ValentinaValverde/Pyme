@@ -1,7 +1,7 @@
 import React from 'react';
 import BusinessSection from '@/components/BusinessCardSection';
 import { getDisplayAllStores } from '@/utils/actions/shopActions';
-import Bag from '../../public/images/bags/Welcome.png';
+import Bag from '../../public/images/bags/SquareHeart.png';
 import Image from 'next/image';
 
 export default async function Home() {
