@@ -5,6 +5,8 @@ import Fuse from 'fuse.js';
 import Link from 'next/link';
 import { getDisplayAllStores } from '@/utils/actions/shopActions';
 import { useState, useEffect } from 'react';
+import { getStoresByState } from '@/utils/actions/shopActions';
+import BusinessSection from '@/components/BusinessCardSection';
 
 interface State {
   value: string;
@@ -67,6 +69,7 @@ const STATES: State[] = [
 export default function SearchPage() {
   const [query, setQuery] = useState('');
   const [filteredStates, setFilteredStates] = useState<State[]>([]);
+  const [businessByState, setBusinessByState] = useState([]);
 
   const fuse = new Fuse(STATES, { keys: ['label'] });
 
@@ -83,14 +86,17 @@ export default function SearchPage() {
     handleSearch();
   }, [query]);
 
-  const handleSelectState = (state: State) => {
+  async function handleSelectState(state: State) {
     console.log('Selected State:', state);
     setQuery('');
-  };
+
+    // HERE is where businesses get delclared
+    const businesses = await getStoresByState(state.label);
+    setBusinessByState(businesses);
+    console.log('BUSINESSES: ', businesses);
+  }
 
   const renderDropdownItem = (state: State) => (
-    // this link is to the state
-    // <Link href={`/shop/${state}`}>
     <li
       key={state.value}
       className="dropdownItem"
@@ -98,7 +104,6 @@ export default function SearchPage() {
     >
       {state.label}
     </li>
-    //  </Link>
   );
 
   return (
@@ -114,6 +119,11 @@ export default function SearchPage() {
         {filteredStates.length > 0 && (
           <ul className="dropdown">{filteredStates.map(renderDropdownItem)}</ul>
         )}
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <p>here is where stores should populate:</p>
+        {/* HERE is where business are getting called */}
+        <BusinessSection stores={businessByState} />
       </div>
     </>
   );

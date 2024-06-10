@@ -2,12 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function BusinessSection({ stores }: any) {
-  console.log('STORES:', stores[0]);
+  // console.log('STORES:', stores[0]);
 
   return (
     <>
       <div className="businesscard_container">
-        {stores.map((store: any) => (
+        {stores?.map((store: any) => (
           <div className="business_card" key={store.storeName}>
             <Link href={`/shop/${store.slug}`}>
               <img src={store.storeImg} alt="Store Image" />
