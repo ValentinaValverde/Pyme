@@ -26,7 +26,7 @@ const ProductList = async ({ myStore }: any) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table aria-label="Product list table">
         <TableHead>
           <TableRow>
             <TableCell style={{ fontWeight: 'bold' }}>Name</TableCell>
@@ -53,12 +53,14 @@ const ProductList = async ({ myStore }: any) => {
                     className="max-w-xs max-h-24"
                     width={100}
                     height={100}
+                    aria-describedby={`product-image-${product.id}`}
                   />
                 )}
               </TableCell>
               <TableCell>
                 <Link
                   href={`/mystore/${myStore}/products/${product.productSlug}`}
+                  passHref
                 >
                   <Tooltip title="Edit Product">
                     {/* <Button variant="contained"> */}

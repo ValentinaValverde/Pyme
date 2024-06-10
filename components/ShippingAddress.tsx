@@ -25,9 +25,9 @@ const ShippingAddress = ({address, shop}: {address: any, shop: boolean}) => {
 
 
   return (
-    <TableContainer component={Box}>
-      <Typography variant="h3">Shipping Address</Typography>
-      <Table>
+    <TableContainer component={Box} aria-labelledby="shipping-address-heading">
+      <Typography variant="h3" id="shipping-address-heading">Shipping Address</Typography>
+      <Table aria-label="Shipping address table">
         <TableBody>
           <TableRow>
             <TableCell>Street Address:</TableCell>
@@ -50,11 +50,11 @@ const ShippingAddress = ({address, shop}: {address: any, shop: boolean}) => {
       <Box mt={2}></Box>
       {!shop && (
         <>
-          <Link href={`/shop/orders`}>
-            <button className="submit-button">Continue</button>
+          <Link href={`/shop/orders`} passHref>
+            <button className="submit-button" aria-label="Continue to orders">Continue</button>
           </Link>
-          <Link href={`/shop/address/update`}>
-            <button className="submit-button">Update Address</button>
+          <Link href={`/shop/address/update`} passHref>
+            <button className="submit-button" aria-label="Update address">Update Address</button>
           </Link>
         </>
         )}

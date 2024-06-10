@@ -8,10 +8,10 @@ const Header = () => {
     <header data-theme="cupcake">
       <nav aria-label="Main navigation" className="justify-between bg-base-300" style={{ boxShadow: 'none' }}>
         <div className="bg-white navbar">
-          <Link href="/" className="btn btn-accent text-lg">
+          <Link href="/" className="btn btn-accent text-lg" aria-label="Go to home page">
             <span aria-hidden="true">Pyme</span>
           </Link>
-          <div className="flex items-center border-2 rounded-full py-2 px-3">
+          <div className="flex items-center border-2 rounded-full py-2 px-3" role="search">
             <input
               aria-label="search"
               className="bg-transparent focus:outline-none mr-2"

@@ -32,6 +32,8 @@ export default function ShopProductItem({
         display: 'flex',
         flexDirection: 'column',
       }}
+      aria-labelledby={`product-title-${product.productSlug}`}
+      aria-describedby={`product-description-${product.productSlug}`}
     >
       <Link href={`${storeSlug}/product/${product.productSlug}`}>
         <CardMedia
@@ -42,9 +44,9 @@ export default function ShopProductItem({
         />
       </Link>
       <CardContent style={{ marginTop: 'auto' }}>
-        <Link href={`${storeSlug}/product/${product.productSlug}`}>
+        <Link href={`${storeSlug}/product/${product.productSlug}`} passHref>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" id={`product-title-${product.productSlug}`}>
               {product.productName}
             </Typography>
           </div>
@@ -69,6 +71,7 @@ export default function ShopProductItem({
             backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
             color: 'black',
           }}
+          aria-label={`Add ${product.productName} to cart`}
         >
           Add to Cart
         </Button>
@@ -78,6 +81,7 @@ export default function ShopProductItem({
             variant="contained"
             color="error"
             fullWidth
+            aria-label={`${product.productName} is out of stock`}
             style={{
               borderRadius: '20px',
               backgroundColor: 'oklch(76.172% 0.089459 0 /1)',
