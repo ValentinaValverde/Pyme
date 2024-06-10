@@ -85,7 +85,7 @@ export function Cart({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <TableContainer component={Paper}>
-          <Table aria-label="simple table">
+          <Table aria-label="Shopping Cart">
             <TableHead>
               <TableRow>
                 <TableCell style={{ fontWeight: 'bold' }}>Item</TableCell>
@@ -118,10 +118,12 @@ export function Cart({
                       slug={product.productSlug}
                       quantity={product.quantity}
                       editQuantity={_editCartItemQuantity}
+                      aria-label="Quantity dropdown"
                     />
                     <Tooltip title="Delete">
                       <Button
                         onClick={() => _deleteCartItem(product.productSlug)}
+                        aria-label={`Delete ${product.productSlug}`}
                       >
                         <DeleteIcon />
                       </Button>
@@ -166,6 +168,7 @@ export function Cart({
                 borderRadius: '20px',
                 color: 'black',
               }}
+              aria-label='Submit Payment'
             >
               Submit Payment
             </Button>
