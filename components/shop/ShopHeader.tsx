@@ -6,7 +6,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 const Header = () => {
   return (
     <header data-theme="cupcake">
-      <nav aria-label="Main navigation" className="justify-between bg-base-300">
+      <nav aria-label="Main navigation" className="justify-between bg-base-300" style={{ boxShadow: 'none' }}>
         <div className="bg-white navbar">
           <Link href="/" className="btn btn-accent text-lg">
             <span aria-hidden="true">Pyme</span>

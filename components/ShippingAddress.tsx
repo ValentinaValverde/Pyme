@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import Link from 'next/link';
 import {
   Button,
@@ -10,13 +12,17 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 
 
 
-
-const ShippingAddress = ({address}: any) => {
+const ShippingAddress = ({address, shop}: {address: any, shop: boolean}) => {
   const { streetAddress, city, state, zipcode } = address;
+  const router = useRouter();
+
+  
+
 
   return (
     <TableContainer component={Box}>
@@ -42,12 +48,19 @@ const ShippingAddress = ({address}: any) => {
         </TableBody>
       </Table>
       <Box mt={2}></Box>
-      <Link href={`/shop/orders`}>
-        <button className="submit-button">Continue</button>
-      </Link>
-      <Link href={`/shop/address/update`}>
-        <button className="submit-button">Update Address</button>
-      </Link>
+      {!shop && (
+        <>
+          <Link href={`/shop/orders`}>
+            <button className="submit-button">Continue</button>
+          </Link>
+          <Link href={`/shop/address/update`}>
+            <button className="submit-button">Update Address</button>
+          </Link>
+        </>
+        )}
+      {shop && (
+        <button className="submit-button" onClick={() => router.back()}>Back</button>
+      )}
     </TableContainer>
   )
 }

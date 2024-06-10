@@ -10,11 +10,16 @@ import {
   Paper,
   Box,
 } from '@mui/material';
+import OrderStatDropDown from './OrderStatDropDown';
+import Link from 'next/link';
 
-const StoreOrders = ({ orders }: { orders: any[] }) => {
+
+const StoreOrders = ({ orders, myStore }: { orders: any[], myStore: any }) => {
+
   if (orders.length === 0) {
     return <h2>No Orders Yet</h2>;
   }
+
   return (
     <div>
       {orders.map((order: any, index: number) => (
@@ -30,6 +35,7 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                   <TableCell style={{ fontWeight: 'bold' }}>Product</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>Image</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                  <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }}>
                     Price Per Item
                   </TableCell>
@@ -39,7 +45,7 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                 {orders.map((order: any) => (
                   <React.Fragment key={order.id}>
                     <TableRow>
-                      <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
+                      <TableCell colSpan={6} style={{ fontWeight: 'bold' }}>
                         Order #: {order.id}
                       </TableCell>
                     </TableRow>
@@ -58,14 +64,27 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                           />
                         </TableCell>
                         <TableCell>{item.quantity}</TableCell>
+                        <TableCell>
+                          <OrderStatDropDown
+                            item={item.item_id}
+                            status={item.status}
+                          />
+                        </TableCell>
                         <TableCell>${item.price.toFixed(2)}</TableCell>
                       </TableRow>
                     ))}
                     <TableRow>
-                      <TableCell colSpan={4} style={{ fontWeight: 'bold' }}>
+                      <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
                         Total Price
                       </TableCell>
                       <TableCell>${order.totalPrice.toFixed(2)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={6} style={{ fontWeight: 'bold' }}>
+                        <Link href={`/mystore/${myStore}/orders/${order.id}`}>
+                          <button className="submit-button">Shipping Address</button>
+                        </Link>
+                      </TableCell>
                     </TableRow>
                     <Divider />
                   </React.Fragment>
