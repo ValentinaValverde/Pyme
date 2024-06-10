@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
   Divider,
@@ -12,13 +13,18 @@ import {
 } from '@mui/material';
 import OrderStatDropDown from './OrderStatDropDown';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
 const StoreOrders = ({ orders, myStore }: { orders: any[], myStore: any }) => {
 
+  const router = useRouter();
+
   if (orders.length === 0) {
     return <h2>No Orders Yet</h2>;
   }
+
+  
 
   return (
     <div>
@@ -100,6 +106,8 @@ const StoreOrders = ({ orders, myStore }: { orders: any[], myStore: any }) => {
               marginBottom: '20px',
             }}
           />
+            <button className="submit-button" onClick={() => router.back()}>Back</button>
+
         </Box>
       ))}
     </div>
