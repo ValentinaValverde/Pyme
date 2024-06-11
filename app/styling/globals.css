@@ -233,10 +233,17 @@
     object-fit: cover;
     border-radius: 20px;
     margin-bottom: 10px;
+    transition: 0.3s;
   }
 
   .subtitle {
     font-size: 12px;
+  }
+}
+
+.business_card:hover {
+  img {
+    border-radius: 5px;
   }
 }
 
@@ -451,6 +458,122 @@
     .product_info_container {
       width: 100%;
     }
+  }
+}
+.empty_cart {
+  width: 500px;
+  max-width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    margin-bottom: 20px;
+  }
+}
+
+.cart_container {
+  width: 800px;
+  max-width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  /* background-color: gray; */
+}
+
+.table_container {
+  width: 500px;
+  max-width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: solid 2px #d9d9d9;
+  border-radius: 20px;
+  overflow: scroll;
+}
+
+.cart_item_row {
+  height: 150px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: solid 2px #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .container {
+    height: 100%;
+  }
+
+  .wide {
+    width: 80%;
+    display: flex;
+
+    .image {
+      height: 100%;
+      width: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .product_info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .cart_dropdown {
+      border-radius: 20px;
+      background-color: #d9d9d9;
+    }
+  }
+
+  .short {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.pricebag_container {
+  height: 100%;
+  /* width: 30%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .subtotal {
+    background-color: #d9d9d9;
+    color: #2b2b2b;
+    width: 200px;
+    height: 150px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .bag {
+    width: 150px;
+    height: 150px;
   }
 }
 

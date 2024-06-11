@@ -20,7 +20,7 @@ export default async function ProductDetails({
       <ShopProductDetails product={product} />
       <div style={{ height: 100 }} />
       {/* ISSUE: Linking is weird */}
-      {/* <StoreProductList storeSlug={params.shopSlug} products={products} /> */}
+      <StoreProductList storeSlug={params.shopSlug} products={products} />
     </>
   );
 }
