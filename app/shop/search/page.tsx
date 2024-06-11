@@ -7,17 +7,18 @@ import { getDisplayAllStores } from '@/utils/actions/shopActions';
 import { useState, useEffect } from 'react';
 import { getStoresByState } from '@/utils/actions/shopActions';
 import BusinessSection from '@/components/BusinessCardSection';
-
-interface State {
-  value: string;
-  label: string;
-}
+// import STATES from "../../../lib/models/States"
 
 interface StoreData {
   storeName: string;
   storeImg: string | undefined;
   storeOwner: string;
   slug: string;
+}
+
+interface State {
+  value: string;
+  label: string;
 }
 
 const STATES: State[] = [
