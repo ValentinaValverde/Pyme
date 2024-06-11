@@ -11,7 +11,7 @@ export default function StoreProductList({
 }) {
   return (
     <>
-      <h2>Our Products</h2>
+      <h2 className="products_title">Products</h2>
       <div className="product_container">
         {products.map((product) => (
           <ProductItem
