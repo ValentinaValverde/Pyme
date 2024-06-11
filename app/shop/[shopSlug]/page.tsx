@@ -1,5 +1,5 @@
+import ShopHeader from '@/components/shop/ShopHeader';
 import StoreProductList from '@/components/shop/ShopProductList';
-import ShopStoreStory from '@/components/shop/ShopStoreStory';
 import {
   getStoreProducts,
   getStoreStory,
@@ -15,9 +15,10 @@ export default async function Home({
   let products = await getStoreProducts(params.shopSlug);
   let story = await getStoreStory(params.shopSlug);
   let storeName = await getStoreName(params.shopSlug);
+
   return (
     <>
-      <ShopStoreStory
+      <ShopHeader
         story={story}
         storeSlug={params.shopSlug}
         storeName={storeName}
