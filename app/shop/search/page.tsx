@@ -13,6 +13,13 @@ interface State {
   label: string;
 }
 
+interface StoreData {
+  storeName: string;
+  storeImg: string | undefined;
+  storeOwner: string;
+  slug: string;
+}
+
 const STATES: State[] = [
   { value: 'AL', label: 'Alabama' },
   { value: 'AK', label: 'Alaska' },
@@ -69,7 +76,7 @@ const STATES: State[] = [
 export default function SearchPage() {
   const [query, setQuery] = useState('');
   const [filteredStates, setFilteredStates] = useState<State[]>([]);
-  const [businessByState, setBusinessByState] = useState([]);
+  const [businessByState, setBusinessByState] = useState<StoreData[]>([]);
 
   const fuse = new Fuse(STATES, { keys: ['label'] });
 

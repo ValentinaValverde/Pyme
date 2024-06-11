@@ -9,6 +9,7 @@ import { CardMedia } from '@mui/material';
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 export default function ShopProductItem({
   product,
@@ -24,41 +25,42 @@ export default function ShopProductItem({
     });
   };
   return (
-    <Card
-      style={{
-        backgroundColor: 'white',
-        borderRadius: '15px',
-        marginBottom: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Link href={`${storeSlug}/product/${product.productSlug}`}>
+    <>
+      {/* // <Card
+    //   style={{
+    //     backgroundColor: 'white',
+    //     borderRadius: '15px',
+    //     marginBottom: '16px',
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //   }}
+    // > */}
+      {/* <Link href={`${storeSlug}/product/${product.productSlug}`}>
         <CardMedia
           component="img"
           style={{ height: '300px', width: '100%', objectFit: 'cover' }}
           image={product.productImage}
           alt={product.productName}
         />
-      </Link>
-      <CardContent style={{ marginTop: 'auto' }}>
-        <Link href={`${storeSlug}/product/${product.productSlug}`}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5" component="div">
-              {product.productName}
-            </Typography>
-          </div>
-        </Link>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h6">${product.price.toFixed(2)}</Typography>
+      </Link> */}
+      {/* // <CardContent style={{ marginTop: 'auto' }}> */}
+      {/* <Link href={`${storeSlug}/product/${product.productSlug}`}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h5" component="div">
+            {product.productName}
+          </Typography>
         </div>
-        {product.inInv > 0 ? (
+      </Link>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h6">${product.price.toFixed(2)}</Typography>
+      </div>
+      {product.inInv > 0 ? (
         <Button
           variant="contained"
           color="primary"
@@ -72,22 +74,34 @@ export default function ShopProductItem({
         >
           Add to Cart
         </Button>
-        ) : (
-          <Button
-            disabled
-            variant="contained"
-            color="error"
-            fullWidth
-            style={{
-              borderRadius: '20px',
-              backgroundColor: 'oklch(76.172% 0.089459 0 /1)',
-              color: 'black',
-            }}
-          >
-            Out of Stock
-          </Button>
-        )}
-      </CardContent>
-    </Card>
+      ) : (
+        <Button
+          disabled
+          variant="contained"
+          color="error"
+          fullWidth
+          style={{
+            borderRadius: '20px',
+            backgroundColor: 'oklch(76.172% 0.089459 0 /1)',
+            color: 'black',
+          }}
+        >
+          Out of Stock
+        </Button>
+      )} */}
+      {/* </CardContent> */}
+      {/* // </Card> */}
+      <Link href={`${storeSlug}/product/${product.productSlug}`}>
+        <div className="product_card">
+          <img
+            src={product.productImage}
+            alt={product.productName}
+            className="image"
+          />
+          <p>{product.productName}</p>
+          <p>${product.price.toFixed(2)}</p>
+        </div>
+      </Link>
+    </>
   );
 }

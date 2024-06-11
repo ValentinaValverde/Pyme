@@ -9,6 +9,13 @@ import { StoreStoryModel } from '@/lib/models/StoreStoryModel';
 import exp from 'constants';
 import StoreAddressModel from '@/lib/models/StoreAddress';
 
+interface StoreData {
+  storeName: string;
+  storeImg: string | undefined;
+  storeOwner: string;
+  slug: string;
+}
+
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
   await dbConnect();
 
@@ -117,7 +124,7 @@ export const getStoresByState = async (state: string) => {
     id: { $in: stories.map((story) => story.storeId) },
   });
 
-  let displayStoreData = [];
+  let displayStoreData: StoreData[] = [];
 
   stores.forEach((store) => {
     const storeAddress = storesAddress.find(
@@ -130,7 +137,6 @@ export const getStoresByState = async (state: string) => {
       storeOwner: store.ownername,
       slug: store.slug,
     });
-
-    return displayStoreData;
   });
+  return displayStoreData;
 };
