@@ -314,7 +314,6 @@
   width: 20%;
   margin: 10px;
   text-align: center;
-  transition: 0.5s;
 
   .image {
     width: 100%;
@@ -322,7 +321,7 @@
     object-fit: cover;
     border-radius: 20px;
     margin-bottom: 10px;
-    transition: 0.5s;
+    transition: 0.3s;
   }
 
   .price {
@@ -332,7 +331,7 @@
 
 .product_card:hover {
   .image {
-    object-fit: contain;
+    border-radius: 5px;
   }
 }
 
