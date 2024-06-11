@@ -12,7 +12,7 @@ export default function StoreProductList({
   return (
     <>
       <h2 className="products_title">Products</h2>
-      <div className="product_container">
+      <div className="shop_products_container">
         {products.map((product) => (
           <ProductItem
             key={product.productSlug}

@@ -15,66 +15,21 @@ export default function ShopProductDetails({ product }: { product: Product }) {
 
   return (
     <>
-      <div className="my-2"></div>
-      <div className="grid md:grid-cols-4 md:gap-3">
-        <div className="md:col-span-2">
-          <Card style={{ backgroundColor: 'white', borderRadius: '15px' }}>
-            <CardContent>
-              <img
-                src={product?.productImage}
-                alt={product?.productName}
-                width={640}
-                height={640}
-                sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
-              />
-            </CardContent>
-          </Card>
-        </div>
-        <div>
-          <ul className="space-y-4">
-            <li>
-              <h1 className="text-xl">{product.productName}</h1>
-            </li>
-            <div className="divider"></div>
-            <li>
-              Description: <p>{product.productDetails}</p>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <Card style={{ backgroundColor: 'white', borderRadius: '15px' }}>
-            <CardContent>
-              <div className="mb-2 flex justify-between">
-                <div>Price</div>
-                <div>${product.price.toFixed(2)}</div>
-              </div>
-              <div className="mb-2 flex justify-between">
-                <div>Status</div>
-                <div>{product.inInv > 0 ? 'In Stock' : 'Unavailable'}</div>
-              </div>
-              {product.inInv > 0 && (
-                <div className="card-actions justify-center">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={addToCartHandler}
-                    style={{
-                      borderRadius: '20px',
-                      backgroundColor: 'oklch(76.172% 0.089459 200.026556 /1)',
-                      color: 'black',
-                    }}
-                  >
-                    Add to Cart
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+      <div className="product_container">
+        {/* <div> */}
+        <img
+          src={product?.productImage}
+          alt={product?.productName}
+          className="image"
+        />
+        {/* </div> */}
+        <div className="product_info_container">
+          <p className="product_name">{product.productName}</p>
+          <p>${product.price.toFixed(2)}</p>
+          <p>{product.productDetails}</p>
+          <button onClick={addToCartHandler} className="unfilled_button">
+            Add to Cart
+          </button>
         </div>
       </div>
     </>
