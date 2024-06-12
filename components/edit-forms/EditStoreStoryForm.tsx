@@ -132,4 +132,4 @@ const EditStoreStoryForm = ({ story, myStore }: any) => {
   );
 };
 
-export default createOrUpdateStoreStory;
+export default EditStoreStoryForm;

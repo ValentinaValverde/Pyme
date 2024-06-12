@@ -5,6 +5,7 @@ import StoreStoryForm from '@/components/create-forms/StoreStoryForm';
 import { getStoreStory } from '@/utils/actions/storeActions';
 import Link from 'next/link';
 import CreateStoreStoryForm from '@/components/create-forms/CreateStoreStoryForm';
+import ShopHeader from '@/components/shop/ShopHeader';
 
 const MyStoreHome = async ({ params }: { params: any }) => {
   const slug = params.slug?.toString() || '';
@@ -23,7 +24,7 @@ const MyStoreHome = async ({ params }: { params: any }) => {
                 flexWrap: 'wrap',
               }}
             >
-              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              {/* <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Box sx={{ flex: '1 1', p: 1 }}>
                   {story.storeImage && (
                     <img
@@ -58,7 +59,38 @@ const MyStoreHome = async ({ params }: { params: any }) => {
                     />
                   )}
                 </Box>
-              </Box>
+              </Box> */}
+
+              <div>
+                <div>
+                  <img
+                    src={story?.storeImage}
+                    alt="Store Image"
+                    className="shop_image"
+                  />
+                </div>
+                <div className="shop_info">
+                  {/* <p className="title">{storeName}</p> */}
+                  <p>{story?.storeDetails}</p>
+                </div>
+
+                <div className="owner_info_container">
+                  <div>
+                    <img
+                      src={story?.ownerImage}
+                      alt="Shop Owner Image"
+                      className="owner_image"
+                    />
+                  </div>
+                  <div className="container">
+                    {/* in the future I'd like to have the owners name below */}
+                    {/* example: "About John Smith" */}
+                    <p className="about_owner_title">About the Owner</p>
+                    <p>{story?.ownerDetails}</p>
+                  </div>
+                </div>
+              </div>
+
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Box sx={{ flex: '1 1', p: 1 }}>
                   <Link href={`/mystore/${slug}/story/edit`}>

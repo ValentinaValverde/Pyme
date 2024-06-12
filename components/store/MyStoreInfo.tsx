@@ -15,9 +15,9 @@ const MyStoreInfo = ({ myStore }: any) => {
   const { storename, owner, ein, streetAddress, city, state, zipcode, slug } =
     myStore;
   return (
-    <TableContainer component={Box}>
-      <Typography variant="h3">MyStoreInfo</Typography>
-      <Table>
+    <>
+      {/* <TableContainer component={Box}> */}
+      {/* <Table>
         <TableBody>
           <TableRow>
             <TableCell>Store name:</TableCell>
@@ -48,12 +48,53 @@ const MyStoreInfo = ({ myStore }: any) => {
             <TableCell>{zipcode}</TableCell>
           </TableRow>
         </TableBody>
-      </Table>
-      <Box mt={2}></Box>
+      </Table> */}
+      {/* <Box mt={2} /> */}
+      {/* </TableContainer> */}
+
+      <p style={{ fontSize: 20, textAlign: 'center', width: 500 }}>
+        Store Info
+      </p>
+      <div className="storeinfo_container">
+        <div className="row">
+          <p>Store Name: </p>
+          <p>{storename}</p>
+        </div>
+        <div className="row">
+          <p>Owner Name: </p>
+          <p>{owner}</p>
+        </div>
+        <div className="row">
+          <p>EIN: </p>
+          <p>{ein}</p>
+        </div>
+        <div>
+          ----------------------------------------------------------------------
+        </div>
+        <div className="row">
+          <p>Address: </p>
+          <p>{streetAddress}</p>
+        </div>
+        <div className="row">
+          <p>City: </p>
+          <p>{city}</p>
+        </div>
+        <div className="row">
+          <p>State: </p>
+          <p>{state}</p>
+        </div>
+        <div className="row">
+          <p>Zipcode: </p>
+          <p>{zipcode}</p>
+        </div>
+      </div>
+
       <Link href={`/mystore/${slug}/address`}>
-        <button className="unfilled_button">Edit Address</button>
+        <button className="unfilled_button" style={{ marginTop: 20 }}>
+          Edit Address
+        </button>
       </Link>
-    </TableContainer>
+    </>
   );
 };
 
