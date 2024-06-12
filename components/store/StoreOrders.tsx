@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
   Divider,
@@ -11,13 +12,19 @@ import {
   Box,
 } from '@mui/material';
 import OrderStatDropDown from './OrderStatDropDown';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
-const StoreOrders = ({ orders }: { orders: any[] }) => {
+const StoreOrders = ({ orders, myStore }: { orders: any[], myStore: any }) => {
+
+  const router = useRouter();
 
   if (orders.length === 0) {
     return <h2>No Orders Yet</h2>;
   }
+
+  
 
   return (
     <div>
@@ -44,7 +51,7 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                 {orders.map((order: any) => (
                   <React.Fragment key={order.id}>
                     <TableRow>
-                      <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
+                      <TableCell colSpan={6} style={{ fontWeight: 'bold' }}>
                         Order #: {order.id}
                       </TableCell>
                     </TableRow>
@@ -73,10 +80,17 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
                       </TableRow>
                     ))}
                     <TableRow>
-                      <TableCell colSpan={4} style={{ fontWeight: 'bold' }}>
+                      <TableCell colSpan={5} style={{ fontWeight: 'bold' }}>
                         Total Price
                       </TableCell>
                       <TableCell>${order.totalPrice.toFixed(2)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={6} style={{ fontWeight: 'bold' }}>
+                        <Link href={`/mystore/${myStore}/orders/${order.id}`}>
+                          <button className="submit-button">Shipping Address</button>
+                        </Link>
+                      </TableCell>
                     </TableRow>
                     <Divider />
                   </React.Fragment>
@@ -92,6 +106,8 @@ const StoreOrders = ({ orders }: { orders: any[] }) => {
               marginBottom: '20px',
             }}
           />
+            <button className="submit-button" onClick={() => router.back()}>Back</button>
+
         </Box>
       ))}
     </div>

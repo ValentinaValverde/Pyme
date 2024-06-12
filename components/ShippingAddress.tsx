@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import Link from 'next/link';
 import {
   Button,
@@ -10,18 +12,22 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 
 
 
-
-const ShippingAddress = ({address}: any) => {
+const ShippingAddress = ({address, shop}: {address: any, shop: boolean}) => {
   const { streetAddress, city, state, zipcode } = address;
+  const router = useRouter();
+
+  
+
 
   return (
-    <TableContainer component={Box}>
-      <Typography variant="h3">Shipping Address</Typography>
-      <Table>
+    <TableContainer component={Box} aria-labelledby="shipping-address-heading">
+      <Typography variant="h3" id="shipping-address-heading">Shipping Address</Typography>
+      <Table aria-label="Shipping address table">
         <TableBody>
           <TableRow>
             <TableCell>Street Address:</TableCell>
@@ -42,12 +48,19 @@ const ShippingAddress = ({address}: any) => {
         </TableBody>
       </Table>
       <Box mt={2}></Box>
-      <Link href={`/shop/orders`}>
-        <button className="submit-button">Continue</button>
-      </Link>
-      <Link href={`/shop/address/update`}>
-        <button className="submit-button">Update Address</button>
-      </Link>
+      {!shop && (
+        <>
+          <Link href={`/shop/orders`} passHref>
+            <button className="submit-button" aria-label="Continue to orders">Continue</button>
+          </Link>
+          <Link href={`/shop/address/update`} passHref>
+            <button className="submit-button" aria-label="Update address">Update Address</button>
+          </Link>
+        </>
+        )}
+      {shop && (
+        <button className="submit-button" onClick={() => router.back()}>Back</button>
+      )}
     </TableContainer>
   )
 }

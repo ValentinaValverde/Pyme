@@ -12,6 +12,8 @@ const SubmitBtn = () => {
 			type='submit'
 			disabled={pending}
 			className='submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+			aria-disabled={pending}
+      		aria-label={pending ? 'Please wait...' : 'Save'}
 		>
 			{pending ? 'Wait...' : 'Save'}
 		</button>
@@ -46,19 +48,19 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 
 	return (
 		<>
-			<div className='styled_form'>
+			<div className='styled_form' aria-describedby="formInstructions">
 				<form action={formAction}>
 					<div className='space-y-12'>
 						<div className='border-b border-gray-900/10 pb-12'>
 							<h2 className='text-base font-semibold leading-7 text-gray-900'>
 								Create a Store Story
 							</h2>
-							<p className='mt-3 text-sm leading-2 text-gray-600'>
+							<p id="formInstructions" className='mt-3 text-sm leading-2 text-gray-600'>
 								Share your store&apos;s story
 							</p>
 						</div>
 						<div className='sm:col-span-4'>
-							<label className='block text-sm font-medium leading-6 text-gray-900'>
+							<label htmlFor="storeImage" className='block text-sm font-medium leading-6 text-gray-900'>
 								Store Image URL
 							</label>
 							<input
@@ -66,12 +68,14 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 								type='text'
 								defaultValue={storeImage}
 								name='storeImage'
+								id="storeImage"
 								required
+								aria-required="true"
 							/>
 						</div>
 
 						<div className='col-span-full'>
-							<label className='block text-sm font-medium leading-6 text-gray-900'>
+							<label htmlFor="storeDetails" className='block text-sm font-medium leading-6 text-gray-900'>
 								Store Details / Story
 							</label>
 							<textarea
@@ -79,14 +83,16 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 								rows={3}
 								defaultValue={storeDetails}
 								name='storeDetails'
+								id="storeDetails"
 								minLength={10}
 								maxLength={3000}
 								required
+								aria-required="true"
 							/>
 						</div>
 						<div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
 							<div className='sm:col-span-4'>
-								<label className='block text-sm font-medium leading-2 text-gray-900'>
+								<label htmlFor="ownerImage" className='block text-sm font-medium leading-2 text-gray-900'>
 									Owner Image URL
 								</label>
 								<input
@@ -94,11 +100,13 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 									type='text'
 									defaultValue={ownerImage}
 									name='ownerImage'
+									id="ownerImage"
 									required
+									aria-required="true"
 								/>
 							</div>
 							<div className='col-span-full'>
-								<label className='block text-sm font-medium leading-6 text-gray-900'>
+								<label htmlFor="ownerDetails" className='block text-sm font-medium leading-6 text-gray-900'>
 									Owner Story
 								</label>
 								<textarea
@@ -106,9 +114,11 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 									rows={3}
 									defaultValue={ownerDetails}
 									name='ownerDetails'
+									id="ownerDetails"
 									minLength={10}
 									maxLength={3000}
 									required
+									aria-required="true"
 								/>
 								<input type='hidden' name='myStore' value={myStore} />
 							</div>
@@ -116,10 +126,11 @@ const StoreStoryForm = ({ story, myStore }: any) => {
 					</div>
 
 					<div className='mt-6 flex items-center justify-end gap-x-6'>
-						<Link href={`/mystore/${myStore}`}>
+						<Link href={`/mystore/${myStore}`} passHref>
 							<button
 								type='button'
 								className='text-sm font-semibold leading-6 text-gray-900'
+								aria-label="Cancel and go back to the store page"
 							>
 								Cancel
 							</button>

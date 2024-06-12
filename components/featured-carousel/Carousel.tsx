@@ -39,7 +39,7 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
   );
 
   return (
-    <section className="embla">
+    <section className="embla" aria-label="Featured Stores Carousel">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {featuredStores.map((store: any, index: number) => (
@@ -66,7 +66,11 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
       </div>
 
       <div className="embla__controls">
-        <div className="embla__dots">
+        <div
+          className="embla__dots"
+          role="tablist"
+          aria-label="Carousel navigation"
+        >
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
@@ -74,6 +78,9 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
               className={'embla__dot'.concat(
                 index === selectedIndex ? ' embla__dot--selected' : ''
               )}
+              role="tab"
+              aria-selected={index === selectedIndex}
+              aria-controls={`embla__slide--${index}`}
             />
           ))}
         </div>

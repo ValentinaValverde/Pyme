@@ -29,10 +29,12 @@ const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
 					boxSizing: 'border-box'
 				}
 			}}
+			role="navigation"
+      aria-label="Sidebar navigation"
 		>
 			<List>
 				<Link href={`/mystore/${storeSlug}`}>
-					<ListItem button key='Home'>
+					<ListItem button key='Home' aria-label="Go to Home">
 						<ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
@@ -40,7 +42,7 @@ const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
 					</ListItem>
 				</Link>
 				<Link href={`/mystore/${storeSlug}/products`}>
-					<ListItem button key='Products'>
+					<ListItem button key='Products' aria-label="Go to Products">
 						<ListItemIcon>
 							<CategoryIcon />
 						</ListItemIcon>
@@ -48,28 +50,28 @@ const Sidebar = ({ storeSlug }: { storeSlug: string }) => {
 					</ListItem>
 				</Link>
 				<Link href={`/mystore/${storeSlug}/info`}>
-					<ListItem button key='Store Details'>
+					<ListItem button key='Store Details' aria-label="Go to Store Details">
 						<ListItemIcon>
 							<BusinessCenterIcon />
 						</ListItemIcon>
 						<ListItemText primary='Store Details' />
 					</ListItem>
 				</Link>
-				<ListItem button key='Customers'>
+				<ListItem button key='Customers' aria-label="Go to Customers">
 					<ListItemIcon>
 						<PeopleAltIcon />
 					</ListItemIcon>
 					<ListItemText primary='Customers' />
 				</ListItem>
 				<Link href={`/mystore/${storeSlug}/orders`}>
-					<ListItem button key='Orders'>
+					<ListItem button key='Orders' aria-label="Go to Orders">
 						<ListItemIcon>
 							<ShoppingCartIcon />
 						</ListItemIcon>
 						<ListItemText primary='Orders' />
 					</ListItem>
 				</Link>
-				<ListItem button key='Profile'>
+				<ListItem button key='Profile' aria-label="Go to Profile">
 					<SignedIn>
 						<UserButton />
 					</SignedIn>

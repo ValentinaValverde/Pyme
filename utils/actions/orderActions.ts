@@ -6,9 +6,13 @@ import CartModel from '@/lib/models/CartModel'
 import CartItemModel from '@/lib/models/CartItemModel'
 import OrderItemModel from '@/lib/models/OrderItemsModel'
 import StoreModel from '@/lib/models/StoreModel'
+import ShippingAddressModel from '@/lib/models/ShippingAddress'
 import { getShopProduct, checkInventory, adjustSoldInventory } from './productActions'
-import { auth } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
+import { ProductModel } from '@/lib/models/ProductModel'
+import nodemailer from 'nodemailer';
+
 
 export const createOrder = async () => {
 	await dbConnect()
@@ -75,18 +79,12 @@ export const getOrder = async (orderId: any) => {
 	const { userId } = auth()
 
 	const order = await OrderModel.findById(orderId)
-	console.log('order', order)
 
 	if (!order) {
 		return
 	}
 
-	// if (userId != order.user_id) {
-	// 	const store = await StoreModel.findOne({ userId: userId })
-	// 	if (userId != store.userId) {
-	// 		return
-	// 	}
-	// }
+  const store = await StoreModel.findOne({ userId: userId })
 
 	const orderItems = await OrderItemModel.find({ order_id: order.id })
 
@@ -163,10 +161,76 @@ export const updateOrderStatus = async (item: any, status: any) => {
 
     const orderItem = await OrderItemModel.findByIdAndUpdate({_id: item}, { status: status }, { new: true })
 
+    if (status === 'shipped') {
+      await emailCustomerShipping(orderItem.order_id, orderItem.product_id, orderItem.quantity)
+    }
+
     return orderItem.status
   }
   catch (e) {
     console.log(e)
     return
+  }
+}
+
+export const getOrderAddress = async (orderId: any) => {
+  await dbConnect()
+
+  const order = await OrderModel.findById(orderId)
+
+  if (!order) {
+    return
+  }
+
+  const address = await ShippingAddressModel.findOne({ userId: order.user_id })
+
+  if (!address) {
+    return
+  }
+
+  return {
+    streetAddress: address.streetAddress,
+    city: address.city,
+    state: address.state,
+    zipcode: address.zipcode
+  }
+}
+
+export const emailCustomerShipping = async (orderItem: any, productId: any, quantity: any) => {
+  await dbConnect()
+
+
+  const order = await OrderModel.findById(orderItem)
+  const product = await ProductModel.findById(productId)
+
+  const user = await clerkClient.users.getUser(order.user_id)
+
+  const userEmail = user.emailAddresses[0].emailAddress
+  
+
+  const fromEmail = process.env.FROM_EMAIL
+  const emailPassword = process.env.PYME_APP_KEY
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: fromEmail, 
+        pass: emailPassword 
+    }
+  });
+
+  let mailOptions = {
+    from: fromEmail, 
+    to: userEmail, 
+    subject: "Order Shipped", 
+    text: `Your order for ${product.productName} has been shipped. Quantity: ${quantity}`, 
+    html: `<b>Your order for ${product.productName} has been shipped. Quantity: ${quantity}</b>` 
+  };
+
+  try {
+    let info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: %s', info.messageId);
+  } catch (error) {
+    console.error('Failed to send email:', error);
   }
 }

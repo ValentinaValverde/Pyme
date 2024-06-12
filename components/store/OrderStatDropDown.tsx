@@ -30,7 +30,7 @@ const OrderStatDropDown = ({ item, status }: {item: any, status: any}) => {
   };
 
   return (
-    <Box sx={{ minWidth: 100, maxWidth: 120 }}>
+    <Box sx={{ minWidth: 100, maxWidth: 150 }}>
       <FormControl fullWidth error={!!error}>
         <Select
           labelId="status-select-label"

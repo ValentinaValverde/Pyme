@@ -17,11 +17,12 @@ export default function AddToCart({ item }: { item: OrderItem }) {
   };
   return existItem ? (
     <div>
-      <button className="btn" type="button">
+      <button className="btn" type="button" aria-label="Decrease quantity">
         -
       </button>
-      <span className="px-2">{existItem.qty}</span>
-      <button className="btn" type="button">
+      <span className="px-2" aria-live="polite" aria-atomic="true">
+        {existItem.qty}</span>
+      <button className="btn" type="button" aria-label="Increase quantity">
         +
       </button>
     </div>
@@ -30,6 +31,7 @@ export default function AddToCart({ item }: { item: OrderItem }) {
       onClick={addToCartHandler}
       className="btn btn-primary w-full"
       type="button"
+      aria-label="Add to cart"
     >
       Add to Cart
     </button>

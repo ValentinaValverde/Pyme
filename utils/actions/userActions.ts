@@ -120,8 +120,6 @@ export const getShippingAddress = async(getAddress: boolean) => {
 
   const shippingAddress = await ShippingAddressModel.findOne({ userId });
 
-  console.log('shippingAddress', shippingAddress);
-
   if (!shippingAddress && getAddress) {
     redirect('/shop/address/update');
   }
