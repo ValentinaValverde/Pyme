@@ -1,37 +1,37 @@
-'use client'
-import React, { useEffect } from 'react'
-import Link from 'next/link'
-import { editStoreAddresss } from '@/utils/actions/storeActions'
-import { useFormStatus, useFormState } from 'react-dom'
-import toast from 'react-hot-toast'
+'use client';
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import { editStoreAddresss } from '@/utils/actions/storeActions';
+import { useFormStatus, useFormState } from 'react-dom';
+import toast from 'react-hot-toast';
 
 const SubmitBtn = () => {
-  const { pending } = useFormStatus()
+  const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className="submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="submit-button rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 button"
       aria-disabled={pending}
       aria-label={pending ? 'Please wait...' : 'Save'}
     >
       {pending ? 'Wait...' : 'Save'}
     </button>
-  )
-}
+  );
+};
 
 const initialState = {
   message: '',
-}
+};
 
 const EditStoreAddressForm = ({ storeInfo, myStore }: any) => {
-  const [mState, formAction] = useFormState(editStoreAddresss, initialState)
+  const [mState, formAction] = useFormState(editStoreAddresss, initialState);
   useEffect(() => {
     if (mState.message !== '') {
-      toast.error(mState.message)
+      toast.error(mState.message);
     }
-  }, [mState])
-  const { streetAddress, city, state, zipcode } = storeInfo
+  }, [mState]);
+  const { streetAddress, city, state, zipcode } = storeInfo;
   return (
     <>
       <div className="styled_form">
@@ -86,6 +86,7 @@ const EditStoreAddressForm = ({ storeInfo, myStore }: any) => {
                 </div>
 
                 <div className="sm:col-span-2">
+                  {/* HERE make this a dropdown menu */}
                   <label
                     htmlFor="state"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -143,7 +144,7 @@ const EditStoreAddressForm = ({ storeInfo, myStore }: any) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default EditStoreAddressForm
+export default EditStoreAddressForm;

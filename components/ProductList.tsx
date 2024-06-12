@@ -18,9 +18,7 @@ const ProductList = async ({ myStore }: any) => {
 
   if (products.length === 0) {
     return (
-      <h2 className="mt-8 font-medium text-lg">
-        Currently you do not have any active products
-      </h2>
+      <p>Looks like it&apos;s empty here... start by creating some products!</p>
     );
   }
 
@@ -42,7 +40,13 @@ const ProductList = async ({ myStore }: any) => {
             <TableRow key={product.id}>
               <TableCell>{product.productName}</TableCell>
               <TableCell>{product.productDetails}</TableCell>
-              <TableCell>${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>
+              <TableCell>
+                $
+                {product.price.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </TableCell>
               <TableCell>{product.inInv}</TableCell>
               <TableCell>
                 {product.productImage && (

@@ -12,7 +12,7 @@ const SubmitBtn = () => {
     <button
       type="submit"
       disabled={pending}
-      className="submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="submit-button rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 button"
       aria-disabled={pending}
       aria-label={pending ? 'Please wait...' : 'Save'}
     >
@@ -44,7 +44,10 @@ const CreateStoreAddressForm = ({ myStore }: any) => {
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
-                  <label htmlFor="streetAddress" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="streetAddress"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Street Address
                   </label>
                   <input
@@ -58,7 +61,10 @@ const CreateStoreAddressForm = ({ myStore }: any) => {
                 </div>
 
                 <div className="sm:col-span-2 sm:col-start-1">
-                  <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     City
                   </label>
                   <div className="mt-2">
@@ -74,7 +80,11 @@ const CreateStoreAddressForm = ({ myStore }: any) => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="state" className="block text-sm font-medium leading-6 text-gray-900">
+                  {/* HERE, change this to a dropdown menu! */}
+                  <label
+                    htmlFor="state"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     State / Province
                   </label>
                   <div className="mt-2">

@@ -16,7 +16,7 @@ const myProductsPage = ({ params }: any) => {
               <button
                 // variant='contained'
                 // style={{ backgroundColor: 'green', color: 'white' }}
-                className="submit-button"
+                className="unfilled_button"
               >
                 + Add Product
               </button>

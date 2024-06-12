@@ -47,14 +47,20 @@
   padding: 20px;
   margin: 20px;
   border-radius: 16px;
+  background-color: #d9d9d9;
 
   .button {
-    background-color: oklch(76.172% 0.089459 200.026556 / 1);
+    background-color: #2b2b2b;
+    border: solid #2b2b2b 2px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 20px;
+    color: #d9d9d9;
     transition: 0.5s;
   }
 
   .button:hover {
-    background-color: black;
+    background-color: #d9d9d9;
+    color: #2b2b2b;
   }
 
   input {
@@ -600,6 +606,21 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+  }
+}
+
+.storeinfo_container {
+  /* background-color: black; */
+
+  .row {
+    /* background-color: blue; */
+    margin: 10px;
+    padding: 5px;
+    width: 500px;
+    max-width: 100%;
+
+    display: flex;
+    justify-content: space-between;
   }
 }
 

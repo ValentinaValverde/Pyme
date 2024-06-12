@@ -1,8 +1,8 @@
-import React from 'react'
-import { updateInventory } from '@/utils/actions/productActions'
+import React from 'react';
+import { updateInventory } from '@/utils/actions/productActions';
 
 const EditProductInvForm = ({ product, myStore }: any) => {
-  const { inInv, productSlug } = product
+  const { inInv, productSlug } = product;
   return (
     <>
       <div className="styled_form">
@@ -53,7 +53,7 @@ const EditProductInvForm = ({ product, myStore }: any) => {
             </button> */}
             <button
               type="submit"
-              className="submit-button rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="submit-button rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 button"
               aria-label="Save updated inventory"
             >
               Save
@@ -62,7 +62,7 @@ const EditProductInvForm = ({ product, myStore }: any) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default EditProductInvForm
+export default EditProductInvForm;
