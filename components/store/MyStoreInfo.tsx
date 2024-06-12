@@ -51,7 +51,7 @@ const MyStoreInfo = ({ myStore }: any) => {
       </Table>
       <Box mt={2}></Box>
       <Link href={`/mystore/${slug}/address`}>
-        <button className="submit-button">Edit Address</button>
+        <button className="unfilled_button">Edit Address</button>
       </Link>
     </TableContainer>
   );

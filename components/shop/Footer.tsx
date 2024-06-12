@@ -21,11 +21,13 @@ const Footer = () => {
           </SignInButton>
         </SignedOut>
         <SignedIn>
-          <SignInButton className="filled_button">
-            <div>
-              <span aria-hidden="true">Sign In Here!</span>
-            </div>
-          </SignInButton>
+          <Link href="/createstore">
+            <button className="filled_button">
+              <div>
+                <span aria-hidden="true">Sign In Here!</span>
+              </div>
+            </button>
+          </Link>
         </SignedIn>
       </div>
     </nav>
