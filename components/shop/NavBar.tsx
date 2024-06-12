@@ -9,7 +9,7 @@ const NavBar = () => {
         <a href="/"> PYME</a>
       </div>
       <div className="link_container">
-        <Link href="/search">Search</Link>
+        <Link href="shop/search">Search</Link>
         <Link href="shop/cart">Cart</Link>
 
         <SignedOut>
