@@ -4,7 +4,8 @@ const _dev = process.env.PROTECTED_ROUTES
 
 const isProtectedRoute = createRouteMatcher([
 	'/createstore(.*)',
-	'/mystore(.*)'
+	'/mystore(.*)',
+  '/shop(.*)',
 ])
 
 export default clerkMiddleware((auth, req) => {
