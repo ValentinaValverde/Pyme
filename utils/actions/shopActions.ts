@@ -6,15 +6,13 @@ import StoreModel from '@/lib/models/StoreModel';
 import { Product, ProductModel } from '@/lib/models/ProductModel';
 import { StoreStory } from '@/lib/models/StoreStoryModel';
 import { StoreStoryModel } from '@/lib/models/StoreStoryModel';
-import exp from 'constants';
 import StoreAddressModel from '@/lib/models/StoreAddress';
 
 interface StoreData {
   storeName: string;
-  storeImg: string | undefined;
+  storeImg: string;
   storeOwner: string;
   slug: string;
-  storeAddress: string;
 }
 
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
@@ -112,38 +110,41 @@ export const getStoresByState = async (state: string) => {
   await dbConnect();
   console.log('STATE FROM SHOPACTIONS: ', state);
 
-  // Get all store addresses in the state
-  const storesAddress = await StoreAddressModel.find({ state: state });
+  try {
+    // Get all store addresses in the state
+    const storesAddress = await StoreAddressModel.find({ state: state });
 
-  // filter all stores by the storeId
-  const stories = await StoreStoryModel.find({
-    storeId: { $in: storesAddress.map((store) => store.storeId) },
-  });
-
-  // filter all stores by the id
-  const stores = await StoreModel.find({
-    id: { $in: stories.map((story) => story.storeId) },
-  });
-
-  let displayStoreData: StoreData[] = [];
-
-  stores.forEach((store) => {
-    const storeAddress = storesAddress.find(
-      (address) => address.storeId === store.id
-    );
-    const storeStory = stories.find((story) => story.storeId === store.id);
-
-    console.log('STORE ADDRESS: ', storeAddress);
-
-    displayStoreData.push({
-      storeName: store.storename,
-      storeImg: storeStory?.storeImage,
-      storeOwner: store.ownername,
-      slug: store.slug,
-      // added this below:
-      storeAddress: storeAddress,
+    // filter all stores by the storeId
+    const stories = await StoreStoryModel.find({
+      storeId: { $in: storesAddress.map((store) => store.storeId) },
     });
-  });
 
-  return displayStoreData;
+    // filter all stores by the id
+    const stores = await StoreModel.find({
+      _id: { $in: stories.map((story) => story.storeId) },
+    });
+
+    const storyMap: any = {};
+
+    stories.forEach((story) => {
+      storyMap[story.storeId.toString()] = story;
+    });
+
+    let displayStoreData: StoreData[] = [];
+
+    stores.forEach((store) => {
+      const storeStory = storyMap[store._id.toString()];
+      displayStoreData.push({
+        storeName: store.storename,
+        storeImg: storeStory?.storeImage,
+        storeOwner: store.ownername,
+        slug: store.slug,
+      });
+      console.log('STORY: ', storeStory);
+    });
+    console.log('DISPLAY STORE DATA: ', displayStoreData);
+    return displayStoreData;
+  } catch (error) {
+    console.log(error);
+  }
 };

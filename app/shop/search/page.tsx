@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Fuse from 'fuse.js';
-import Link from 'next/link';
-import { getDisplayAllStores } from '@/utils/actions/shopActions';
 import { useState, useEffect } from 'react';
 import { getStoresByState } from '@/utils/actions/shopActions';
 import BusinessSection from '@/components/BusinessCardSection';
@@ -101,7 +99,6 @@ export default function SearchPage() {
     // HERE is where businesses get delclared
     const businesses = await getStoresByState(state.label);
     setBusinessByState(businesses);
-    console.log('BUSINESSES: ', businesses);
   }
 
   const renderDropdownItem = (state: State) => (
@@ -113,6 +110,14 @@ export default function SearchPage() {
       {state.label}
     </li>
   );
+
+  // if (businessByState === []) {
+  //   return (
+  //     <div>
+  //       <p>no stores in that state</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -129,8 +134,6 @@ export default function SearchPage() {
         )}
       </div>
       <div style={{ marginTop: 20 }}>
-        <p>here is where stores should populate:</p>
-        {/* HERE is where business are getting called */}
         <BusinessSection stores={businessByState} />
       </div>
     </>

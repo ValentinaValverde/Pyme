@@ -7,14 +7,7 @@ const CartPage = async () => {
 
   return (
     <>
-      <div
-        style={{
-          // backgroundColor: 'black',
-          width: '100%',
-          maxWidth: '100%',
-          height: '100%',
-        }}
-      >
+      <div>
         <Cart initialCartItems={cartItems} />
       </div>
     </>
