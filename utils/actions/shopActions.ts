@@ -14,6 +14,7 @@ interface StoreData {
   storeImg: string | undefined;
   storeOwner: string;
   slug: string;
+  storeAddress: string;
 }
 
 export const getStoreProducts = async (slug: string): Promise<Product[]> => {
@@ -131,12 +132,18 @@ export const getStoresByState = async (state: string) => {
       (address) => address.storeId === store.id
     );
     const storeStory = stories.find((story) => story.storeId === store.id);
+
+    console.log('STORE ADDRESS: ', storeAddress);
+
     displayStoreData.push({
       storeName: store.storename,
       storeImg: storeStory?.storeImage,
       storeOwner: store.ownername,
       slug: store.slug,
+      // added this below:
+      storeAddress: storeAddress,
     });
   });
+
   return displayStoreData;
 };

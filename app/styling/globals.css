@@ -67,7 +67,6 @@
 }
 
 /* OTHER */
-
 .green {
   color: oklch(76.172% 0.089459 200.026556 / 1);
 }
@@ -95,8 +94,8 @@
   color: oklch(76.172% 0.089459 200.026556 / 1);
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* NEW STYLING */
-
 .filled_button {
   background-color: #2b2b2b;
   border: solid #2b2b2b 2px;
@@ -460,6 +459,7 @@
     }
   }
 }
+
 .empty_cart {
   width: 500px;
   max-width: 100%;
@@ -483,8 +483,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-
-  /* background-color: gray; */
 }
 
 .table_container {
