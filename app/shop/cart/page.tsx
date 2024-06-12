@@ -5,7 +5,13 @@ import { Cart } from '@/components/cart/Cart';
 const CartPage = async () => {
   const cartItems = await getCartItems();
 
-  return <Cart initialCartItems={cartItems} />;
+  return (
+    <>
+      <div>
+        <Cart initialCartItems={cartItems} />
+      </div>
+    </>
+  );
 };
 
 export default CartPage;

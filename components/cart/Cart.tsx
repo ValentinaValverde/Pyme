@@ -24,6 +24,9 @@ import { editCartItemQuantity } from '@/utils/actions/cartItemActions';
 
 import { Card, CardContent, Typography } from '@mui/material';
 
+import Bag from '../../public/images/bags/ComeAgain.png';
+import Image from 'next/image';
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
@@ -59,12 +62,18 @@ export function Cart({
       )
     );
   };
+
   if (!cartItems || cartItems.length === 0) {
     return (
       <>
-        <h2 className="mt-8 font-medium text-lg">
-          Currently you do not have any products in your cart.
-        </h2>
+        <div className="empty_cart">
+          <p className="text">
+            Hmm, doesn&apos;t seem like there&apos;s anything here.
+          </p>
+          <button className="unfilled_button">
+            <Link href="/shop">Go Shopping!</Link>
+          </button>
+        </div>
       </>
     );
   }
@@ -83,97 +92,58 @@ export function Cart({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <TableContainer component={Paper}>
-          <Table aria-label="Shopping Cart">
-            <TableHead>
-              <TableRow>
-                <TableCell style={{ fontWeight: 'bold' }}>Item</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>
-                  Price Per Item
-                </TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cartItems.map((product) => (
-                <TableRow key={product.productSlug}>
-                  <TableCell>
-                    {product.productSlug}
-                    {product.productImage && (
-                      <img
-                        loading="lazy"
-                        src={product.productImage}
-                        alt={product.productName}
-                        className="max-w-xs max-h-24"
-                        width={100}
-                        height={100}
-                      />
-                    )}{' '}
-                  </TableCell>
-                  <TableCell>
-                    <Box display="flex" alignItems="center" gap={2}>
-                    <QtyDropDown
-                      slug={product.productSlug}
-                      quantity={product.quantity}
-                      editQuantity={_editCartItemQuantity}
-                      aria-label="Quantity dropdown"
-                    />
-                    <Tooltip title="Delete">
-                      <Button
-                        onClick={() => _deleteCartItem(product.productSlug)}
-                        aria-label={`Delete ${product.productSlug}`}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </Tooltip>
-                    </Box>
-                  </TableCell>
-                  <TableCell>${product.priceAtTime.toFixed(2)}</TableCell>
-                  <TableCell>
-                    ${(product.priceAtTime * product.quantity).toFixed(2)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <div className="cart_container">
+        <div className="table_container">
+          {cartItems.map((product) => (
+            <div key={product.productSlug} className="cart_item_row">
+              <div className="container wide">
+                <img
+                  src={product.productImage}
+                  alt={product.productName}
+                  className="image"
+                />
+                <div className="product_info">
+                  <p>{product.productName}</p>
+                  <QtyDropDown
+                    slug={product.productSlug}
+                    quantity={product.quantity}
+                    editQuantity={_editCartItemQuantity}
+                  />
+                  <p>${product.priceAtTime.toFixed(2)}/item</p>
+                </div>
+              </div>
+              <div className="container short">
+                <button
+                  className="filled_button"
+                  onClick={() => _deleteCartItem(product.productSlug)}
+                >
+                  X
+                </button>
+                <p>${(product.priceAtTime * product.quantity).toFixed(2)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
-        <Card
-          style={{
-            width: '300px',
-            height: '100%',
-            marginLeft: '20px',
-            marginTop: '20px',
-          }}
-        >
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Subtotal: $
+        {/* separate */}
+        <div className="pricebag_container">
+          <div className="subtotal">
+            <p className="title">Subtotal</p>
+            <p>
+              Total: $
               {cartItems
                 .reduce(
                   (total, item) => total + item.priceAtTime * item.quantity,
                   0
                 )
                 .toFixed(2)}
-            </Typography>
-            <Button
-              onClick={handleCheckout}
-              variant="contained"
-              color="primary"
-              style={{
-                marginTop: '20px',
-                backgroundColor: 'oklch(79.3811% 0.146032 78.618794 /1)',
-                borderRadius: '20px',
-                color: 'black',
-              }}
-              aria-label='Submit Payment'
-            >
-              Submit Payment
-            </Button>
-          </CardContent>
-        </Card>
+            </p>
+            <button className="filled_button" onClick={handleCheckout}>
+              Checkout
+            </button>
+          </div>
+          <Image src={Bag} alt="Bag" className="bag" />
+        </div>
       </div>
     </>
   );

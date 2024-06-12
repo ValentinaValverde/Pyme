@@ -1,7 +1,7 @@
 import '../styling/globals.css';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Header from '@/components/shop/ShopHeader';
+import NavBar from '@/components/shop/NavBar';
+import Footer from '@/components/shop/Footer';
 import { Box } from '@mui/material';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -13,12 +13,9 @@ export default function FrontLayout({
 }) {
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <Header />
-        <Box component={'main'} sx={{ flexGrow: 1, p: 3, mt: 7 }}>
-          {children}
-        </Box>
-      </Box>
+      <NavBar />
+      <div>{children}</div>
+      <Footer />
     </>
   );
 }

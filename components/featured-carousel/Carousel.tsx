@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import React, { useCallback } from 'react'
-import { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel'
-import { DotButton, useDotButton } from './CarouselDots'
-import Autoplay from 'embla-carousel-autoplay'
-import useEmblaCarousel from 'embla-carousel-react'
-import Link from 'next/link'
+import React, { useCallback } from 'react';
+import { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel';
+import { DotButton, useDotButton } from './CarouselDots';
+import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from 'embla-carousel-react';
+import Link from 'next/link';
 
 type PropType = {
-  slides: number[]
-  options?: EmblaOptionsType
-  featuredStores: any
-}
+  slides: number[];
+  options?: EmblaOptionsType;
+  featuredStores: any;
+};
 
 // const Featured: React.FC<PropType> = (props) => {
 
 // export default function Featured({ featuredStores }: any) {
 
 const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
-  const { slides, options } = props
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()])
+  const { slides, options } = props;
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
   const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
-    const autoplay = emblaApi?.plugins()?.autoplay
-    if (!autoplay) return
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
 
     // const resetOrStop =
     //   autoplay.options.stopOnInteraction === false
@@ -31,12 +31,12 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
     //     : autoplay.stop;
 
     // resetOrStop();
-  }, [])
+  }, []);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
     emblaApi,
     onNavButtonClick
-  )
+  );
 
   return (
     <section className="embla" aria-label="Featured Stores Carousel">
@@ -44,13 +44,7 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
         <div className="embla__container">
           {featuredStores.map((store: any, index: number) => (
             <div className="embla__slide" key={index}>
-              <Link
-                href={`/shop/${store.storeSlug}`}
-                passHref
-                key={store.storeName}
-                className="carousel_slide"
-                aria-label={`Visit ${store.storeName} store`}
-              >
+              <div className="carousel_slide">
                 <div className="img_container">
                   <img
                     src={store.storeImg}
@@ -60,9 +54,12 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
                 </div>
                 <div className="info_container">
                   <h2>{store.storeName}</h2>
-                  <p>{store.storeStory}</p>
+                  <p className="truncated_text">{store.storeStory}</p>
+                  <Link href={`/shop/${store.storeSlug}`} key={store.storeName}>
+                    <button className="unfilled_button">Visit Store</button>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -89,7 +86,7 @@ const Featured: React.FC<PropType> = ({ featuredStores }: PropType, props) => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Featured
+export default Featured;

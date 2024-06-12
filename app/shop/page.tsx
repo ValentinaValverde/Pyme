@@ -1,11 +1,19 @@
 import React from 'react';
+import BusinessSection from '@/components/BusinessCardSection';
+import { getDisplayAllStores } from '@/utils/actions/shopActions';
+import Bag from '../../public/images/bags/SquareHeart.png';
+import Image from 'next/image';
 
-export default function Home() {
+export default async function Home() {
+  const businesses = await getDisplayAllStores();
+
   return (
     <>
-      <div>
-        {/* TODO fill in the homepage with featured stores and list of stores */}
+      <div className="allstores_header">
+        <Image src={Bag} alt="bag" className="image" />
+        <p>All Stores</p>
       </div>
+      <BusinessSection stores={businesses} />
     </>
   );
 }

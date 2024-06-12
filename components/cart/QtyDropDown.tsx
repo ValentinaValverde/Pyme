@@ -28,6 +28,7 @@ const QtyDropDown = ({
           id="product-quantity"
           defaultValue={quantity}
           onChange={handleChange}
+          className="cart_dropdown"
         >
           <MenuItem value={0}>0</MenuItem>
           <MenuItem value={1}>1</MenuItem>
