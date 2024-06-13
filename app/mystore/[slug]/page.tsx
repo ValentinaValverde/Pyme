@@ -85,7 +85,6 @@ const MyStoreHome = async ({ params }: { params: any }) => {
 				<Sidebar storeSlug={slug} />
 				<Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
 					<StoreStoryForm story={story} myStore={slug} />
-					=======
 					<CreateStoreStoryForm myStore={slug} />
 					<Button variant='contained' color='primary'>
 						Create New Story
