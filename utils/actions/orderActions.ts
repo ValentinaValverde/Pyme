@@ -7,35 +7,38 @@ import CartItemModel from '@/lib/models/CartItemModel'
 import OrderItemModel from '@/lib/models/OrderItemsModel'
 import StoreModel from '@/lib/models/StoreModel'
 import ShippingAddressModel from '@/lib/models/ShippingAddress'
-import { getShopProduct, checkInventory, adjustSoldInventory } from './productActions'
+import {
+  getShopProduct,
+  checkInventory,
+  adjustSoldInventory,
+} from './productActions'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { ProductModel } from '@/lib/models/ProductModel'
-import nodemailer from 'nodemailer';
-
+import nodemailer from 'nodemailer'
 
 export const createOrder = async () => {
-	await dbConnect()
+  await dbConnect()
 
-	const { userId } = auth()
+  const { userId } = auth()
 
-	const cart = await CartModel.findOne({
-		$and: [{ userId }, { active: true }]
-	})
+  const cart = await CartModel.findOne({
+    $and: [{ userId }, { active: true }],
+  })
 
-	if (!cart) {
-		return
-	}
+  if (!cart) {
+    return
+  }
 
-	const cartItems = await CartItemModel.find({ cartId: cart.id })
+  const cartItems = await CartItemModel.find({ cartId: cart.id })
 
-	if (!cartItems) {
-		return
-	}
+  if (!cartItems) {
+    return
+  }
 
-	let storeDic: any = {}
+  let storeDic: any = {}
 
-	for (let item of cartItems) {
+  for (let item of cartItems) {
     let currentInventory = await checkInventory(item.productId)
     if (currentInventory === 0) {
       return
@@ -43,114 +46,113 @@ export const createOrder = async () => {
     if (currentInventory < item.quantity) {
       item.quantity = currentInventory
     }
-		let storeIdStr = item.store_id.toString()
-		if (!(storeIdStr in storeDic)) {
-			const order = await OrderModel.create({
-				cart_id: cart.id,
-				user_id: userId,
-				store_id: item.store_id,
-				total_price: 0
-			})
+    let storeIdStr = item.store_id.toString()
+    if (!(storeIdStr in storeDic)) {
+      const order = await OrderModel.create({
+        cart_id: cart.id,
+        user_id: userId,
+        store_id: item.store_id,
+        total_price: 0,
+      })
 
-			storeDic[storeIdStr] = order.id
-		}
-		const orderId = storeDic[storeIdStr]
-		const orderItem = await OrderItemModel.create({
-			order_id: orderId,
-			product_id: item.productId,
-			quantity: item.quantity,
-			price_at_time: item.priceAtTime,
-			status: 'processing'
-		})
-		await OrderModel.findByIdAndUpdate(orderId, {
-			$inc: { total_price: item.quantity * item.priceAtTime }
-		})
+      storeDic[storeIdStr] = order.id
+    }
+    const orderId = storeDic[storeIdStr]
+    await OrderItemModel.create({
+      order_id: orderId,
+      product_id: item.productId,
+      quantity: item.quantity,
+      price_at_time: item.priceAtTime,
+      status: 'processing',
+    })
+    await OrderModel.findByIdAndUpdate(orderId, {
+      $inc: { total_price: item.quantity * item.priceAtTime },
+    })
     await adjustSoldInventory(item.productId, item.quantity)
-	}
+  }
 
-	await CartModel.findByIdAndUpdate(cart.id, { active: false })
+  await CartModel.findByIdAndUpdate(cart.id, { active: false })
 
-	redirect('/shop/address')
+  redirect('/')
 }
 
 export const getOrder = async (orderId: any) => {
-	await dbConnect()
+  await dbConnect()
 
-	const { userId } = auth()
+  const { userId } = auth()
 
-	const order = await OrderModel.findById(orderId)
+  const order = await OrderModel.findById(orderId)
 
-	if (!order) {
-		return
-	}
+  if (!order) {
+    return
+  }
 
   const store = await StoreModel.findOne({ userId: userId })
 
-	const orderItems = await OrderItemModel.find({ order_id: order.id })
+  const orderItems = await OrderItemModel.find({ order_id: order.id })
 
-	const items = await Promise.all(
-		orderItems.map(async (item) => {
-			const product = await getShopProduct(item.product_id)
-			return {
-				productName: product.productName,
-				productSlug: product.productSlug,
-				store_id: product.productStoreId,
+  const items = await Promise.all(
+    orderItems.map(async (item) => {
+      const product = await getShopProduct(item.product_id)
+      return {
+        productName: product.productName,
+        productSlug: product.productSlug,
+        store_id: product.productStoreId,
         item_id: item.id,
         status: item.status,
-				quantity: item.quantity,
-				price: item.price_at_time,
-				productImage: product.productImage
-			}
-		})
-	)
+        quantity: item.quantity,
+        price: item.price_at_time,
+        productImage: product.productImage,
+      }
+    })
+  )
 
-	return {
-		id: order.id,
-		items: items,
-		totalPrice: order.total_price
-	}
+  return {
+    id: order.id,
+    items: items,
+    totalPrice: order.total_price,
+  }
 }
 
 export const getCustomerOrders = async () => {
-	await dbConnect()
+  await dbConnect()
 
-	const { userId } = auth()
+  const { userId } = auth()
 
-	const orders = await OrderModel.find({ user_id: userId })
+  const orders = await OrderModel.find({ user_id: userId })
 
-	const orderList = await Promise.all(
-		orders.map(async (order) => {
-			const orderInfromation = await getOrder(order.id)
-			return orderInfromation
-		})
-	)
+  const orderList = await Promise.all(
+    orders.map(async (order) => {
+      const orderInfromation = await getOrder(order.id)
+      return orderInfromation
+    })
+  )
 
-	return orderList || []
+  return orderList || []
 }
 
 export const getStoreOrders = async (): Promise<any[]> => {
-	await dbConnect()
+  await dbConnect()
 
-	const { userId } = auth()
+  const { userId } = auth()
 
-	const store = await StoreModel.findOne({ userId: userId })
+  const store = await StoreModel.findOne({ userId: userId })
 
-	if (!store) {
-		return []
-	}
+  if (!store) {
+    return []
+  }
 
-	const orders = await OrderModel.find({ store_id: store.id })
+  const orders = await OrderModel.find({ store_id: store.id })
 
-	const orderList = await Promise.all(
-		orders.map(async (order) => {
-			const orderInformation = await getOrder(order.id)
-			return orderInformation
-		})
-	)
+  const orderList = await Promise.all(
+    orders.map(async (order) => {
+      const orderInformation = await getOrder(order.id)
+      return orderInformation
+    })
+  )
 
-	return orderList || []
+  return orderList || []
 }
-
 
 export const updateOrderStatus = async (item: any, status: any) => {
   await dbConnect()
@@ -158,16 +160,22 @@ export const updateOrderStatus = async (item: any, status: any) => {
   const { userId } = auth()
 
   try {
-
-    const orderItem = await OrderItemModel.findByIdAndUpdate({_id: item}, { status: status }, { new: true })
+    const orderItem = await OrderItemModel.findByIdAndUpdate(
+      { _id: item },
+      { status: status },
+      { new: true }
+    )
 
     if (status === 'shipped') {
-      await emailCustomerShipping(orderItem.order_id, orderItem.product_id, orderItem.quantity)
+      await emailCustomerShipping(
+        orderItem.order_id,
+        orderItem.product_id,
+        orderItem.quantity
+      )
     }
 
     return orderItem.status
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e)
     return
   }
@@ -192,13 +200,16 @@ export const getOrderAddress = async (orderId: any) => {
     streetAddress: address.streetAddress,
     city: address.city,
     state: address.state,
-    zipcode: address.zipcode
+    zipcode: address.zipcode,
   }
 }
 
-export const emailCustomerShipping = async (orderItem: any, productId: any, quantity: any) => {
+export const emailCustomerShipping = async (
+  orderItem: any,
+  productId: any,
+  quantity: any
+) => {
   await dbConnect()
-
 
   const order = await OrderModel.findById(orderItem)
   const product = await ProductModel.findById(productId)
@@ -206,7 +217,6 @@ export const emailCustomerShipping = async (orderItem: any, productId: any, quan
   const user = await clerkClient.users.getUser(order.user_id)
 
   const userEmail = user.emailAddresses[0].emailAddress
-  
 
   const fromEmail = process.env.FROM_EMAIL
   const emailPassword = process.env.PYME_APP_KEY
@@ -214,23 +224,23 @@ export const emailCustomerShipping = async (orderItem: any, productId: any, quan
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: fromEmail, 
-        pass: emailPassword 
-    }
-  });
+      user: fromEmail,
+      pass: emailPassword,
+    },
+  })
 
   let mailOptions = {
-    from: fromEmail, 
-    to: userEmail, 
-    subject: "Order Shipped", 
-    text: `Your order for ${product.productName} has been shipped. Quantity: ${quantity}`, 
-    html: `<b>Your order for ${product.productName} has been shipped. Quantity: ${quantity}</b>` 
-  };
+    from: fromEmail,
+    to: userEmail,
+    subject: 'Order Shipped',
+    text: `Your order for ${product.productName} has been shipped. Quantity: ${quantity}`,
+    html: `<b>Your order for ${product.productName} has been shipped. Quantity: ${quantity}</b>`,
+  }
 
   try {
-    let info = await transporter.sendMail(mailOptions);
-    console.log('Email sent: %s', info.messageId);
+    let info = await transporter.sendMail(mailOptions)
+    console.log('Email sent: %s', info.messageId)
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error('Failed to send email:', error)
   }
 }
