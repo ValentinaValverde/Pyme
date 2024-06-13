@@ -115,7 +115,7 @@ export const getStoresByState = async (state: string) => {
   // filter all stores by the id
   const stores = await StoreModel.find({id: { $in: stories.map((story) => story.storeId) }});
 
-  let displayStoreData = [];
+  let displayStoreData: { storeName: any; storeImg: any; storeOwner: any; slug: any; }[] = [];
 
   stores.forEach((store) => {
     const storeAddress = storesAddress.find((address) => address.storeId === store.id);
